@@ -1,0 +1,97 @@
+/**
+ * ビルド後処理：各ページの静的HTML・sitemap.xml・robots.txt を生成します。
+ * これにより、JavaScriptを実行しない検索エンジンやSNSにも、ページごとの
+ * タイトル・説明文・本文が正しく伝わります。また、どのレンタルサーバー・
+ * 静的ホスティングでも /services などのURLでそのまま表示できます。
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const dist = path.join(root, 'dist');
+const serverEntry = path.join(root, 'dist-server', 'entry-server.js');
+
+const { render } = await import(pathToFileURL(serverEntry).href);
+const { pages, notFoundPage } = await import(pathToFileURL(path.join(root, 'src/data/seo.js')).href);
+const { site } = await import(pathToFileURL(path.join(root, 'src/data/site.js')).href);
+
+// .env の SITE_URL も読む（vite と同様）
+const envFile = ['.env.production.local', '.env.local', '.env.production', '.env']
+  .map((f) => path.join(root, f))
+  .find((f) => fs.existsSync(f));
+const envUrl = envFile && fs.readFileSync(envFile, 'utf8').match(/^SITE_URL=(.+)$/m)?.[1]?.trim();
+const siteUrl = (process.env.SITE_URL || envUrl || site.url).replace(/\/$/, '');
+
+const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  alternateName: site.nameKana,
+  description: site.description,
+  url: `${siteUrl}/`,
+  image: `${siteUrl}/og-image.png`,
+  areaServed: [
+    { '@type': 'City', name: '北九州市' },
+    { '@type': 'AdministrativeArea', name: '福岡県' },
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: '福岡県',
+    addressLocality: '北九州市',
+    ...(site.address ? { streetAddress: site.address } : {}),
+    addressCountry: 'JP',
+  },
+  ...(site.tel ? { telephone: site.tel } : {}),
+  ...(site.email ? { email: site.email } : {}),
+};
+
+const build = (page, url) => {
+  const canonical = siteUrl + page.path;
+  const head = [
+    `<title>${esc(page.title)}</title>`,
+    `<meta name="description" content="${esc(page.description)}" />`,
+    page === notFoundPage ? '<meta name="robots" content="noindex" />' : `<link rel="canonical" href="${canonical}" />`,
+    `<meta property="og:title" content="${esc(page.title)}" />`,
+    `<meta property="og:description" content="${esc(page.description)}" />`,
+    `<meta property="og:url" content="${canonical}" />`,
+    `<meta property="og:image" content="${siteUrl}/og-image.png" />`,
+  ].join('\n    ');
+
+  return template
+    .replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, head)
+    .replace('<!--jsonld-->', page.path === '/' ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : '')
+    .replace('<div id="root"><!--app-html-->', `<div id="root" data-prerendered="${page.path}">${render(url)}`);
+};
+
+for (const page of pages) {
+  const outDir = page.path === '/' ? dist : path.join(dist, page.path);
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, 'index.html'), build(page, page.path));
+  console.log(`  prerendered ${page.path}`);
+}
+fs.writeFileSync(path.join(dist, '404.html'), build(notFoundPage, '/404'));
+console.log('  prerendered 404.html');
+
+const today = new Date().toISOString().slice(0, 10);
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages
+  .map(
+    (p) => `  <url>
+    <loc>${siteUrl}${p.path}</loc>
+    <lastmod>${today}</lastmod>
+    <priority>${p.path === '/' ? '1.0' : p.path === '/privacy' ? '0.3' : '0.8'}</priority>
+  </url>`,
+  )
+  .join('\n')}
+</urlset>
+`;
+fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap);
+fs.writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
+console.log(`  sitemap.xml / robots.txt (${siteUrl})`);
+
+fs.rmSync(path.join(root, 'dist-server'), { recursive: true, force: true });
