@@ -1,14 +1,17 @@
 import { StrictMode } from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import App from './App.jsx';
 import './styles/global.css';
 
+// 1ファイル版プレビュー（npm run build:preview）では、URLに依存しない MemoryRouter を使う
+const Router = import.meta.env.VITE_SINGLE_FILE ? MemoryRouter : BrowserRouter;
+
 const app = (
   <StrictMode>
-    <BrowserRouter>
+    <Router>
       <App />
-    </BrowserRouter>
+    </Router>
   </StrictMode>
 );
 
