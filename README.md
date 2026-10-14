@@ -16,6 +16,14 @@ React + Vite で作られており、ビルド時に全ページの静的HTMLを
 | `/contact` | お問い合わせ |
 | `/privacy` | プライバシーポリシー |
 
+## 料金について
+
+料金は `src/data/pricing.js` の1か所で管理しており、トップ・サービス・料金・業務システムの各ページ、SEO用の説明文まで自動で反映されます。
+年払いのお得額（月額×12 − 年払い）や月あたり換算も自動計算です。
+
+ニコニコプランの「含まれる内容」「ご契約条件」は未確定のため、現在は「お問い合わせ時にご説明します」と表示しています。
+確定したら `nikonikoIncludes` / `nikonikoTerms` に追記すると、一覧として表示されます。
+
 ## プレビュー方法
 
 Node.js（v20 以上）が必要です。
@@ -32,6 +40,8 @@ npm run build      # dist/ フォルダに公開用ファイルを生成
 npm run preview    # → http://localhost:4173 をブラウザで開く
 ```
 
+1ファイル版の確認用プレビュー（スマホだけで確認する用）は `npm run build:preview` で `dist-single/smilewise-preview.html` に作成されます。
+
 スマートフォンでの表示は、ブラウザの開発者ツール（Chrome なら F12 → 端末アイコン）で確認できます。
 同じWi-Fiの実機で見る場合は `npm run dev -- --host` を実行し、表示された `Network:` のURLをスマホで開いてください。
 
@@ -40,7 +50,8 @@ npm run preview    # → http://localhost:4173 をブラウザで開く
 | ファイル | 内容 |
 | --- | --- |
 | `src/data/site.js` | 屋号・代表者・所在地・電話番号・メール・公開URL など（空欄の項目は非表示） |
-| `src/data/services.js` | サービス内容・料金 |
+| `src/data/pricing.js` | **料金（全ページ共通）**：ニコニコプラン（初期制作費・月額・年払い）、業務管理システムの参考価格、プランの内容・契約条件 |
+| `src/data/services.js` | サービス内容 |
 | `src/data/system.js` | 業務管理システムページの掲載内容（機能・比較表・流れ・FAQ） |
 | `src/data/works.js` | 制作実績（下記参照） |
 | `src/data/seo.js` | 各ページのタイトル・説明文（SEO） |

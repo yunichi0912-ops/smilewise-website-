@@ -12,12 +12,11 @@ import Icon from './Icon.jsx';
 const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || '';
 
 export const inquiryTypes = [
-  { value: 'web', label: 'ホームページ制作' },
+  { value: 'web', label: 'ホームページ制作（ニコニコプラン）' },
   { value: 'system', label: '業務管理システム開発・導入' },
   { value: 'recruit', label: '採用LP制作' },
   { value: 'print', label: '名刺・チラシ・パンフレット制作' },
   { value: 'logo', label: 'ロゴ・看板制作' },
-  { value: 'maintenance', label: 'ホームページ年間管理' },
   { value: 'other', label: 'その他・まだ決まっていない' },
 ];
 

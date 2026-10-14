@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import App from './App.jsx';
+import './styles/parts.css';
 import './styles/global.css';
 
 // 1ファイル版プレビュー（npm run build:preview）では、URLに依存しない MemoryRouter を使う

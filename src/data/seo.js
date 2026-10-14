@@ -3,26 +3,27 @@
  * ビルド時の静的HTML生成（scripts/prerender.mjs）と、画面遷移時の <title> 更新の両方で使われます。
  */
 import { site } from './site.js';
+import { nikoniko, systemPrice, yen } from './pricing.js';
 
 const suffix = `｜${site.name}（北九州市のWeb制作・業務システム開発）`;
 
 export const pages = [
   {
     path: '/',
-    title: `北九州市のホームページ制作・業務管理システム開発${'｜' + site.name}`,
-    description: site.description,
+    title: `北九州市のホームページ制作・業務管理システム開発・DX支援｜${site.name}`,
+    description: `北九州市のホームページ制作・業務管理システム開発。初期制作費${yen(nikoniko.initial)}円の「${nikoniko.name}」と、Excel管理をひとつにまとめる業務管理システム（${yen(systemPrice.from)}円〜）で、地域企業のWeb活用とDXを支援します。`,
   },
   {
     path: '/services',
     title: `サービス紹介${suffix}`,
     description:
-      'ホームページ制作、業務管理システム開発・導入、採用LP制作、名刺・チラシ・パンフレット制作、ロゴ・看板制作。北九州市の企業のWeb・デザイン・業務効率化をトータルで支援します。',
+      `ホームページ制作（${nikoniko.name}）、業務管理システム開発・導入、採用LP制作、名刺・チラシ・パンフレット制作、ロゴ・看板制作。北九州市の企業のWeb・デザイン・業務効率化をトータルで支援します。`,
   },
   {
     path: '/system',
     title: `業務管理システム開発・導入${suffix}`,
     description:
-      'バラバラのExcel管理から、ひとつのシステムへ。見積書・請求書、顧客・取引先、案件・工事進捗、売上・入金をまとめて管理できる業務システムを、北九州市の建設業・製造業・中小企業向けにオーダーメイドで制作します。',
+      `バラバラのExcel管理から、ひとつのシステムへ。見積書・請求書、顧客・取引先、案件・工事進捗、売上・入金をまとめて管理できる業務システムを、北九州市の建設業・製造業・中小企業向けにオーダーメイドで制作します。参考価格${yen(systemPrice.from)}円〜。`,
   },
   {
     path: '/works',
@@ -33,7 +34,7 @@ export const pages = [
     path: '/pricing',
     title: `料金案内${suffix}`,
     description:
-      'ホームページ制作150,000円、年間管理費48,000円、業務管理システム導入100,000円〜（参考価格）。採用LP・印刷物・ロゴ・看板は内容に応じてお見積りします。',
+      `ホームページ制作「${nikoniko.name}」は初期制作費${yen(nikoniko.initial)}円、月額管理費${yen(nikoniko.monthly)}円（年払い${yen(nikoniko.yearly)}円）。業務管理システム開発・導入は${yen(systemPrice.from)}円〜（参考価格）。`,
   },
   {
     path: '/about',

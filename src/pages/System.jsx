@@ -3,6 +3,8 @@ import Reveal from '../components/Reveal.jsx';
 import SectionTitle from '../components/SectionTitle.jsx';
 import Icon from '../components/Icon.jsx';
 import CtaSection from '../components/CtaSection.jsx';
+import CountUp from '../components/CountUp.jsx';
+import { systemPrice, yen } from '../data/pricing.js';
 import SystemMockup from '../components/SystemMockup.jsx';
 import BeforeAfter from '../components/BeforeAfter.jsx';
 import {
@@ -60,7 +62,8 @@ export default function System() {
               <a href="#price" className="sys-hero__price">
                 <span>導入費用</span>
                 <strong>
-                  100,000<small>円〜</small>
+                  {yen(systemPrice.from)}
+                  <small>円〜</small>
                 </strong>
                 <em>参考価格</em>
               </a>
@@ -119,7 +122,7 @@ export default function System() {
           </SectionTitle>
           <div className="feature-grid">
             {systemFeatures.map((f, i) => (
-              <Reveal key={f.title} className="feature-card" delay={(i % 3) * 100}>
+              <Reveal key={f.title} className="feature-card spot" delay={(i % 3) * 100}>
                 <span className="feature-card__num">{String(i + 1).padStart(2, '0')}</span>
                 <span className="feature-card__icon">
                   <Icon name={f.icon} size={32} />
@@ -165,7 +168,7 @@ export default function System() {
           </SectionTitle>
           <div className="industry-grid">
             {industries.map((ind, i) => (
-              <Reveal key={ind.title} className="industry-card" delay={i * 120}>
+              <Reveal key={ind.title} className="industry-card spot" delay={i * 120}>
                 <span className="industry-card__icon">
                   <Icon name={ind.icon} size={36} />
                 </span>
@@ -188,11 +191,12 @@ export default function System() {
       <section className="section section--tint" id="price">
         <div className="container">
           <SectionTitle en="Price">導入費用</SectionTitle>
-          <Reveal className="sys-price">
+          <Reveal className="sys-price spot">
             <div className="sys-price__main">
               <p className="sys-price__name">業務管理システム導入</p>
               <p className="sys-price__amount">
-                100,000<span>円〜</span>
+                <CountUp value={systemPrice.from} />
+                <span>円〜</span>
               </p>
               <p className="sys-price__ref">参考価格</p>
             </div>
