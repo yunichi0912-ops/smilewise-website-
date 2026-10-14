@@ -11,7 +11,9 @@ import WorksList from '../components/WorksList.jsx';
 import NikonikoFeature from '../components/NikonikoFeature.jsx';
 import PlanCompare from '../components/PlanCompare.jsx';
 import ServiceGrid from '../components/ServiceGrid.jsx';
-import { systemPrice } from '../data/pricing.js';
+import FaqList from '../components/FaqList.jsx';
+import { systemPrice, TAX } from '../data/pricing.js';
+import { nikonikoFaq } from '../data/faq.js';
 import { reasons } from '../data/reasons.js';
 
 export default function Home() {
@@ -23,7 +25,7 @@ export default function Home() {
       {/* 2. ニコニコプラン */}
       <section className="section section--niko" id="nikoniko">
         <div className="container">
-          <SectionTitle en="Main Service 01" lead="初期費用を抑えて、本格的なホームページを。">
+          <SectionTitle en="Main Service 01" lead="初期費用を抑えて、本格的なホームページを。公開後の維持管理と軽微な修正まで、月額管理費でお任せいただけます。">
             ホームページ制作「ニコニコプラン」
           </SectionTitle>
           <NikonikoFeature />
@@ -33,8 +35,8 @@ export default function Home() {
       {/* 3. 月払い・年払いの比較 */}
       <section className="section section--tint">
         <div className="container container--mid">
-          <SectionTitle en="Monthly / Yearly" lead="ニコニコプランの月額管理費は、月払い・年払いからお選びいただけます。">
-            お支払い方法の比較
+          <SectionTitle en="Monthly / Yearly" lead="ニコニコプランの管理費は、月払い・年払いからお選びいただけます。年払いなら12,000円お得です。">
+            月払い・年払いの比較
           </SectionTitle>
           <PlanCompare />
         </div>
@@ -65,7 +67,7 @@ export default function Home() {
                 <span className="sysx__price-label">業務管理システム開発・導入</span>
                 <span className="sysx__price-value">
                   <CountUp value={systemPrice.from} />
-                  <small>円〜</small>
+                  <small>円〜{TAX}</small>
                 </span>
                 <span className="sysx__price-note">{systemPrice.note}</span>
               </Reveal>
@@ -129,6 +131,20 @@ export default function Home() {
           <Reveal className="center mt-l">
             <Link to="/works" className="btn btn--outline">
               制作実績一覧へ
+              <Icon name="arrow" size={18} />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* よくある質問 */}
+      <section className="section section--tint">
+        <div className="container container--narrow">
+          <SectionTitle en="FAQ">ニコニコプランのよくある質問</SectionTitle>
+          <FaqList items={nikonikoFaq.slice(0, 4)} />
+          <Reveal className="center mt-l">
+            <Link to="/pricing#faq" className="btn btn--outline">
+              よくある質問をすべて見る
               <Icon name="arrow" size={18} />
             </Link>
           </Reveal>

@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from './Icon.jsx';
-import { nikoniko, systemPrice, yen } from '../data/pricing.js';
+import CountUp from './CountUp.jsx';
+import { nikoniko, systemPrice, yen, TAX } from '../data/pricing.js';
 
 /**
  * トップページのファーストビュー
@@ -56,17 +57,40 @@ export default function Hero() {
             </span>
           </h1>
           <p className="hero__lead">
-            北九州市を拠点に、ホームページ制作から
-            <span className="nw">業務管理システムの開発・導入まで。</span>
-            Webとデジタルの力で、地域企業の成長を支えます。
+            北九州市のホームページ制作・IT/DX支援。
+            <span className="nw">初期費用を抑えた「{nikoniko.name}」で、</span>
+            地域企業のWeb活用を始めませんか。
           </p>
+
+          <Link to="/pricing" className="price-plate spot">
+            <span className="price-plate__head">
+              <span className="price-plate__plan">ホームページ制作「{nikoniko.name}」</span>
+              <span className="price-plate__label">初期制作費</span>
+            </span>
+            <span className="price-plate__price">
+              <CountUp value={nikoniko.initial} duration={1800} />
+              <span className="price-plate__yen">
+                円<small>{TAX}</small>
+              </span>
+            </span>
+            <span className="price-plate__meta">
+              <span>
+                月額管理費 <b>{yen(nikoniko.monthly)}円</b>
+                {TAX}
+              </span>
+              <span>
+                最低契約期間 <b>{nikoniko.minMonths}か月</b>
+              </span>
+            </span>
+          </Link>
+
           <div className="hero__actions">
-            <Link to="/contact" className="btn btn--primary btn--lg">
+            <Link to="/contact?type=web" className="btn btn--primary btn--lg">
               無料で相談する
               <Icon name="arrow" size={18} />
             </Link>
             <Link to="/pricing" className="btn btn--glass btn--lg">
-              料金プランを見る
+              料金・プラン内容を見る
             </Link>
           </div>
         </div>
@@ -76,18 +100,19 @@ export default function Hero() {
             <div className="ring" />
             <div className="glass glass--plan">
               <p className="glass__label">
-                <Icon name="monitor" size={14} /> ホームページ制作
+                <Icon name="monitor" size={14} /> {nikoniko.name}に含まれる内容
               </p>
-              <p className="glass__name">{nikoniko.name}</p>
-              <p className="glass__sub">初期制作費</p>
-              <p className="glass__price">
-                {yen(nikoniko.initial)}
-                <small>円</small>
-              </p>
+              <ul className="glass__list">
+                <li>最大{nikoniko.maxPages}ページ制作</li>
+                <li>スマートフォン・PC対応</li>
+                <li>独自ドメイン・SSL設定</li>
+                <li>基本SEO・お問い合わせフォーム</li>
+                <li>軽微な修正は回数制限なし</li>
+              </ul>
               <div className="glass__bar">
                 <i />
               </div>
-              <p className="glass__foot">月額管理費 {yen(nikoniko.monthly)}円</p>
+              <p className="glass__foot">サーバー・ホームページの維持管理つき</p>
             </div>
             <div className="glass glass--dash">
               <p className="glass__label">
@@ -123,7 +148,7 @@ export default function Hero() {
           <span className="hero-card__tag">Main Service 01</span>
           <span className="hero-card__title">ホームページ制作 {nikoniko.name}</span>
           <span className="hero-card__price">
-            初期制作費 <b>{yen(nikoniko.initial)}</b>円
+            初期制作費 <b>{yen(nikoniko.initial)}</b>円{TAX}
           </span>
           <Icon name="arrow" size={20} className="hero-card__arrow" />
         </Link>
@@ -131,7 +156,7 @@ export default function Hero() {
           <span className="hero-card__tag">Main Service 02</span>
           <span className="hero-card__title">業務管理システム開発・導入</span>
           <span className="hero-card__price">
-            <b>{yen(systemPrice.from)}</b>円〜 <small>参考価格</small>
+            <b>{yen(systemPrice.from)}</b>円〜{TAX} <small>参考価格</small>
           </span>
           <Icon name="arrow" size={20} className="hero-card__arrow" />
         </Link>

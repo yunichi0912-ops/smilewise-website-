@@ -4,7 +4,7 @@ import SectionTitle from '../components/SectionTitle.jsx';
 import Icon from '../components/Icon.jsx';
 import CtaSection from '../components/CtaSection.jsx';
 import CountUp from '../components/CountUp.jsx';
-import { systemPrice, yen } from '../data/pricing.js';
+import { systemPrice, yen, TAX } from '../data/pricing.js';
 import SystemMockup from '../components/SystemMockup.jsx';
 import BeforeAfter from '../components/BeforeAfter.jsx';
 import {
@@ -63,7 +63,7 @@ export default function System() {
                 <span>導入費用</span>
                 <strong>
                   {yen(systemPrice.from)}
-                  <small>円〜</small>
+                  <small>円〜{TAX}</small>
                 </strong>
                 <em>参考価格</em>
               </a>
@@ -198,7 +198,7 @@ export default function System() {
                 <CountUp value={systemPrice.from} />
                 <span>円〜</span>
               </p>
-              <p className="sys-price__ref">参考価格</p>
+              <p className="sys-price__ref">税込・参考価格</p>
             </div>
             <div className="sys-price__body">
               <p>

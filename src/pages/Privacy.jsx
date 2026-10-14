@@ -1,4 +1,5 @@
 import PageHero from '../components/PageHero.jsx';
+import CtaSection from '../components/CtaSection.jsx';
 import { site } from '../data/site.js';
 
 export default function Privacy() {
@@ -34,6 +35,7 @@ export default function Privacy() {
           <p>本方針の内容は、必要に応じて変更することがあります。変更後の内容は本ページに掲載した時点から効力を生じます。</p>
         </div>
       </section>
+      <CtaSection />
     </>
   );
 }

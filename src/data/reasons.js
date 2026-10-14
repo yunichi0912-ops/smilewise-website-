@@ -1,4 +1,4 @@
-import { nikoniko, systemPrice, yen } from './pricing.js';
+import { nikoniko, systemPrice, price } from './pricing.js';
 
 /** トップページ「選ばれる理由」 */
 export const reasons = [
@@ -14,12 +14,12 @@ export const reasons = [
   },
   {
     icon: 'yen',
-    title: 'わかりやすい料金',
-    text: `ホームページ制作は初期制作費${yen(nikoniko.initial)}円の「${nikoniko.name}」、業務管理システムは${yen(systemPrice.from)}円〜。料金の目安を公開し、ご相談時に内容をご説明します。`,
+    title: '税込でわかりやすい料金',
+    text: `ホームページ制作は初期制作費${price(nikoniko.initial)}の「${nikoniko.name}」、業務管理システムは${price(systemPrice.from, '〜')}。料金とプラン内容、無料修正の範囲を公開しています。`,
   },
   {
     icon: 'chat',
-    title: '専門用語を使わず、丁寧に',
-    text: 'ITやWebに詳しくない方にも伝わる言葉でご説明します。「何から始めればいいかわからない」という段階からご相談いただけます。',
+    title: '公開後も、修正は回数制限なし',
+    text: 'ニコニコプランでは、文章の修正や営業時間・電話番号の変更などの軽微な修正に回数制限なく対応します。ITやWebに詳しくない方にも、わかりやすい言葉でご説明します。',
   },
 ];

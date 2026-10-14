@@ -63,7 +63,13 @@ const build = (page, url) => {
 
   return template
     .replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, head)
-    .replace('<!--jsonld-->', page.path === '/' ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : '')
+    .replace(
+      '<!--jsonld-->',
+      [page.path === '/' ? jsonLd : null, page.jsonLd]
+        .filter(Boolean)
+        .map((d) => `<script type="application/ld+json">${JSON.stringify(d).replace(/</g, '\\u003c')}</script>`)
+        .join(''),
+    )
     .replace('<div id="root"><!--app-html-->', `<div id="root" data-prerendered="${page.path}">${render(url)}`);
 };
 

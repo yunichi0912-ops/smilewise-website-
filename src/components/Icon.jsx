@@ -91,6 +91,18 @@ const paths = {
   phone: (
     <path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" />
   ),
+  chart: (
+    <>
+      <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+    </>
+  ),
+  calendar: (
+    <>
+      <rect x="3" y="5" width="18" height="16" rx="1.5" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </>
+  ),
+  plus: <path d="M12 5v14M5 12h14" />,
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   check: <path d="M4.5 12.5l5 5 10-11" />,
   x: <path d="M6 6l12 12M18 6L6 18" />,

@@ -1,4 +1,4 @@
-import { nikoniko, systemPrice, yen } from './pricing.js';
+import { nikoniko, systemPrice, price } from './pricing.js';
 
 /**
  * サービス一覧。トップページ・サービス紹介ページ・料金ページで共通利用します。
@@ -11,10 +11,10 @@ export const services = [
     en: 'Website',
     title: 'ホームページ制作',
     plan: nikoniko.name,
-    lead: '初期制作費 2,525円 で始める、ニコニコプラン。',
-    text: '企業の強みや想いを丁寧にヒアリングし、スマートフォン・パソコンのどちらでも見やすいホームページを制作します。初期費用を抑え、月々の管理費で公開後も継続してお付き合いする「ニコニコプラン」でご提供します。',
-    priceLabel: `初期制作費 ${yen(nikoniko.initial)}円`,
-    priceSub: `月額管理費 ${yen(nikoniko.monthly)}円／年払い ${yen(nikoniko.yearly)}円`,
+    lead: `初期制作費 ${price(nikoniko.initial)} で始める、ニコニコプラン。`,
+    text: `企業の強みや想いを丁寧にヒアリングし、スマートフォン・PCのどちらでも見やすいホームページを制作します。最大${nikoniko.maxPages}ページの制作に、独自ドメイン対応・SSL設定・基本SEO設定・お問い合わせフォームまで。公開後はサーバー・ホームページの維持管理と、回数制限なしの軽微な修正に対応します。`,
+    priceLabel: `初期制作費 ${price(nikoniko.initial)}`,
+    priceSub: `月額管理費 ${price(nikoniko.monthly)}／年払い ${price(nikoniko.yearly)}・最低契約期間${nikoniko.minMonths}か月`,
     href: '/pricing',
     featured: true,
   },
@@ -25,7 +25,7 @@ export const services = [
     title: '業務管理システム開発・導入',
     lead: 'バラバラのExcel管理から、ひとつのシステムへ。',
     text: '見積書・請求書、顧客、案件・工事の進捗、売上・入金。会社ごとに異なる業務の流れに合わせて、パソコンでもスマートフォンでも使える業務管理システムをオーダーメイドで制作します。',
-    priceLabel: `${yen(systemPrice.from)}円〜`,
+    priceLabel: price(systemPrice.from, '〜'),
     priceSub: '参考価格・個別お見積り',
     href: '/system',
     featured: true,
