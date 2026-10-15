@@ -90,6 +90,11 @@ for (const p of pages) {
     if (hash && !html[target].includes(`id="${hash}"`)) errors.push(`${p.path}: ページ内リンク先がありません（${href}）`);
   }
   if (!h.includes('href="tel:')) errors.push(`${p.path}: 電話番号のリンクがありません`);
+  if (site.email && !h.includes(`href="mailto:${site.email}`)) errors.push(`${p.path}: メールアドレスのリンクがありません`);
+  // 事業者情報の表記ゆれ（住所が載っているページは、正式表記と一致しているか）
+  const flat = (v) => v.replace(/<!--.*?-->/g, '').replace(/\s+/g, '');
+  if (h.includes('千代') && !flat(text(h)).includes(flat(site.address))) errors.push(`${p.path}: 所在地の表記が正式表記と一致しません`);
+  if (/千代ヶ崎/.test(h)) errors.push(`${p.path}: 「千代ヶ崎」（小さいヶ）が使われています。正式表記は「千代ケ崎」です`);
   if (site.lineUrl && !h.includes(site.lineUrl)) errors.push(`${p.path}: LINEのリンクがありません`);
 }
 
@@ -98,7 +103,7 @@ const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf8');
 for (const p of pages) if (!sitemap.includes(`<loc>${siteUrl}${p.path}</loc>`)) errors.push(`sitemap.xml に ${p.path} がありません`);
 const robots = fs.readFileSync(path.join(dist, 'robots.txt'), 'utf8');
 if (!robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`)) errors.push('robots.txt のサイトマップURLが不正です');
-for (const f of ['404.html', '_headers', 'og-image.png', 'favicon-48.png', 'apple-touch-icon.png'])
+for (const f of ['404.html', '_headers', 'og-image.jpg', 'favicon-48.png', 'apple-touch-icon.png'])
   if (!fs.existsSync(path.join(dist, f))) errors.push(`${f} がありません`);
 
 // 公開に必要な設定

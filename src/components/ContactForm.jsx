@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Icon from './Icon.jsx';
 import { site, telHref } from '../data/site.js';
@@ -17,7 +17,7 @@ const ENDPOINT = /^https:\/\//.test(RAW_ENDPOINT) ? RAW_ENDPOINT : '';
 export const inquiryTypes = [
   { value: 'web', label: 'ホームページ制作（ニコニコプラン）' },
   { value: 'system', label: '業務管理システム開発・導入' },
-  { value: 'recruit', label: '採用LP制作' },
+  { value: 'recruit', label: 'ランディングページ（LP）制作' },
   { value: 'print', label: '名刺・チラシ・パンフレット制作' },
   { value: 'logo', label: 'ロゴ・看板制作' },
   { value: 'other', label: 'その他・まだ決まっていない' },
@@ -52,6 +52,11 @@ export default function ContactForm() {
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | done | error
+  // 迷惑送信対策：フォームの表示から送信までの時間を記録（機械的な即時送信を見分ける）
+  const shownAt = useRef(0);
+  useEffect(() => {
+    shownAt.current = Date.now();
+  }, []);
 
   // サービスページ等から ?type=system のように遷移してきた場合、ご相談内容を自動選択
   useEffect(() => {
@@ -74,7 +79,13 @@ export default function ContactForm() {
       first?.focus();
       return;
     }
-    if (values._gotcha) return; // スパム対策（ボットのみが入力する隠し項目）
+    // 迷惑送信対策：隠し項目に入力がある、または表示から3秒未満の送信は機械による送信とみなし、
+    // 実際には送信せずに完了画面だけを表示する（ボットに対策を気づかせないため）
+    if (values._gotcha || Date.now() - shownAt.current < 3000) {
+      setStatus('done');
+      setValues(initial);
+      return;
+    }
 
     const payload = {
       会社名: values.company,
@@ -84,6 +95,7 @@ export default function ContactForm() {
       ご相談内容: inquiryTypes.find((i) => i.value === values.type)?.label,
       お問い合わせ内容: values.message,
       _replyto: values.email,
+      _gotcha: values._gotcha, // Formspree 側の迷惑送信判定用（通常は空）
       _subject: `【お問い合わせ】${inquiryTypes.find((i) => i.value === values.type)?.label}（${values.name}様）`,
     };
 
@@ -170,14 +182,14 @@ export default function ContactForm() {
         <label htmlFor="f-company" className="form__label">
           会社名・屋号<span className="form__opt">任意</span>
         </label>
-        <input type="text" autoComplete="organization" placeholder="例）株式会社〇〇" {...field('company')} />
+        <input type="text" autoComplete="organization" placeholder="例）株式会社〇〇" maxLength={100} {...field('company')} />
       </div>
 
       <div className="form__row">
         <label htmlFor="f-name" className="form__label">
           お名前<span className="form__req">必須</span>
         </label>
-        <input type="text" autoComplete="name" placeholder="例）山田 太郎" {...field('name')} />
+        <input type="text" autoComplete="name" placeholder="例）山田 太郎" maxLength={50} {...field('name')} />
         <Err name="name" />
       </div>
 
@@ -186,14 +198,14 @@ export default function ContactForm() {
           <label htmlFor="f-email" className="form__label">
             メールアドレス<span className="form__req">必須</span>
           </label>
-          <input type="email" autoComplete="email" inputMode="email" placeholder="例）info@example.com" {...field('email')} />
+          <input type="email" autoComplete="email" inputMode="email" placeholder="例）info@example.com" maxLength={254} {...field('email')} />
           <Err name="email" />
         </div>
         <div className="form__row">
           <label htmlFor="f-tel" className="form__label">
             電話番号<span className="form__opt">任意</span>
           </label>
-          <input type="tel" autoComplete="tel" inputMode="tel" placeholder="例）093-000-0000" {...field('tel')} />
+          <input type="tel" autoComplete="tel" inputMode="tel" placeholder="例）093-000-0000" maxLength={20} {...field('tel')} />
           <Err name="tel" />
         </div>
       </div>
@@ -226,7 +238,7 @@ export default function ContactForm() {
               ? '例）現在Excelで見積書と請求書を管理しており、まとめて管理できるシステムを検討しています。'
               : '例）会社のホームページを新しく作りたいと考えています。'
           }
-          {...field('message')}
+          maxLength={3000} {...field('message')}
         />
         <Err name="message" />
       </div>

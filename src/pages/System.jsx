@@ -65,7 +65,7 @@ export default function System() {
                   {yen(systemPrice.from)}
                   <small>円〜{TAX}</small>
                 </strong>
-                <em>参考価格</em>
+                <em>個別見積もり</em>
               </a>
             </div>
           </div>
@@ -193,12 +193,12 @@ export default function System() {
           <SectionTitle en="Price">導入費用</SectionTitle>
           <Reveal className="sys-price spot">
             <div className="sys-price__main">
-              <p className="sys-price__name">業務管理システム導入</p>
+              <p className="sys-price__name">業務管理システム開発・導入</p>
               <p className="sys-price__amount">
                 <CountUp value={systemPrice.from} />
                 <span>円〜</span>
               </p>
-              <p className="sys-price__ref">税込・参考価格</p>
+              <p className="sys-price__ref">税込・個別見積もり</p>
             </div>
             <div className="sys-price__body">
               <p>

@@ -70,8 +70,8 @@ export const contractTerms = {
 
 export const systemPrice = {
   name: '業務管理システム開発・導入',
-  from: 150000, // 参考価格（税込・〜）
-  note: '参考価格。機能や規模によって個別にお見積りします。',
+  from: 150000, // 税込・〜（個別見積もり）
+  note: '税込・個別見積もり。機能や規模に応じてお見積りします。',
 };
 
 export const yen = (n) => n.toLocaleString('ja-JP');

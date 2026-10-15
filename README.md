@@ -31,7 +31,7 @@ React + Vite で作られており、ビルド時に全ページの静的HTMLを
 | 初年度総額 | 116,525円（税込） |
 | 2年目以降 | 年間 114,000円（税込） |
 | 最低契約期間 | 12か月 |
-| 業務管理システム開発・導入 | 150,000円〜（税込・参考価格） |
+| 業務管理システム開発・導入 | 150,000円〜（税込・個別見積もり） |
 
 - プランに含まれる内容：`nikonikoIncludes`
 - 無料修正の範囲／別途お見積り：`freeFixes` / `extraWorks`
@@ -72,7 +72,7 @@ npm run preview    # → http://localhost:4173 をブラウザで開く
 | ファイル | 内容 |
 | --- | --- |
 | `src/data/site.js` | 屋号・代表者・所在地・電話番号・メール・公開URL など（空欄の項目は非表示） |
-| `src/data/pricing.js` | **料金（全ページ共通）**：ニコニコプラン（初期制作費・月額・年払い）、業務管理システムの参考価格、プランの内容・契約条件 |
+| `src/data/pricing.js` | **料金（全ページ共通）**：ニコニコプラン（初期制作費・年間管理・運用費）、業務管理システムの参考価格、プランの内容・契約条件 |
 | `src/data/services.js` | サービス内容 |
 | `src/data/system.js` | 業務管理システムページの掲載内容（機能・比較表・流れ・FAQ） |
 | `src/data/works.js` | 制作実績（下記参照） |
@@ -91,7 +91,7 @@ npm run preview    # → http://localhost:4173 をブラウザで開く
 
 実際にメールを受け取るには、外部のフォーム送信サービスを使います。例として [Formspree](https://formspree.io/)（無料プランあり）の場合:
 
-1. Formspree にアカウント登録し、「New Form」でフォームを作成（通知先メールアドレスを設定）
+1. Formspree に smilewise1111@gmail.com でアカウント登録し、「New Form」でフォームを作成（通知先は smilewise1111@gmail.com）
 2. 表示されるエンドポイントURL（`https://formspree.io/f/xxxxxxx`）をコピー
 3. プロジェクト直下に `.env` を作成し、以下を記入（`.env.example` を参考に）
    ```
@@ -100,6 +100,10 @@ npm run preview    # → http://localhost:4173 をブラウザで開く
    ```
    Cloudflare Pages で公開する場合は、プロジェクトの環境変数に同じ値を設定します。
 4. 再ビルドすると、テストモードの表示が消えて実際に送信されるようになります
+
+迷惑送信対策：画面に見えない入力欄（ボットだけが入力）と、表示から3秒未満の送信を機械的な送信とみなして破棄します。Formspree 側の迷惑メール判定も併用されます。
+
+本番ビルドの安全装置：Cloudflare Pages の main ブランチのビルドで `SITE_URL` または `VITE_FORM_ENDPOINT` が未設定の場合、ビルドを中止します（`scripts/preflight.mjs`）。
 
 JSON の POST を受け付けるサービスであれば、Formspree 以外（Getform、自前のAPIなど）でも同じ設定で使えます。
 

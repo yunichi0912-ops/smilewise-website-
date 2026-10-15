@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero.jsx';
 import CtaSection from '../components/CtaSection.jsx';
-import { site, telHref } from '../data/site.js';
+import { site, telHref, mailHref } from '../data/site.js';
 
 /**
  * プライバシーポリシー
@@ -14,7 +14,7 @@ export default function Privacy() {
     ['代表者', site.representative],
     ['所在地', site.address || (site.addressOnRequest ? 'ご請求があった場合は、遅滞なくお知らせします' : '')],
     ['電話番号', site.tel],
-    ['メール', site.email],
+    ['メールアドレス', site.email],
   ].filter(([, v]) => v);
 
   return (
@@ -128,9 +128,13 @@ export default function Privacy() {
           <p>個人情報の取り扱いに関するお問い合わせ・苦情は、次の窓口までご連絡ください。</p>
           <ul>
             <li>
-              {site.name}　電話：<a href={telHref()}>{site.tel}</a>
+              {site.name}（代表：{site.representative}）　電話：<a href={telHref()}>{site.tel}</a>
             </li>
-            {site.email && <li>メール：{site.email}</li>}
+            {site.email && (
+              <li>
+                メール：<a href={mailHref('個人情報の取り扱いについて')}>{site.email}</a>
+              </li>
+            )}
             <li>
               <Link to="/contact">お問い合わせフォーム</Link>
             </li>

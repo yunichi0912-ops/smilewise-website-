@@ -16,11 +16,26 @@ export const site = {
   area: '福岡県北九州市',
   serviceArea: '北九州市を中心に、福岡県内・近隣エリア（オンライン対応は全国）',
 
-  // 以下は公開前に実際の情報を入力してください（空のままなら非表示）
-  representative: '',
-  address: '',
+  // 事業者情報
+  representative: '吉野 勇太',
+  postalCode: '807-0803',
+  addressRegion: '福岡県',
+  addressLocality: '北九州市八幡西区',
+  streetAddress: '千代ケ崎2丁目14-19-201',
+  /** 表示用の所在地（〒を含む） */
+  get address() {
+    return `〒${this.postalCode} ${this.addressRegion}${this.addressLocality}${this.streetAddress}`;
+  },
   tel: '080-9034-7853',
-  email: '',
+  email: 'smilewise1111@gmail.com',
+  /** 事業内容（会社概要・構造化データに表示） */
+  businesses: [
+    'ホームページ制作',
+    'ランディングページ制作',
+    '名刺・チラシ・パンフレット・ロゴ制作',
+    '業務管理システム開発・導入',
+    'IT・DX支援',
+  ],
   hours: '',
   established: '',
 
@@ -38,3 +53,6 @@ export const site = {
 
 /** 電話番号から tel: リンク用の文字列を作成（例: tel:08090347853） */
 export const telHref = (tel = site.tel) => `tel:${tel.replace(/[^0-9+]/g, '')}`;
+/** メール作成リンク（例: mailto:smilewise1111@gmail.com?subject=...） */
+export const mailHref = (subject = 'SmileWiseへのお問い合わせ') =>
+  `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;

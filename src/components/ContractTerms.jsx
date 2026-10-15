@@ -1,5 +1,6 @@
 import Reveal from './Reveal.jsx';
-import { nikoniko, contractTerms, firstYearTotal, laterYears, monthlyEquivalent, yen } from '../data/pricing.js';
+import { Link } from 'react-router-dom';
+import { nikoniko, nikonikoIncludes, freeFixes, contractTerms, firstYearTotal, laterYears, monthlyEquivalent, yen } from '../data/pricing.js';
 
 /** ニコニコプランのご契約条件（確定している条件のみ掲載） */
 export default function ContractTerms() {
@@ -22,7 +23,20 @@ export default function ContractTerms() {
         <div className="terms__row">
           <dt>年ごとのお支払い額</dt>
           <dd>
-            初年度 {yen(firstYearTotal)}円／2年目以降 年間 {yen(laterYears)}円
+            初年度 {yen(firstYearTotal)}円（初期制作費＋年間管理・運用費）／2年目以降 年間 {yen(laterYears)}円
+          </dd>
+        </div>
+        <div className="terms__row">
+          <dt>プラン内容</dt>
+          <dd>{nikonikoIncludes.map((i) => i.title).join('／')}</dd>
+        </div>
+        <div className="terms__row">
+          <dt>無料修正の範囲</dt>
+          <dd>
+            {freeFixes.join('、')}
+            <small>
+              範囲外の作業は別途お見積りです。詳しくは<Link to="/nikoniko#scope">無料修正の範囲</Link>をご覧ください。
+            </small>
           </dd>
         </div>
         <div className="terms__row">

@@ -59,7 +59,7 @@ export default function Pricing() {
               <p className="po__name">{nikoniko.name}</p>
               <dl className="po__list">
                 <div>
-                  <dt>初期ホームページ制作費</dt>
+                  <dt>初期制作費</dt>
                   <dd>
                     <b>{yen(nikoniko.initial)}</b>円{TAX}
                   </dd>
@@ -153,7 +153,7 @@ export default function Pricing() {
                 <CountUp value={systemPrice.from} />
                 <span>円〜</span>
               </p>
-              <p className="sys-price__ref">税込・参考価格</p>
+              <p className="sys-price__ref">税込・個別見積もり</p>
             </div>
             <div className="sys-price__body">
               <p>

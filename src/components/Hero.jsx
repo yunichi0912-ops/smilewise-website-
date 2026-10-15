@@ -158,7 +158,7 @@ export default function Hero() {
           <span className="hero-card__tag">Main Service 02</span>
           <span className="hero-card__title">業務管理システム開発・導入</span>
           <span className="hero-card__price">
-            <b>{yen(systemPrice.from)}</b>円〜{TAX} <small>参考価格</small>
+            <b>{yen(systemPrice.from)}</b>円〜{TAX} <small>個別見積もり</small>
           </span>
           <Icon name="arrow" size={20} className="hero-card__arrow" />
         </Link>

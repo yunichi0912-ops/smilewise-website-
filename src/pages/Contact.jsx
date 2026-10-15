@@ -4,7 +4,7 @@ import Icon from '../components/Icon.jsx';
 import ContactForm from '../components/ContactForm.jsx';
 import ContactChannels from '../components/ContactChannels.jsx';
 import SectionTitle from '../components/SectionTitle.jsx';
-import { site } from '../data/site.js';
+import { site, mailHref } from '../data/site.js';
 
 export default function Contact() {
   return (
@@ -61,13 +61,16 @@ export default function Contact() {
                 </span>
               </li>
             </ul>
-            {site.email && (
-              <div className="contact__direct">
-                <p>
-                  <Icon name="mail" size={18} /> {site.email}
-                </p>
-              </div>
-            )}
+            <div className="contact__direct">
+              <p>
+                <Icon name="mail" size={18} />
+                <a href={mailHref()}>{site.email}</a>
+              </p>
+              <p className="contact__addr">
+                <Icon name="map" size={18} />
+                <span>{site.address}</span>
+              </p>
+            </div>
           </Reveal>
           <Reveal className="contact__main" delay={120}>
             <ContactForm />

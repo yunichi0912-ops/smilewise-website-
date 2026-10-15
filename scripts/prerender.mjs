@@ -26,27 +26,62 @@ const siteUrl = (process.env.SITE_URL || envUrl || site.url).replace(/\/$/, '');
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
+const pricing = await import(pathToFileURL(path.join(root, 'src/data/pricing.js')).href);
+
+// 事業者情報の構造化データ（Google などの検索エンジン向け）
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
+  '@id': `${siteUrl}/#business`,
   name: site.name,
   alternateName: site.nameKana,
   description: site.description,
   url: `${siteUrl}/`,
-  image: `${siteUrl}/og-image.png`,
+  logo: `${siteUrl}/apple-touch-icon.png`,
+  image: `${siteUrl}/og-image.jpg`,
+  telephone: site.tel,
+  email: site.email,
+  founder: { '@type': 'Person', name: site.representative },
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: site.postalCode,
+    addressRegion: site.addressRegion,
+    addressLocality: site.addressLocality,
+    streetAddress: site.streetAddress,
+    addressCountry: 'JP',
+  },
   areaServed: [
     { '@type': 'City', name: '北九州市' },
     { '@type': 'AdministrativeArea', name: '福岡県' },
   ],
-  address: {
-    '@type': 'PostalAddress',
-    addressRegion: '福岡県',
-    addressLocality: '北九州市',
-    ...(site.address ? { streetAddress: site.address } : {}),
-    addressCountry: 'JP',
+  knowsAbout: site.businesses,
+  ...(site.lineUrl ? { sameAs: [site.lineUrl] } : {}),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'サービス・料金',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        name: `ホームページ制作「${pricing.nikoniko.name}」初期制作費`,
+        price: pricing.nikoniko.initial,
+        priceCurrency: 'JPY',
+        url: `${siteUrl}/nikoniko`,
+      },
+      {
+        '@type': 'Offer',
+        name: `${pricing.nikoniko.name} 年間管理・運用費（年払い）`,
+        price: pricing.nikoniko.annual,
+        priceCurrency: 'JPY',
+        url: `${siteUrl}/nikoniko`,
+      },
+      {
+        '@type': 'Offer',
+        name: '業務管理システム開発・導入（個別見積もり）',
+        priceSpecification: { '@type': 'PriceSpecification', minPrice: pricing.systemPrice.from, priceCurrency: 'JPY' },
+        url: `${siteUrl}/system`,
+      },
+    ],
   },
-  ...(site.tel ? { telephone: site.tel } : {}),
-  ...(site.email ? { email: site.email } : {}),
 };
 
 const build = (page, url) => {
@@ -58,7 +93,9 @@ const build = (page, url) => {
     `<meta property="og:title" content="${esc(page.title)}" />`,
     `<meta property="og:description" content="${esc(page.description)}" />`,
     `<meta property="og:url" content="${canonical}" />`,
-    `<meta property="og:image" content="${siteUrl}/og-image.png" />`,
+    `<meta property="og:image" content="${siteUrl}/og-image.jpg" />`,
+    '<meta property="og:image:width" content="1200" />',
+    '<meta property="og:image:height" content="630" />',
   ].join('\n    ');
 
   return template

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Reveal from './Reveal.jsx';
 import Icon from './Icon.jsx';
 import qrUrl from '../assets/line-qr.jpg';
-import { site, telHref } from '../data/site.js';
+import { site, telHref, mailHref } from '../data/site.js';
 
 /**
  * お問い合わせの3つの窓口（電話／LINE／フォーム）
@@ -82,6 +82,13 @@ export default function ContactChannels({ variant = 'full', formTo = '#contact-f
           <Icon name="arrow" size={18} />
         </FormLink>
       </Reveal>
+      {site.email && (
+        <p className="channels__mail">
+          <Icon name="mail" size={18} />
+          メールでのお問い合わせ：
+          <a href={mailHref()}>{site.email}</a>
+        </p>
+      )}
     </div>
   );
 }

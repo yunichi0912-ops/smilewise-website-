@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Logo from './Logo.jsx';
 import { navItems } from './Header.jsx';
 import Icon from './Icon.jsx';
-import { site, telHref } from '../data/site.js';
+import { site, telHref, mailHref } from '../data/site.js';
 import { services } from '../data/services.js';
 
 export default function Footer() {
@@ -14,7 +14,7 @@ export default function Footer() {
             <Logo plate />
           </Link>
           <p className="footer__desc">
-            {site.area}を拠点に、
+            北九州市八幡西区を拠点に、
             <br />
             Web制作・デザイン・業務管理システム開発で
             <br />
@@ -25,6 +25,20 @@ export default function Footer() {
               <Icon name="phone" size={22} />
               {site.tel}
             </a>
+            <a href={mailHref()} className="footer__mail">
+              <Icon name="mail" size={18} />
+              {site.email}
+            </a>
+            <address className="footer__address">
+              {site.name}（代表：{site.representative}）
+              <br />
+              <span className="nw">〒{site.postalCode}</span>{' '}
+              <span className="nw">
+                {site.addressRegion}
+                {site.addressLocality}
+              </span>
+              <span className="nw">{site.streetAddress}</span>
+            </address>
             <div className="footer__contact-btns">
               {site.lineUrl && (
                 <a href={site.lineUrl} className="btn btn--line" target="_blank" rel="noopener noreferrer">

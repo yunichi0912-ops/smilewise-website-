@@ -6,24 +6,19 @@ import { site } from './site.js';
 import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, yen, price } from './pricing.js';
 import { nikonikoFaq } from './faq.js';
 
-const suffix = `｜${site.name}（北九州市のWeb制作・業務システム開発）`;
+const brand = `${site.name}（${site.nameKana}）`;
+const suffix = `｜北九州市のホームページ制作 ${site.name}`;
 
 export const pages = [
   {
     path: '/',
-    title: `北九州市のホームページ制作・業務管理システム開発・DX支援｜${site.name}`,
-    description: `北九州市のホームページ制作・IT/DX支援。初期制作費${price(nikoniko.initial)}、年間管理・運用費${price(nikoniko.annual)}（月額換算${yen(monthlyEquivalent)}円）の「${nikoniko.name}」で、最大${nikoniko.maxPages}ページのホームページを制作。業務管理システム開発・導入（${price(systemPrice.from, '〜')}）にも対応します。`,
-  },
-  {
-    path: '/services',
-    title: `サービス紹介${suffix}`,
-    description:
-      `ホームページ制作（${nikoniko.name}）、業務管理システム開発・導入、採用LP制作、名刺・チラシ・パンフレット制作、ロゴ・看板制作。北九州市の企業のWeb・デザイン・業務効率化をトータルで支援します。`,
+    title: `北九州市のホームページ制作・業務管理システム開発｜${brand}`,
+    description: `北九州市八幡西区の${brand}は、ホームページ制作・LP制作・業務管理システム開発・IT/DX支援を行うWeb制作事業者です。初期制作費${price(nikoniko.initial)}の「${nikoniko.name}」、業務管理システム開発・導入は${price(systemPrice.from, '〜')}。`,
   },
   {
     path: '/nikoniko',
-    title: `ニコニコプラン（初期制作費${yen(nikoniko.initial)}円）｜北九州市のホームページ制作｜${site.name}`,
-    description: `ホームページ制作「${nikoniko.name}」。初期制作費${price(nikoniko.initial)}、年間管理・運用費${price(nikoniko.annual)}（月額換算${yen(monthlyEquivalent)}円・お支払いは年1回）。最大${nikoniko.maxPages}ページ制作、スマートフォン対応、基本SEO設定、軽微な修正は回数制限なし。`,
+    title: `ホームページ制作「${nikoniko.name}」初期制作費${yen(nikoniko.initial)}円${suffix}`,
+    description: `初期制作費${price(nikoniko.initial)}、年間管理・運用費${price(nikoniko.annual)}（月額換算${yen(monthlyEquivalent)}円・年払いのみ）。初年度総額${price(firstYearTotal)}。最大${nikoniko.maxPages}ページ制作・スマートフォン対応・基本SEO設定、軽微な修正は回数制限なし。最低契約期間${nikoniko.minMonths}か月。`,
     // よくある質問の構造化データ（検索結果に表示される場合があります）
     jsonLd: {
       '@context': 'https://schema.org',
@@ -36,43 +31,45 @@ export const pages = [
     },
   },
   {
+    path: '/services',
+    title: `サービス一覧｜ホームページ・LP・印刷物・ロゴ制作、業務管理システム${suffix}`,
+    description: `北九州市の${site.name}のサービス一覧。ホームページ制作（${nikoniko.name}）、採用などのランディングページ制作、名刺・チラシ・パンフレット・ロゴ・看板のデザイン、業務管理システム開発・導入、IT・DX支援。`,
+  },
+  {
     path: '/system',
-    title: `業務管理システム開発・導入${suffix}`,
-    description:
-      `バラバラのExcel管理から、ひとつのシステムへ。見積書・請求書、顧客・取引先、案件・工事進捗、売上・入金をまとめて管理できる業務システムを、北九州市の建設業・製造業・中小企業向けにオーダーメイドで制作します。参考価格${price(systemPrice.from, '〜')}。`,
+    title: `業務管理システム開発・導入｜Excel管理を一元化${suffix}`,
+    description: `見積書・請求書、顧客・取引先、案件・工事進捗、売上・入金をひとつにまとめる業務管理システムを、北九州市の建設業・製造業・中小企業向けにオーダーメイドで開発・導入します。${price(systemPrice.from, '〜')}（個別見積もり）。`,
   },
   {
     path: '/works',
     title: `制作実績${suffix}`,
-    description: `${site.name}の制作実績をご紹介します。`,
+    description: `北九州市の${site.name}が制作したホームページ・デザイン・業務システムの実績を、掲載許可をいただいたものから順次ご紹介します。`,
   },
   {
     path: '/pricing',
-    title: `料金案内（ニコニコプラン・業務管理システム）${suffix}`,
-    description:
-      `ホームページ制作「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、年間管理・運用費${price(nikoniko.annual)}（月額換算${yen(monthlyEquivalent)}円・年払いのみ）。初年度総額${price(firstYearTotal)}、最低契約期間${nikoniko.minMonths}か月。業務管理システム開発・導入は${price(systemPrice.from, '〜')}（参考価格）。`,
+    title: `料金案内｜ニコニコプラン・業務管理システムの料金（税込）${suffix}`,
+    description: `ホームページ制作「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、年間管理・運用費${price(nikoniko.annual)}（年払いのみ・初年度総額${price(firstYearTotal)}）。業務管理システム開発・導入は${price(systemPrice.from, '〜')}。その他のサービスは個別見積もり。`,
   },
   {
     path: '/about',
-    title: `事業概要${suffix}`,
-    description: `${site.name}の事業概要。北九州市を拠点に、Web制作・デザイン・業務管理システム開発を行っています。`,
+    title: `事業概要｜北九州市八幡西区のWeb制作・システム開発${suffix}`,
+    description: `${brand}の事業概要。代表：${site.representative}。所在地：${site.addressRegion}${site.addressLocality}。ホームページ制作、LP制作、名刺・チラシ・ロゴ制作、業務管理システム開発・導入、IT・DX支援。`,
   },
   {
     path: '/contact',
-    title: `お問い合わせ${suffix}`,
-    description:
-      'ホームページ制作・業務管理システム・デザイン制作のご相談、お見積りのご依頼はこちらから。北九州市を中心に対応しています。',
+    title: `お問い合わせ（電話・LINE・メール）${suffix}`,
+    description: `ホームページ制作・業務管理システムのご相談・お見積りは無料です。電話（${site.tel}）、LINE、メールフォームからお気軽にどうぞ。北九州市を中心に対応しています。`,
   },
   {
     path: '/privacy',
     title: `プライバシーポリシー${suffix}`,
-    description: `${site.name}の個人情報の取り扱いについて。`,
+    description: `${brand}の個人情報の取り扱い（取得する情報、利用目的、外部サービスの利用、開示等のご請求、お問い合わせ窓口）について。`,
   },
 ];
 
 export const notFoundPage = {
   path: '/404',
-  title: `ページが見つかりません${suffix}`,
+  title: `ページが見つかりません｜${site.name}`,
   description: 'お探しのページは見つかりませんでした。',
 };
 

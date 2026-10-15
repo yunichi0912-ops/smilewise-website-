@@ -36,7 +36,7 @@ export const works = [];
 export const workCategories = {
   web: 'ホームページ制作',
   system: '業務管理システム',
-  recruit: '採用LP',
+  recruit: 'ランディングページ',
   print: '印刷物デザイン',
   logo: 'ロゴ・看板',
 };

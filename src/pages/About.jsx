@@ -2,8 +2,7 @@ import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SectionTitle from '../components/SectionTitle.jsx';
 import CtaSection from '../components/CtaSection.jsx';
-import { site } from '../data/site.js';
-import { services } from '../data/services.js';
+import { site, telHref, mailHref } from '../data/site.js';
 
 const values = [
   { en: 'Trust', title: '信頼', text: '約束したことを、きちんと守る。小さな確認と報告を積み重ね、安心してお任せいただける関係を築きます。' },
@@ -15,18 +14,25 @@ export default function About() {
   const rows = [
     ['屋号', `${site.name}（${site.nameKana}）`],
     ['代表者', site.representative],
-    ['所在地', site.address || site.area],
+    ['所在地', site.address],
     ['設立', site.established],
-    ['電話番号', site.tel],
-    ['メール', site.email],
+    ['電話番号', site.tel && <a href={telHref()}>{site.tel}</a>],
+    ['メール', site.email && <a href={mailHref()}>{site.email}</a>],
     ['営業時間', site.hours],
-    ['事業内容', services.map((s) => s.title).join('\n')],
+    [
+      '事業内容',
+      <ul className="outline__list">
+        {site.businesses.map((b) => (
+          <li key={b}>{b}</li>
+        ))}
+      </ul>,
+    ],
     ['対応エリア', site.serviceArea],
   ].filter(([, v]) => v);
 
   return (
     <>
-      <PageHero en="About" title="事業概要" lead={`${site.area}を拠点に、Web制作・デザイン・業務管理システム開発を行っています。`} crumbs={['事業概要']} />
+      <PageHero en="About" title="事業概要" lead={`北九州市八幡西区を拠点に、ホームページ制作・デザイン制作・業務管理システム開発・IT/DX支援を行っています。`} crumbs={['事業概要']} />
 
       <section className="section">
         <div className="container message">
