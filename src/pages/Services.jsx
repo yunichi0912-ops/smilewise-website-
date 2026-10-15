@@ -67,7 +67,7 @@ export default function Services() {
                       <div className="sd__actions">
                         {s.href && (
                           <Link to={s.href} className="btn btn--primary">
-                            {s.id === 'web' ? '料金プランを見る' : '詳しく見る'}
+                            {s.id === 'web' ? 'ニコニコプランを見る' : '詳しく見る'}
                             <Icon name="arrow" size={16} />
                           </Link>
                         )}

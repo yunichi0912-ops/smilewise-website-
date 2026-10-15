@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 import Home from './pages/Home.jsx';
 import Services from './pages/Services.jsx';
+import Nikoniko from './pages/Nikoniko.jsx';
 import System from './pages/System.jsx';
 import Works from './pages/Works.jsx';
 import Pricing from './pages/Pricing.jsx';
@@ -16,6 +17,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="services" element={<Services />} />
+        <Route path="nikoniko" element={<Nikoniko />} />
         <Route path="system" element={<System />} />
         <Route path="works" element={<Works />} />
         <Route path="pricing" element={<Pricing />} />

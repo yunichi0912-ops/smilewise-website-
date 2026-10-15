@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from './Icon.jsx';
 import CountUp from './CountUp.jsx';
-import { nikoniko, systemPrice, yen, TAX } from '../data/pricing.js';
+import { nikoniko, systemPrice, monthlyEquivalent, yen, TAX } from '../data/pricing.js';
 
 /**
  * トップページのファーストビュー
@@ -62,7 +62,7 @@ export default function Hero() {
             地域企業のWeb活用を始めませんか。
           </p>
 
-          <Link to="/pricing" className="price-plate spot">
+          <Link to="/nikoniko" className="price-plate spot">
             <span className="price-plate__head">
               <span className="price-plate__plan">ホームページ制作「{nikoniko.name}」</span>
               <span className="price-plate__label">初期制作費</span>
@@ -75,8 +75,11 @@ export default function Hero() {
             </span>
             <span className="price-plate__meta">
               <span>
-                月額管理費 <b>{yen(nikoniko.monthly)}円</b>
+                年間管理・運用費 <b>{yen(nikoniko.annual)}円</b>
                 {TAX}
+              </span>
+              <span>
+                月額換算 <b>{yen(monthlyEquivalent)}円</b>（お支払いは年1回）
               </span>
               <span>
                 最低契約期間 <b>{nikoniko.minMonths}か月</b>
@@ -89,8 +92,8 @@ export default function Hero() {
               無料で相談する
               <Icon name="arrow" size={18} />
             </Link>
-            <Link to="/pricing" className="btn btn--glass btn--lg">
-              料金・プラン内容を見る
+            <Link to="/nikoniko" className="btn btn--glass btn--lg">
+              ニコニコプランを見る
             </Link>
           </div>
         </div>
@@ -104,15 +107,14 @@ export default function Hero() {
               </p>
               <ul className="glass__list">
                 <li>最大{nikoniko.maxPages}ページ制作</li>
-                <li>スマートフォン・PC対応</li>
-                <li>独自ドメイン・SSL設定</li>
-                <li>基本SEO・お問い合わせフォーム</li>
+                <li>スマートフォン対応</li>
+                <li>基本SEO設定</li>
                 <li>軽微な修正は回数制限なし</li>
               </ul>
               <div className="glass__bar">
                 <i />
               </div>
-              <p className="glass__foot">サーバー・ホームページの維持管理つき</p>
+              <p className="glass__foot">お支払いは年払いのみ（年1回）</p>
             </div>
             <div className="glass glass--dash">
               <p className="glass__label">
@@ -144,7 +146,7 @@ export default function Hero() {
       </div>
 
       <div className="container hero__cards">
-        <Link to="/pricing" className="hero-card spot">
+        <Link to="/nikoniko" className="hero-card spot">
           <span className="hero-card__tag">Main Service 01</span>
           <span className="hero-card__title">ホームページ制作 {nikoniko.name}</span>
           <span className="hero-card__price">

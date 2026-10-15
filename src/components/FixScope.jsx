@@ -10,7 +10,7 @@ export default function FixScope() {
         <Reveal className="scope__col scope__col--free spot">
           <p className="scope__tag">
             <Icon name="check" size={16} strokeWidth={2.4} />
-            月額管理費に含まれます
+            年間管理・運用費に含まれます
           </p>
           <h3 className="scope__title">無料修正の範囲</h3>
           <p className="scope__sub">回数制限なし</p>

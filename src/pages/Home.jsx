@@ -9,7 +9,7 @@ import SystemMockup from '../components/SystemMockup.jsx';
 import BeforeAfter from '../components/BeforeAfter.jsx';
 import WorksList from '../components/WorksList.jsx';
 import NikonikoFeature from '../components/NikonikoFeature.jsx';
-import PlanCompare from '../components/PlanCompare.jsx';
+import AnnualPayment from '../components/AnnualPayment.jsx';
 import ServiceGrid from '../components/ServiceGrid.jsx';
 import FaqList from '../components/FaqList.jsx';
 import { systemPrice, TAX } from '../data/pricing.js';
@@ -25,20 +25,20 @@ export default function Home() {
       {/* 2. ニコニコプラン */}
       <section className="section section--niko" id="nikoniko">
         <div className="container">
-          <SectionTitle en="Main Service 01" lead="初期費用を抑えて、本格的なホームページを。公開後の維持管理と軽微な修正まで、月額管理費でお任せいただけます。">
+          <SectionTitle en="Main Service 01" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、年間管理・運用費で回数制限なく対応します。">
             ホームページ制作「ニコニコプラン」
           </SectionTitle>
           <NikonikoFeature />
         </div>
       </section>
 
-      {/* 3. 月払い・年払いの比較 */}
+      {/* 3. お支払い（年払いのみ） */}
       <section className="section section--tint">
         <div className="container container--mid">
-          <SectionTitle en="Monthly / Yearly" lead="ニコニコプランの管理費は、月払い・年払いからお選びいただけます。年払いなら12,000円お得です。">
-            月払い・年払いの比較
+          <SectionTitle en="Payment" lead="年間管理・運用費は年払いのみ（年1回）です。月額に換算すると9,500円です。">
+            初年度・2年目以降のお支払い
           </SectionTitle>
-          <PlanCompare />
+          <AnnualPayment />
         </div>
       </section>
 
@@ -143,7 +143,7 @@ export default function Home() {
           <SectionTitle en="FAQ">ニコニコプランのよくある質問</SectionTitle>
           <FaqList items={nikonikoFaq.slice(0, 4)} />
           <Reveal className="center mt-l">
-            <Link to="/pricing#faq" className="btn btn--outline">
+            <Link to="/nikoniko#faq" className="btn btn--outline">
               よくある質問をすべて見る
               <Icon name="arrow" size={18} />
             </Link>

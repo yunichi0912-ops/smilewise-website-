@@ -6,17 +6,17 @@ import Icon from '../components/Icon.jsx';
 import CountUp from '../components/CountUp.jsx';
 import CtaSection from '../components/CtaSection.jsx';
 import NikonikoFeature from '../components/NikonikoFeature.jsx';
-import PlanCompare from '../components/PlanCompare.jsx';
+import AnnualPayment from '../components/AnnualPayment.jsx';
+import ContractTerms from '../components/ContractTerms.jsx';
 import FixScope from '../components/FixScope.jsx';
 import FaqList from '../components/FaqList.jsx';
 import { services } from '../data/services.js';
 import { nikonikoFaq } from '../data/faq.js';
 import {
   nikoniko,
-  yearlySaving,
-  firstYearMonthly,
-  firstYearYearly,
-  contractTerms,
+  monthlyEquivalent,
+  firstYearTotal,
+  laterYears,
   systemPrice,
   yen,
   TAX,
@@ -24,7 +24,7 @@ import {
 
 const toc = [
   { id: 'nikoniko', label: 'ニコニコプラン' },
-  { id: 'payment', label: '月払い・年払い' },
+  { id: 'payment', label: 'お支払い' },
   { id: 'scope', label: '修正の範囲' },
   { id: 'contract', label: '契約条件' },
   { id: 'system', label: '業務管理システム' },
@@ -65,17 +65,15 @@ export default function Pricing() {
                   </dd>
                 </div>
                 <div>
-                  <dt>月額管理費</dt>
+                  <dt>年間管理・運用費</dt>
                   <dd>
-                    <b>{yen(nikoniko.monthly)}</b>円／月{TAX}
+                    <b>{yen(nikoniko.annual)}</b>円／年{TAX}
+                    <em>月額換算 {yen(monthlyEquivalent)}円</em>
                   </dd>
                 </div>
                 <div>
-                  <dt>年払い</dt>
-                  <dd>
-                    <b>{yen(nikoniko.yearly)}</b>円／年{TAX}
-                    <em>{yen(yearlySaving)}円お得</em>
-                  </dd>
+                  <dt>お支払い方法</dt>
+                  <dd>{nikoniko.payment}</dd>
                 </div>
                 <div>
                   <dt>最低契約期間</dt>
@@ -85,11 +83,11 @@ export default function Pricing() {
                 </div>
               </dl>
               <p className="po__total">
-                初年度総額{TAX}：月払い <b>{yen(firstYearMonthly)}円</b>／年払い <b>{yen(firstYearYearly)}円</b>
+                初年度総額 <b>{yen(firstYearTotal)}円</b>／2年目以降 年間 <b>{yen(laterYears)}円</b>（税込）
               </p>
-              <a href="#nikoniko" className="text-link">
-                プラン内容を見る <Icon name="arrow" size={16} />
-              </a>
+              <Link to="/nikoniko" className="text-link">
+                ニコニコプランの詳細を見る <Icon name="arrow" size={16} />
+              </Link>
             </Reveal>
             <Reveal className="po po--dark spot" delay={120}>
               <span className="po__tag">業務管理システム開発・導入</span>
@@ -110,7 +108,7 @@ export default function Pricing() {
       {/* ニコニコプラン */}
       <section className="section section--niko" id="nikoniko">
         <div className="container">
-          <SectionTitle en="Website" lead="初期費用を抑えて、本格的なホームページを。公開後の維持管理と軽微な修正まで、月額管理費でお任せいただけます。">
+          <SectionTitle en="Website" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、年間管理・運用費で回数制限なく対応します。">
             ホームページ制作「ニコニコプラン」
           </SectionTitle>
           <NikonikoFeature />
@@ -119,17 +117,17 @@ export default function Pricing() {
 
       <section className="section section--tint" id="payment">
         <div className="container container--mid">
-          <SectionTitle en="Monthly / Yearly" lead="管理費は月払い・年払いからお選びいただけます。">
-            月払い・年払いの比較
+          <SectionTitle en="Payment" lead="年間管理・運用費は年払いのみ（年1回）です。">
+            初年度・2年目以降のお支払い
           </SectionTitle>
-          <PlanCompare />
+          <AnnualPayment />
         </div>
       </section>
 
       {/* 修正範囲 */}
       <section className="section" id="scope">
         <div className="container container--mid">
-          <SectionTitle en="Update" lead="ニコニコプランでは、軽微な修正に回数制限なく対応します。">
+          <SectionTitle en="Update" lead="ニコニコプランでは、定められた範囲内の軽微な修正に回数制限なく対応します。">
             無料修正の範囲と別途お見積り
           </SectionTitle>
           <FixScope />
@@ -140,28 +138,7 @@ export default function Pricing() {
       <section className="section section--tint" id="contract">
         <div className="container container--narrow">
           <SectionTitle en="Contract">ご契約条件</SectionTitle>
-          <Reveal>
-            <dl className="terms">
-              {contractTerms.decided.map((t) => (
-                <div key={t.label} className="terms__row">
-                  <dt>{t.label}</dt>
-                  <dd>{t.value}</dd>
-                </div>
-              ))}
-              <div className="terms__row">
-                <dt>料金</dt>
-                <dd>
-                  初期ホームページ制作費 {yen(nikoniko.initial)}円／月額管理費 {yen(nikoniko.monthly)}円（年払い{' '}
-                  {yen(nikoniko.yearly)}円）
-                  <small>表示価格はすべて税込です。</small>
-                </dd>
-              </div>
-              <div className="terms__row">
-                <dt>その他の条件</dt>
-                <dd>{contractTerms.pendingNote}</dd>
-              </div>
-            </dl>
-          </Reveal>
+          <ContractTerms />
         </div>
       </section>
 

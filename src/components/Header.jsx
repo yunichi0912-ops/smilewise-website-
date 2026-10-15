@@ -4,6 +4,7 @@ import Logo from './Logo.jsx';
 
 export const navItems = [
   { to: '/', label: 'ホーム', end: true },
+  { to: '/nikoniko', label: 'ニコニコプラン' },
   { to: '/services', label: 'サービス' },
   { to: '/system', label: '業務システム' },
   { to: '/works', label: '制作実績' },

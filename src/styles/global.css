@@ -3309,3 +3309,118 @@ textarea {
     border: 0;
   }
 }
+
+/* 年間管理・運用費（年払いのみ） */
+.pay__equiv {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--edo-pale);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--edo-dark);
+}
+.pay__equiv b {
+  font-family: var(--font-en);
+  font-size: 16px;
+  color: var(--edo);
+}
+.pay__rows dd {
+  text-align: right;
+}
+.pay__rows--years {
+  margin-top: 18px;
+  border-top: 0;
+  padding-top: 0;
+}
+.pay__rows--years div {
+  align-items: center;
+  gap: 12px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.pay__rows--years div + div {
+  margin-top: 0;
+}
+.pay__rows--years dt {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink) !important;
+}
+.pay__rows--years dt small {
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+.pay__rows--years dd {
+  font-family: var(--font-en);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--edo-deep);
+  white-space: nowrap;
+}
+.pay__rows--years div:first-child dd {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pay__rows--years dd .count {
+  font-variant-numeric: tabular-nums;
+}
+.bar-row__label {
+  white-space: nowrap;
+}
+.compare .bar-row {
+  grid-template-columns: 80px 1fr 110px;
+}
+@media (max-width: 640px) {
+  .compare .bar-row {
+    grid-template-columns: 72px 1fr;
+  }
+  .pay__rows--years dd {
+    font-size: 22px;
+  }
+}
+.terms__row--key dd {
+  font-weight: 700;
+  color: var(--edo-deep);
+}
+
+/* メニュー項目の折り返し防止（PC幅が狭いとき） */
+.header__nav ul a {
+  white-space: nowrap;
+}
+@media (min-width: 961px) and (max-width: 1240px) {
+  .header__inner {
+    padding: 0 20px;
+    gap: 14px;
+  }
+  .header__nav {
+    gap: 12px;
+  }
+  .header__nav ul a {
+    padding: 7px 10px;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+  }
+  .header__cta {
+    padding: 8px 18px;
+    font-size: 13px;
+  }
+  .logo__sub {
+    display: none;
+  }
+}
+@media (min-width: 961px) and (max-width: 1060px) {
+  .header__nav ul a {
+    padding: 7px 7px;
+    font-size: 12.5px;
+  }
+  .logo__name {
+    font-size: 19px;
+  }
+}
