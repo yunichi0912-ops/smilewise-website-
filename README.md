@@ -38,6 +38,14 @@ React + Vite で作られており、ビルド時に全ページの静的HTMLを
 - 契約条件：`contractTerms.decided` に確定した条件を追加すると、「ご契約条件」に表示されます
 - よくある質問：`src/data/faq.js`
 
+## ロゴ・電話番号・公式LINE
+
+- ロゴ画像：`src/assets/logo.png`（いただいたロゴの白背景を透明化し、余白を切り詰めたもの）
+- 公式LINEのQRコード：`src/assets/line-qr.jpg`
+- 電話番号・LINEの友だち追加URL：`src/data/site.js` の `tel` / `lineUrl`
+  - `lineUrl` を空にすると「友だち追加」ボタンは非表示になり、QRコードのみ表示されます
+  - 現在の `lineUrl` は、QRコードを読み取って得たURL（https://line.me/ti/p/9kEKeXYgSw）です
+
 ## プレビュー方法
 
 Node.js（v20 以上）が必要です。

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Logo from './Logo.jsx';
+import Icon from './Icon.jsx';
+import { site, telHref } from '../data/site.js';
 
 export const navItems = [
   { to: '/', label: 'ホーム', end: true },
@@ -54,7 +56,30 @@ export default function Header() {
           <Link to="/contact" className="btn btn--primary header__cta">
             お問い合わせ
           </Link>
+          {/* メニューを開いたとき（スマホ・タブレット）の連絡先 */}
+          <div className="header__menu-contact">
+            <a href={telHref()} className="btn btn--outline">
+              <Icon name="phone" size={18} />
+              {site.tel}
+            </a>
+            {site.lineUrl && (
+              <a href={site.lineUrl} className="btn btn--line" target="_blank" rel="noopener noreferrer">
+                <Icon name="line" size={20} />
+                LINEで友だち追加
+              </a>
+            )}
+          </div>
         </nav>
+
+        <a href={telHref()} className="header__tel" aria-label={`電話で相談する ${site.tel}`}>
+          <span className="header__tel-icon">
+            <Icon name="phone" size={18} />
+          </span>
+          <span className="header__tel-text">
+            <small>お電話でのご相談</small>
+            <b>{site.tel}</b>
+          </span>
+        </a>
 
         <button
           type="button"

@@ -103,6 +103,14 @@ const paths = {
     </>
   ),
   plus: <path d="M12 5v14M5 12h14" />,
+  line: (
+    <>
+      <path d="M12 3.5c-5 0-9 3.2-9 7.2 0 3.6 3.2 6.6 7.5 7.1.3.1.7.2.8.5.1.3 0 .7 0 1l-.1.8c0 .3-.2 1 .8.5s5.6-3.3 7.6-5.6c1.4-1.5 2.4-3 2.4-4.3 0-4-4-7.2-9-7.2z" />
+      <circle cx="8" cy="10.8" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="10.8" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="16" cy="10.8" r="0.9" fill="currentColor" stroke="none" />
+    </>
+  ),
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   check: <path d="M4.5 12.5l5 5 10-11" />,
   x: <path d="M6 6l12 12M18 6L6 18" />,

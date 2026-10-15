@@ -24,6 +24,8 @@ export default defineConfig(({ mode }) => {
   const siteUrl = (env.SITE_URL || site.url).replace(/\/$/, '');
   return {
     plugins: [react(), previewCleanUrls()],
+    // 1ファイル版プレビューでは画像もHTMLに埋め込む
+    build: env.VITE_SINGLE_FILE || process.env.VITE_SINGLE_FILE ? { assetsInlineLimit: 100 * 1024 * 1024 } : {},
     define: {
       __SITE_URL__: JSON.stringify(siteUrl),
     },

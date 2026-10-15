@@ -19,8 +19,15 @@ export const site = {
   // 以下は公開前に実際の情報を入力してください（空のままなら非表示）
   representative: '',
   address: '',
-  tel: '',
+  tel: '080-9034-7853',
   email: '',
   hours: '',
   established: '',
+
+  // 公式LINEの友だち追加URL（QRコードと同じURL）。変更する場合はここを書き換えてください。
+  // 空文字にすると「友だち追加」ボタンは表示されず、QRコードのみの表示になります。
+  lineUrl: 'https://line.me/ti/p/9kEKeXYgSw',
 };
+
+/** 電話番号から tel: リンク用の文字列を作成（例: tel:08090347853） */
+export const telHref = (tel = site.tel) => `tel:${tel.replace(/[^0-9+]/g, '')}`;

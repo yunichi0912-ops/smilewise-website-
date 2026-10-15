@@ -2446,15 +2446,9 @@ textarea {
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1180px) {
   :root {
     --header-h: 68px;
-  }
-  .section {
-    padding: 100px 0;
-  }
-  .pc-only {
-    display: none;
   }
   /* SPメニュー */
   .header__toggle {
@@ -2539,6 +2533,18 @@ textarea {
     background: var(--grad);
   }
 
+}
+
+@media (max-width: 960px) {
+  :root {
+    --header-h: 68px;
+  }
+  .section {
+    padding: 100px 0;
+  }
+  .pc-only {
+    display: none;
+  }
   /* スマホでは重い描画効果を軽くする */
   .glass,
   .hero-card,
@@ -3394,7 +3400,7 @@ textarea {
 .header__nav ul a {
   white-space: nowrap;
 }
-@media (min-width: 961px) and (max-width: 1240px) {
+@media (min-width: 1181px) and (max-width: 1380px) {
   .header__inner {
     padding: 0 20px;
     gap: 14px;
@@ -3415,12 +3421,381 @@ textarea {
     display: none;
   }
 }
-@media (min-width: 961px) and (max-width: 1060px) {
+@media (min-width: 1181px) and (max-width: 1260px) {
   .header__nav ul a {
     padding: 7px 7px;
     font-size: 12.5px;
   }
   .logo__name {
     font-size: 19px;
+  }
+}
+
+/* =========================================================
+   ロゴ画像・電話・LINE・お問い合わせ導線
+   ========================================================= */
+:root {
+  --logo-blue: #0078f0;
+  --logo-sky: #00adff;
+  --line-green: #06c755;
+}
+/* ロゴの青から江戸紫へつながるアクセント（スクロール進捗バー） */
+.scroll-progress {
+  background: linear-gradient(90deg, var(--logo-sky), var(--logo-blue) 35%, var(--edo) 75%, #d4a6db);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+.logo__img {
+  display: block;
+  height: 42px;
+  width: auto;
+  transition: transform 0.6s var(--ease-out);
+}
+.header__logo:hover .logo__img {
+  transform: translateY(-1px) scale(1.02);
+}
+.logo--plate {
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+.logo--plate .logo__img {
+  height: 40px;
+}
+/* 濃色ヒーロー上では、ロゴを白い台座に載せて青色をそのまま見せる */
+.header .logo {
+  padding: 6px 10px;
+  margin-left: -10px;
+  border-radius: 12px;
+  transition: background 0.4s, box-shadow 0.4s;
+}
+.header.is-on-dark .logo {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* ヘッダーの電話番号 */
+.header__tel {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  color: var(--ink);
+  transition: color 0.3s;
+}
+.header__tel-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--edo-pale);
+  color: var(--edo);
+  transition: background 0.3s, color 0.3s, transform 0.4s var(--ease-out);
+}
+.header__tel:hover .header__tel-icon {
+  background: var(--edo);
+  color: #fff;
+  transform: rotate(-12deg);
+}
+.header__tel-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.header__tel-text small {
+  font-size: 10.5px;
+  color: var(--ink-mute);
+  letter-spacing: 0.06em;
+}
+.header__tel-text b {
+  font-family: var(--font-en);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.header.is-on-dark .header__tel {
+  color: #fff;
+}
+.header.is-on-dark .header__tel-text small {
+  color: rgba(255, 255, 255, 0.7);
+}
+.header.is-on-dark .header__tel-icon {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+.header__menu-contact {
+  display: none;
+}
+
+/* LINEボタン（LINE公式のブランドカラー） */
+.btn--line {
+  color: #fff;
+  background: var(--line-green);
+  box-shadow: 0 10px 24px rgba(6, 199, 85, 0.28);
+}
+.btn--line:hover {
+  background: #05b34c;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(6, 199, 85, 0.36);
+}
+
+/* お問い合わせの3つの窓口 */
+.channels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+.channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 34px 26px 28px;
+  border-radius: var(--radius-xl);
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  overflow: hidden;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), opacity 1s var(--ease-out);
+}
+.channel.is-visible:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+.channel__icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: var(--grad);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(116, 83, 153, 0.28);
+}
+.channel__icon--line {
+  background: var(--line-green);
+  box-shadow: 0 10px 22px rgba(6, 199, 85, 0.28);
+}
+.channel__label {
+  margin-top: 6px;
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+}
+.channel__tel {
+  font-family: var(--font-en);
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--edo-deep);
+  white-space: nowrap;
+}
+.channel__text,
+.channel__note {
+  font-size: 13.5px;
+  color: var(--ink-sub);
+  line-height: 1.7;
+}
+.channel__note {
+  font-size: 12.5px;
+  color: var(--ink-mute);
+}
+.channel__qr {
+  width: 168px;
+  height: 168px;
+  margin: 4px 0;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.channel__btn {
+  margin-top: auto;
+  width: 100%;
+  min-height: 52px;
+}
+.channel .channel__btn {
+  margin-top: 14px;
+}
+.channels--full .channel {
+  justify-content: flex-start;
+}
+.channels--full .channel .channel__btn {
+  margin-top: auto;
+}
+/* ボタンはカード下端に揃える（上に最低限の余白） */
+.channels .channel__btn {
+  margin-top: auto;
+}
+.channel > :nth-last-child(2) {
+  margin-bottom: 14px;
+}
+/* 濃色のお問い合わせ帯の中 */
+.cta .channels {
+  margin-top: 44px;
+  text-align: center;
+}
+.cta .channel {
+  background: rgba(255, 255, 255, 0.97);
+}
+
+/* 下部固定のお問い合わせ（スマホ） */
+@media (max-width: 960px) {
+  .floating-cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr;
+    gap: 8px;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+  .floating-cta__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 54px;
+    border-radius: 14px;
+    background: var(--edo-pale);
+    color: var(--edo-deep);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition: transform 0.2s;
+  }
+  .floating-cta__item:active {
+    transform: scale(0.96);
+  }
+  .floating-cta__item--line {
+    background: var(--line-green);
+    color: #fff;
+  }
+  .floating-cta__item--form {
+    flex-direction: row;
+    gap: 8px;
+    font-size: 14px;
+    background: var(--grad);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(116, 83, 153, 0.3);
+  }
+  .footer {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* フッターの連絡先 */
+.footer__contact {
+  display: grid;
+  gap: 10px;
+  margin: 26px 0 0;
+}
+.footer__tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-family: var(--font-en);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.footer__tel .icon {
+  color: var(--lilac);
+}
+.footer__contact-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* お問い合わせページ */
+.contact-channels {
+  padding-bottom: 0;
+}
+
+@media (max-width: 1180px) {
+  .header__inner {
+    gap: 12px;
+  }
+  .header__logo {
+    margin-right: auto;
+  }
+  .header__tel {
+    order: 2;
+  }
+  .header__toggle {
+    order: 3;
+  }
+  .header__menu-contact {
+    display: grid;
+    gap: 10px;
+    width: min(320px, 100%);
+  }
+  .header__menu-contact .btn {
+    width: 100%;
+  }
+  .header__nav {
+    gap: 24px;
+  }
+  .header.is-open .header__tel {
+    visibility: hidden;
+  }
+}
+@media (max-width: 960px) {
+  .channels {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 640px) {
+  .logo__img {
+    height: 34px;
+  }
+  .logo__img {
+    height: 30px;
+  }
+  .header .logo {
+    padding: 5px 8px;
+    margin-left: -8px;
+  }
+  .header__tel {
+    gap: 4px;
+  }
+  .header__tel-icon {
+    width: 22px;
+    height: 22px;
+    background: none !important;
+    color: var(--edo) !important;
+  }
+  .header__tel-text small {
+    display: none;
+  }
+  .header__tel-text b {
+    font-size: 15px;
+  }
+  .header.is-on-dark .header__tel-icon {
+    color: #fff !important;
+  }
+  .channel {
+    padding: 28px 20px 22px;
+  }
+  .footer__tel {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 359px) {
+  .header__tel-text {
+    display: none;
   }
 }
