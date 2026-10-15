@@ -122,7 +122,7 @@ JSON の POST を受け付けるサービスであれば、Formspree 以外（Ge
 | 変数名 | 値の例 | 内容 |
 | --- | --- | --- |
 | `SITE_URL` | `https://smilewise.pages.dev` | 公開URL（末尾スラッシュなし）。独自ドメインにしたら変更 |
-| `VITE_FORM_ENDPOINT` | `https://formspree.io/f/xxxxxxx` | お問い合わせフォームの送信先（Formspree） |
+| `VITE_FORM_ENDPOINT` | `https://formspree.io/f/mbgdpdvq` | お問い合わせフォームの送信先（Formspree。通知先 smilewise1111@gmail.com） |
 | `NODE_VERSION` | `22` | ビルドに使う Node.js（`.node-version` でも指定済み） |
 
 - ページは `about.html` のように出力され、Cloudflare Pages では `/about`（末尾スラッシュなし）で表示されます。`/about/` や `/about.html` は自動で `/about` に転送されます。

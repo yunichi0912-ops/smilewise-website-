@@ -11,8 +11,11 @@ if (isCloudflareProduction) {
   const siteUrl = process.env.SITE_URL || '';
   if (!/^https:\/\/[^/]+$/.test(siteUrl.replace(/\/$/, '')))
     problems.push('環境変数 SITE_URL（例: https://smilewise.pages.dev）が設定されていません');
-  if (!/^https:\/\//.test(process.env.VITE_FORM_ENDPOINT || '') && process.env.ALLOW_TEST_FORM !== '1')
+  const endpoint = (process.env.VITE_FORM_ENDPOINT || '').trim();
+  if (!endpoint && process.env.ALLOW_TEST_FORM !== '1')
     problems.push('環境変数 VITE_FORM_ENDPOINT（Formspree のフォームURL）が設定されていません');
+  else if (endpoint && !/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(endpoint))
+    problems.push(`環境変数 VITE_FORM_ENDPOINT の形式が正しくありません（${endpoint}）。https://formspree.io/f/英数字 の形で入力してください`);
   if (problems.length) {
     console.error('\n✖ 本番ビルドを中止しました（未設定の項目があります）');
     problems.forEach((p) => console.error(`  - ${p}`));
