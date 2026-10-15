@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Icon from './Icon.jsx';
+import { site, telHref } from '../data/site.js';
 
 /**
  * お問い合わせフォーム
  *
- * 送信先は環境変数 VITE_FORM_ENDPOINT で指定します（Formspree などのフォーム送信サービスのURL）。
- * 未設定の場合は「テストモード」となり、入力チェックと送信完了画面までを確認できます
+ * 送信先は環境変数 VITE_FORM_ENDPOINT で指定します（Formspree のフォームURL：https://formspree.io/f/xxxxxxx）。
+ * Formspree に登録したメールアドレスへ、送信内容がメールで届きます。
+ * 未設定（または https で始まらない値）の場合は「テストモード」となり、入力チェックと送信完了画面までを確認できます
  * （送信内容はブラウザの開発者ツールのコンソールに表示され、メールは送信されません）。
  */
-const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || '';
+const RAW_ENDPOINT = (import.meta.env.VITE_FORM_ENDPOINT || '').trim();
+const ENDPOINT = /^https:\/\//.test(RAW_ENDPOINT) ? RAW_ENDPOINT : '';
 
 export const inquiryTypes = [
   { value: 'web', label: 'ホームページ制作（ニコニコプラン）' },
@@ -92,7 +95,10 @@ export default function ContactForm() {
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) {
+          const detail = await res.json().catch(() => null);
+          throw new Error(`HTTP ${res.status} ${detail?.errors?.map((x) => x.message).join(' / ') ?? ''}`);
+        }
       } else {
         // テストモード：送信はせず、内容をコンソールに表示
         await new Promise((r) => setTimeout(r, 800));
@@ -243,11 +249,16 @@ export default function ContactForm() {
           </span>
         </label>
         <Err name="agree" />
+        <p className="form__privacy-note">
+          送信内容は、フォーム送信サービス「Formspree」（提供：Formspree, Inc.／アメリカ合衆国）を経由して当事業者に届きます。
+        </p>
       </div>
 
       {status === 'error' && (
         <p className="form__alert" role="alert">
-          送信に失敗しました。お手数ですが、時間をおいて再度お試しください。
+          送信に失敗しました。お手数ですが、時間をおいて再度お試しいただくか、お電話（
+          <a href={telHref()}>{site.tel}</a>
+          ）またはLINEでご連絡ください。
         </p>
       )}
 

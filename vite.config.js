@@ -11,8 +11,8 @@ const previewCleanUrls = () => ({
     server.middlewares.use((req, _res, next) => {
       const [pathname, query] = req.url.split('?');
       const clean = pathname.replace(/\/+$/, '');
-      if (clean && !path.extname(clean) && fs.existsSync(path.join('dist', clean, 'index.html'))) {
-        req.url = `${clean}/index.html${query ? `?${query}` : ''}`;
+      if (clean && !path.extname(clean) && fs.existsSync(path.join('dist', `${clean}.html`))) {
+        req.url = `${clean}.html${query ? `?${query}` : ''}`;
       }
       next();
     });

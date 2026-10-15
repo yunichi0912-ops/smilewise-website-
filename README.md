@@ -98,20 +98,41 @@ npm run preview    # → http://localhost:4173 をブラウザで開く
    VITE_FORM_ENDPOINT=https://formspree.io/f/xxxxxxx
    SITE_URL=https://（公開するドメイン）
    ```
-   Vercel / Netlify で公開する場合は、管理画面の「Environment Variables」に同じ値を設定します。
+   Cloudflare Pages で公開する場合は、プロジェクトの環境変数に同じ値を設定します。
 4. 再ビルドすると、テストモードの表示が消えて実際に送信されるようになります
 
 JSON の POST を受け付けるサービスであれば、Formspree 以外（Getform、自前のAPIなど）でも同じ設定で使えます。
 
-## 公開（デプロイ）方法
+## 公開（Cloudflare Pages）
 
-`npm run build` で生成される `dist/` フォルダの中身をアップロードすれば公開できます。
+| 項目 | 設定値 |
+| --- | --- |
+| 本番ブランチ | `main` |
+| フレームワーク プリセット | なし（None） |
+| ビルドコマンド | `npm run build` |
+| ビルド出力ディレクトリ | `dist` |
+| ルートディレクトリ | 空欄（リポジトリ直下） |
 
-- **Vercel / Netlify**：GitHub リポジトリを連携し、Build command `npm run build`、Output directory `dist` を指定
-- **レンタルサーバー**：`dist/` の中身を FTP で公開フォルダにアップロード
+環境変数（本番：Production）
 
-公開URLが決まったら `SITE_URL`（または `src/data/site.js` の `url`）を設定して再ビルドしてください。
-canonical・OGP・`sitemap.xml`・`robots.txt` に反映されます。公開後は Google Search Console に `sitemap.xml` を登録すると効果的です。
+| 変数名 | 値の例 | 内容 |
+| --- | --- | --- |
+| `SITE_URL` | `https://smilewise.pages.dev` | 公開URL（末尾スラッシュなし）。独自ドメインにしたら変更 |
+| `VITE_FORM_ENDPOINT` | `https://formspree.io/f/xxxxxxx` | お問い合わせフォームの送信先（Formspree） |
+| `NODE_VERSION` | `22` | ビルドに使う Node.js（`.node-version` でも指定済み） |
+
+- ページは `about.html` のように出力され、Cloudflare Pages では `/about`（末尾スラッシュなし）で表示されます。`/about/` や `/about.html` は自動で `/about` に転送されます。
+- `public/_headers` でセキュリティ用ヘッダーと画像・JSのキャッシュを設定しています。
+- 環境変数を変更したときは、再デプロイ（Deployments → 最新 → Retry deployment）で反映されます。
+- 本番ブランチ以外のブランチを自動で公開しないよう、Settings → Builds → Branch control で「Preview branch」を None にすることをおすすめします。
+
+### 公開前チェック
+
+```bash
+npm run build && npm run check
+```
+
+全ページのタイトル・説明文・canonical・h1、リンク切れ、料金表示、電話・LINEリンク、sitemap.xml、未設定項目（公開URL・フォーム送信先・事業者情報）を確認します。
 
 ## 実装済みのSEO設定
 

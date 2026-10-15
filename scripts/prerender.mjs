@@ -73,11 +73,12 @@ const build = (page, url) => {
     .replace('<div id="root"><!--app-html-->', `<div id="root" data-prerendered="${page.path}">${render(url)}`);
 };
 
+// Cloudflare Pages では /about.html を /about（末尾スラッシュなし）で配信するため、
+// トップ以外は「ページ名.html」で出力する（canonical URL と一致させる）
 for (const page of pages) {
-  const outDir = page.path === '/' ? dist : path.join(dist, page.path);
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), build(page, page.path));
-  console.log(`  prerendered ${page.path}`);
+  const file = page.path === '/' ? path.join(dist, 'index.html') : path.join(dist, `${page.path.slice(1)}.html`);
+  fs.writeFileSync(file, build(page, page.path));
+  console.log(`  prerendered ${page.path} -> ${path.relative(dist, file)}`);
 }
 fs.writeFileSync(path.join(dist, '404.html'), build(notFoundPage, '/404'));
 console.log('  prerendered 404.html');

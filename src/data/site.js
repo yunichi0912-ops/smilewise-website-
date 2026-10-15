@@ -24,6 +24,13 @@ export const site = {
   hours: '',
   established: '',
 
+  // 所在地を掲載しない場合は true にすると、プライバシーポリシーに
+  // 「ご請求に応じて遅滞なくお知らせします」と表示します（個人情報保護法で認められている方法）
+  addressOnRequest: false,
+
+  // プライバシーポリシーの制定日（公開日に合わせて変更してください）
+  privacyEstablished: '2026年10月15日',
+
   // 公式LINEの友だち追加URL（QRコードと同じURL）。変更する場合はここを書き換えてください。
   // 空文字にすると「友だち追加」ボタンは表示されず、QRコードのみの表示になります。
   lineUrl: 'https://line.me/ti/p/9kEKeXYgSw',
