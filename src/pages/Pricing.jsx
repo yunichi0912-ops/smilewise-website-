@@ -65,7 +65,7 @@ export default function Pricing() {
                   </dd>
                 </div>
                 <div>
-                  <dt>年間管理・運用費</dt>
+                  <dt>年間管理費</dt>
                   <dd>
                     <b>{yen(nikoniko.annual)}</b>円／年{TAX}
                     <em>月額換算 {yen(monthlyEquivalent)}円</em>
@@ -108,7 +108,7 @@ export default function Pricing() {
       {/* ニコニコプラン */}
       <section className="section section--niko" id="nikoniko">
         <div className="container">
-          <SectionTitle en="Website" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、年間管理・運用費で回数制限なく対応します。">
+          <SectionTitle en="Website" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、年間管理費で回数制限なく対応します。">
             ホームページ制作「ニコニコプラン」
           </SectionTitle>
           <NikonikoFeature />
@@ -117,7 +117,7 @@ export default function Pricing() {
 
       <section className="section section--tint" id="payment">
         <div className="container container--mid">
-          <SectionTitle en="Payment" lead="年間管理・運用費は年払いのみ（年1回）です。">
+          <SectionTitle en="Payment" lead="年間管理費は年払いのみ（年1回）です。">
             初年度・2年目以降のお支払い
           </SectionTitle>
           <AnnualPayment />

@@ -4,7 +4,7 @@ import Icon from './Icon.jsx';
 import CountUp from './CountUp.jsx';
 import { nikoniko, monthlyEquivalent, firstYearTotal, laterYears, yen, TAX } from '../data/pricing.js';
 
-/** ニコニコプラン：年間管理・運用費（年払いのみ）と、初年度・2年目以降のお支払い額 */
+/** ニコニコプラン：年間管理費（年払いのみ）と、初年度・2年目以降のお支払い額 */
 export default function AnnualPayment() {
   const ratio = (laterYears / firstYearTotal) * 100;
 
@@ -16,7 +16,7 @@ export default function AnnualPayment() {
             <Icon name="calendar" size={14} strokeWidth={2.2} />
             お支払いは年1回
           </span>
-          <p className="pay__type">年間管理・運用費</p>
+          <p className="pay__type">年間管理費</p>
           <p className="pay__price">
             <CountUp value={nikoniko.annual} />
             <span>円／年{TAX}</span>
@@ -34,7 +34,7 @@ export default function AnnualPayment() {
               <dd>{nikoniko.minMonths}か月</dd>
             </div>
           </dl>
-          <p className="pay__note">※ 月額換算は目安です。実際のお支払いは年1回（年払い）です。</p>
+          <p className="pay__note">※ 月額換算は目安です。月払いはできません。実際のお支払いは年1回（年払い）です。</p>
         </Reveal>
 
         <Reveal className="pay spot" delay={140}>
@@ -44,7 +44,7 @@ export default function AnnualPayment() {
               <dt>
                 初年度
                 <small>
-                  初期制作費 {yen(nikoniko.initial)}円 ＋ 年間管理・運用費 {yen(nikoniko.annual)}円
+                  初期制作費 {yen(nikoniko.initial)}円 ＋ 年間管理費 {yen(nikoniko.annual)}円
                 </small>
               </dt>
               <dd>
@@ -54,7 +54,7 @@ export default function AnnualPayment() {
             <div>
               <dt>
                 2年目以降
-                <small>年間管理・運用費のみ</small>
+                <small>年間管理費のみ</small>
               </dt>
               <dd>
                 <CountUp value={laterYears} />

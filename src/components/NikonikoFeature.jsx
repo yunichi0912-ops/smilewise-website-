@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Reveal from './Reveal.jsx';
 import Icon from './Icon.jsx';
 import CountUp from './CountUp.jsx';
-import { nikoniko, nikonikoIncludes, monthlyEquivalent, firstYearTotal, laterYears, yen, TAX } from '../data/pricing.js';
+import { nikoniko, nikonikoIncludes, nikonikoOptions, monthlyEquivalent, firstYearTotal, laterYears, yen, TAX } from '../data/pricing.js';
 
 /** ニコニコプラン（初期制作費 2,525円）の大きな紹介ブロック＋プラン内容 */
 export default function NikonikoFeature({ showIncludes = true }) {
@@ -46,9 +46,9 @@ export default function NikonikoFeature({ showIncludes = true }) {
           </Reveal>
           <Reveal className="niko__item niko__item--best" delay={200}>
             <span className="niko__item-label">
-              年間管理・運用費
+              年間管理費
               <em>
-                月額換算 {yen(monthlyEquivalent)}円・お支払いは年1回
+                月額換算 {yen(monthlyEquivalent)}円・年1回払い（月払い不可）
               </em>
             </span>
             <span className="niko__item-value">
@@ -68,7 +68,7 @@ export default function NikonikoFeature({ showIncludes = true }) {
           </Reveal>
           <Reveal className="niko__desc" delay={340}>
             <p>
-              初期費用を抑えてホームページを持ち、年間管理・運用費で公開後の軽微な修正に回数制限なく対応するプランです。お支払いは年払いのみ（年1回）です。
+              初期費用を抑えてホームページを持ち、年間管理費でサーバー・ドメインの管理や保守・サポート、軽微な修正に対応するプランです。お支払いは年払いのみ（年1回）で、月払いはできません。
             </p>
             <Link to="/nikoniko#scope" className="text-link">
               修正範囲・契約条件を見る <Icon name="arrow" size={16} />
@@ -93,6 +93,15 @@ export default function NikonikoFeature({ showIncludes = true }) {
               </Reveal>
             ))}
           </ul>
+          {nikonikoOptions.map((o) => (
+            <Reveal key={o.title} as="p" className="includes__option">
+              <span className="badge">ご希望の方</span>
+              <span>
+                <b>{o.title}</b>
+                {o.text}
+              </span>
+            </Reveal>
+          ))}
         </div>
       )}
     </>

@@ -16,14 +16,14 @@ export default function ContractTerms() {
         <div className="terms__row">
           <dt>料金</dt>
           <dd>
-            初期制作費 {yen(nikoniko.initial)}円／年間管理・運用費 {yen(nikoniko.annual)}円（月額換算 {yen(monthlyEquivalent)}円）
+            初期制作費 {yen(nikoniko.initial)}円／年間管理費 {yen(nikoniko.annual)}円（月額換算 {yen(monthlyEquivalent)}円）
             <small>表示価格はすべて税込です。</small>
           </dd>
         </div>
         <div className="terms__row">
           <dt>年ごとのお支払い額</dt>
           <dd>
-            初年度 {yen(firstYearTotal)}円（初期制作費＋年間管理・運用費）／2年目以降 年間 {yen(laterYears)}円
+            初年度 {yen(firstYearTotal)}円（初期制作費＋年間管理費）／2年目以降 年間 {yen(laterYears)}円
           </dd>
         </div>
         <div className="terms__row">

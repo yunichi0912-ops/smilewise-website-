@@ -69,7 +69,7 @@ const jsonLd = {
       },
       {
         '@type': 'Offer',
-        name: `${pricing.nikoniko.name} 年間管理・運用費（年払い）`,
+        name: `${pricing.nikoniko.name} 年間管理費（年払い）`,
         price: pricing.nikoniko.annual,
         priceCurrency: 'JPY',
         url: `${siteUrl}/nikoniko`,

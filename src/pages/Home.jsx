@@ -12,7 +12,7 @@ import NikonikoFeature from '../components/NikonikoFeature.jsx';
 import AnnualPayment from '../components/AnnualPayment.jsx';
 import ServiceGrid from '../components/ServiceGrid.jsx';
 import FaqList from '../components/FaqList.jsx';
-import { systemPrice, TAX } from '../data/pricing.js';
+import { systemPrice, monthlyEquivalent, yen, TAX } from '../data/pricing.js';
 import { nikonikoFaq } from '../data/faq.js';
 import { reasons } from '../data/reasons.js';
 
@@ -25,7 +25,7 @@ export default function Home() {
       {/* 2. ニコニコプラン */}
       <section className="section section--niko" id="nikoniko">
         <div className="container">
-          <SectionTitle en="Main Service 01" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、年間管理・運用費で回数制限なく対応します。">
+          <SectionTitle en="Main Service 01" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、年間管理費で回数制限なく対応します。">
             ホームページ制作「ニコニコプラン」
           </SectionTitle>
           <NikonikoFeature />
@@ -35,7 +35,7 @@ export default function Home() {
       {/* 3. お支払い（年払いのみ） */}
       <section className="section section--tint">
         <div className="container container--mid">
-          <SectionTitle en="Payment" lead="年間管理・運用費は年払いのみ（年1回）です。月額に換算すると9,500円です。">
+          <SectionTitle en="Payment" lead={`年間管理費は年払いのみ（年1回）です。月額換算${yen(monthlyEquivalent)}円は目安で、月払いはできません。`}>
             初年度・2年目以降のお支払い
           </SectionTitle>
           <AnnualPayment />

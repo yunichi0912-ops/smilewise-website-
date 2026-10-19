@@ -10,6 +10,7 @@ import FixScope from '../components/FixScope.jsx';
 import ContractTerms from '../components/ContractTerms.jsx';
 import FaqList from '../components/FaqList.jsx';
 import { nikonikoFaq } from '../data/faq.js';
+import { nikoniko, firstYearTotal, yen } from '../data/pricing.js';
 
 const toc = [
   { id: 'plan', label: 'プラン内容' },
@@ -25,7 +26,7 @@ export default function Nikoniko() {
       <PageHero
         en="Nikoniko Plan"
         title="ニコニコプラン"
-        lead="初期制作費2,525円で始める、ホームページ制作プラン。公開後は年間管理・運用費で、軽微な修正に回数制限なく対応します。表示価格はすべて税込です。"
+        lead={`初期制作費${yen(nikoniko.initial)}円・初年度総額${yen(firstYearTotal)}円（税込）で始めるホームページ制作プラン。お支払いは年払いのみです。公開後はサーバー・ドメイン管理、保守・サポート、軽微な修正に対応します。`}
         crumbs={['ニコニコプラン']}
       />
 
@@ -45,7 +46,7 @@ export default function Nikoniko() {
       <section className="section section--tint" id="payment">
         <div className="container container--mid">
           <SectionTitle en="Payment" lead="お支払いは年払いのみ（年1回）です。">
-            年間管理・運用費とお支払い
+            年間管理費とお支払い
           </SectionTitle>
           <AnnualPayment />
         </div>

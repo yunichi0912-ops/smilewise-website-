@@ -13,12 +13,12 @@ export const pages = [
   {
     path: '/',
     title: `北九州市のホームページ制作・業務管理システム開発｜${brand}`,
-    description: `北九州市八幡西区の${brand}は、ホームページ制作・LP制作・業務管理システム開発・IT/DX支援を行うWeb制作事業者です。初期制作費${price(nikoniko.initial)}の「${nikoniko.name}」、業務管理システム開発・導入は${price(systemPrice.from, '〜')}。`,
+    description: `北九州市八幡西区の${brand}は、ホームページ制作・LP制作・業務管理システム開発・IT/DX支援を行うWeb制作事業者です。「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、初年度総額${price(firstYearTotal)}（年払いのみ）。業務管理システムは${price(systemPrice.from, '〜')}。`,
   },
   {
     path: '/nikoniko',
-    title: `ホームページ制作「${nikoniko.name}」初期制作費${yen(nikoniko.initial)}円${suffix}`,
-    description: `初期制作費${price(nikoniko.initial)}、年間管理・運用費${price(nikoniko.annual)}（月額換算${yen(monthlyEquivalent)}円・年払いのみ）。初年度総額${price(firstYearTotal)}。最大${nikoniko.maxPages}ページ制作・スマートフォン対応・基本SEO設定、軽微な修正は回数制限なし。最低契約期間${nikoniko.minMonths}か月。`,
+    title: `ホームページ制作「${nikoniko.name}」初期${yen(nikoniko.initial)}円・初年度${yen(firstYearTotal)}円${suffix}`,
+    description: `ホームページ制作「${nikoniko.name}」初期制作費${price(nikoniko.initial)}、初年度総額${price(firstYearTotal)}、2年目以降は年間管理費${price(nikoniko.annual)}（月額換算${yen(monthlyEquivalent)}円・年払いのみ）。最大${nikoniko.maxPages}ページ、スマホ・タブレット対応、サーバー・ドメイン管理、SSL、保守・サポート込み。`,
     // よくある質問の構造化データ（検索結果に表示される場合があります）
     jsonLd: {
       '@context': 'https://schema.org',
@@ -48,7 +48,7 @@ export const pages = [
   {
     path: '/pricing',
     title: `料金案内｜ニコニコプラン・業務管理システムの料金（税込）${suffix}`,
-    description: `ホームページ制作「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、年間管理・運用費${price(nikoniko.annual)}（年払いのみ・初年度総額${price(firstYearTotal)}）。業務管理システム開発・導入は${price(systemPrice.from, '〜')}。その他のサービスは個別見積もり。`,
+    description: `ホームページ制作「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、初年度総額${price(firstYearTotal)}、2年目以降は年間管理費${price(nikoniko.annual)}（年払いのみ・月額換算${yen(monthlyEquivalent)}円）。業務管理システム開発・導入は${price(systemPrice.from, '〜')}。`,
   },
   {
     path: '/about',

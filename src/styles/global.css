@@ -3318,7 +3318,7 @@ textarea {
   }
 }
 
-/* 年間管理・運用費（年払いのみ） */
+/* 年間管理費（年払いのみ） */
 .pay__equiv {
   margin-top: 10px;
   display: inline-block;
@@ -3928,4 +3928,89 @@ textarea {
 .terms dd small a {
   color: var(--edo);
   text-decoration: underline;
+}
+
+/* ファーストビュー：初年度総額の強調 */
+.price-plate__total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin-top: 8px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--grad-deep);
+  color: #fff;
+}
+.price-plate__total-label {
+  font-size: 13px;
+  font-weight: 700;
+}
+.price-plate__total-value {
+  font-family: var(--font-en);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.price-plate__total-value small {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 2px;
+  letter-spacing: 0;
+}
+.price-plate__only {
+  margin-left: auto;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--edo-deep);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+@media (max-width: 640px) {
+  .price-plate__total-value {
+    font-size: 26px;
+  }
+  .price-plate__only {
+    margin-left: 0;
+  }
+}
+.price-plate {
+  grid-template-areas: 'head' 'price' 'total' 'meta';
+}
+.price-plate__total {
+  grid-area: total;
+}
+/* 含まれる内容（9項目）は3列で表示 */
+.includes__grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+.includes__option {
+  margin: 20px auto 0;
+  max-width: 760px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--edo-light);
+  background: var(--edo-mist);
+  font-size: 14px;
+  color: var(--ink-sub);
+}
+.includes__option b {
+  display: block;
+  color: var(--ink);
+  font-size: 15px;
+}
+.includes__option .badge {
+  flex: none;
+  margin: 2px 0 0;
+}
+@media (max-width: 960px) {
+  .includes__grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }

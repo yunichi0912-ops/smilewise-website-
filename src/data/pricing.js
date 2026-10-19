@@ -10,28 +10,38 @@ export const nikoniko = {
   name: 'ニコニコプラン',
   service: 'ホームページ制作',
   initial: 2525, // 初期制作費（税込）
-  annual: 114000, // 年間管理・運用費（税込・年払いのみ）
+  annual: 96000, // 年間管理費（税込・年払いのみ）
   minMonths: 12, // 最低契約期間（か月）
   maxPages: 5, // 制作ページ数の上限
   payment: '年払いのみ（年1回）',
 };
 
-/** 月額換算（年間管理・運用費 ÷ 12）。実際のお支払いは年1回です */
+/** 月額換算（年間管理費 ÷ 12）。実際のお支払いは年1回です */
 export const monthlyEquivalent = nikoniko.annual / 12;
-/** 初年度総額（初期制作費＋年間管理・運用費） */
+/** 初年度総額（初期制作費＋年間管理費） */
 export const firstYearTotal = nikoniko.initial + nikoniko.annual;
 /** 2年目以降（年間） */
 export const laterYears = nikoniko.annual;
 
 /** ニコニコプランに含まれる内容 */
 export const nikonikoIncludes = [
-  { icon: 'monitor', title: `最大${nikoniko.maxPages}ページ制作`, text: `最大${nikoniko.maxPages}ページまでのホームページを制作します。` },
-  { icon: 'phone', title: 'スマートフォン対応', text: 'スマートフォンでも見やすいレイアウトで制作します。' },
+  { icon: 'monitor', title: `ホームページ制作（最大${nikoniko.maxPages}ページ）`, text: `最大${nikoniko.maxPages}ページまでのホームページを制作します。` },
+  { icon: 'phone', title: 'スマートフォン・タブレット対応', text: 'スマートフォンやタブレットでも見やすいレイアウトで制作します。' },
+  { icon: 'system', title: 'サーバー管理', text: 'ホームページを公開するサーバーを管理します。' },
+  { icon: 'map', title: 'ドメイン管理', text: 'ホームページのドメインを管理します。' },
+  { icon: 'shield', title: 'SSL・セキュリティ対応', text: '通信の暗号化（SSL）など、安心して閲覧できる状態を保ちます。' },
   { icon: 'chart', title: '基本SEO設定', text: 'タイトルや説明文など、検索エンジン向けの基本設定を行います。' },
-  { icon: 'pen', title: '軽微な修正は回数制限なし', text: '下記「無料修正の範囲」の修正に、回数制限なく対応します。' },
+  { icon: 'mail', title: 'お問い合わせフォーム設置・管理', text: 'ホームページにお問い合わせフォームを設置し、管理します。' },
+  { icon: 'pen', title: '軽微な文章・画像修正は回数制限なし', text: '下記「無料修正の範囲」の修正に、回数制限なく対応します。' },
+  { icon: 'chat', title: '公開後の保守・サポート', text: '公開後も、ホームページの保守とご相談に対応します。' },
 ];
 
-/** 無料修正の範囲（年間管理・運用費に含まれる軽微な修正） */
+/** ご希望の方に対応するサービス（プランの標準内容とは別に紹介） */
+export const nikonikoOptions = [
+  { title: 'Googleアナリティクスの設定', text: 'ご希望の方には、アクセス状況を確認できるGoogleアナリティクスの設定にも対応します。' },
+];
+
+/** 無料修正の範囲（年間管理費に含まれる軽微な修正） */
 export const freeFixes = [
   '文章の修正',
   '営業時間や電話番号の変更',

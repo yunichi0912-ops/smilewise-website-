@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from './Icon.jsx';
 import CountUp from './CountUp.jsx';
-import { nikoniko, systemPrice, monthlyEquivalent, yen, TAX } from '../data/pricing.js';
+import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, yen, TAX } from '../data/pricing.js';
 
 /**
  * トップページのファーストビュー
@@ -64,8 +64,8 @@ export default function Hero() {
 
           <Link to="/nikoniko" className="price-plate spot">
             <span className="price-plate__head">
-              <span className="price-plate__plan">ホームページ制作「{nikoniko.name}」</span>
-              <span className="price-plate__label">初期制作費</span>
+              <span className="price-plate__plan">{nikoniko.name}</span>
+              <span className="price-plate__label">ホームページ制作 初期</span>
             </span>
             <span className="price-plate__price">
               <CountUp value={nikoniko.initial} duration={1800} />
@@ -73,13 +73,21 @@ export default function Hero() {
                 円<small>{TAX}</small>
               </span>
             </span>
+            <span className="price-plate__total">
+              <span className="price-plate__total-label">初年度のお支払い総額</span>
+              <span className="price-plate__total-value">
+                {yen(firstYearTotal)}
+                <small>円{TAX}</small>
+              </span>
+              <span className="price-plate__only">年払いのみ</span>
+            </span>
             <span className="price-plate__meta">
               <span>
-                年間管理・運用費 <b>{yen(nikoniko.annual)}円</b>
+                年間管理費 <b>{yen(nikoniko.annual)}円</b>
                 {TAX}
               </span>
               <span>
-                月額換算 <b>{yen(monthlyEquivalent)}円</b>（お支払いは年1回）
+                月額換算 <b>{yen(monthlyEquivalent)}円</b>（月払い不可）
               </span>
               <span>
                 最低契約期間 <b>{nikoniko.minMonths}か月</b>
@@ -107,8 +115,9 @@ export default function Hero() {
               </p>
               <ul className="glass__list">
                 <li>最大{nikoniko.maxPages}ページ制作</li>
-                <li>スマートフォン対応</li>
-                <li>基本SEO設定</li>
+                <li>スマホ・タブレット対応</li>
+                <li>サーバー・ドメイン管理</li>
+                <li>SSL・セキュリティ対応</li>
                 <li>軽微な修正は回数制限なし</li>
               </ul>
               <div className="glass__bar">
