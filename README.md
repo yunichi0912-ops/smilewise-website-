@@ -145,3 +145,11 @@ npm run build && npm run check
 - `sitemap.xml`・`robots.txt` の自動生成
 - 構造化データ（JSON-LD / ProfessionalService、対応エリア：北九州市・福岡県）
 - 見出し構造・パンくずリスト・`lang="ja"`・画像の代替テキスト
+
+## Google Search Console の所有権確認
+
+- 確認ファイル：`public/google4371407aef7b8b7f.html`（公開URL：`/google4371407aef7b8b7f.html`）
+- Cloudflare Pages は「〜.html」へのアクセスを拡張子なしのURLへ転送するため、確認ファイルのURLだけは
+  `functions/google4371407aef7b8b7f.html.js`（Pages Functions）で転送せずに同じ内容を返しています。
+- `public/_routes.json` で、Functions が動くのをこのURLだけに限定しています（他のページは通常の静的配信）。
+- 確認ファイルは、所有権の確認後も削除しないでください（削除すると確認が外れます）。
