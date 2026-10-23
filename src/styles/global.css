@@ -4014,3 +4014,503 @@ textarea {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* =========================================================
+   名刺注文フォーム
+   ========================================================= */
+.co {
+  display: grid;
+  gap: 24px;
+}
+.co-steps {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-mute);
+}
+.co-steps span {
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.co-steps .is-on {
+  background: var(--grad);
+  color: #fff;
+  border-color: transparent;
+}
+.co-panel {
+  padding: 32px 32px 30px;
+  border-radius: var(--radius-xl);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+.co-panel__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  font-size: 20px;
+  margin-bottom: 22px;
+}
+.co-panel__title small {
+  flex-basis: 100%;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-mute);
+}
+.co-panel__no {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  font-family: var(--font-en);
+  font-size: 15px;
+  font-weight: 800;
+}
+.co-count {
+  margin-left: auto;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--edo-pale);
+  color: var(--edo-dark);
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+/* 選択肢（ボタン状のラジオ） */
+.co-choice {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.co-choice legend {
+  margin-bottom: 8px;
+  padding: 0;
+}
+.co-choice__opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.co-chip {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  min-height: 48px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #d9d2e0;
+  background: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.co-chip small {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-mute);
+}
+.co-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.co-chip:hover {
+  border-color: var(--edo-light);
+}
+.co-chip:has(input:focus-visible) {
+  outline: 2px solid var(--edo);
+  outline-offset: 2px;
+}
+.co-chip.is-on {
+  border-color: var(--edo);
+  background: var(--edo-mist);
+  color: var(--edo-deep);
+  box-shadow: 0 0 0 3px rgba(116, 83, 153, 0.14);
+}
+.co-chip.is-on small {
+  color: var(--edo);
+}
+.co-choice.is-error .co-chip {
+  border-color: var(--danger);
+  background: #fff8f9;
+}
+/* 名刺カード */
+.co-cards {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.co-card {
+  position: relative;
+  padding: 22px 24px 24px;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--line);
+  background: linear-gradient(180deg, var(--edo-mist), #fff 120px);
+  animation: coIn 0.45s var(--ease-out) both;
+}
+@keyframes coIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.co-card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line);
+}
+.co-card__no {
+  padding: 3px 14px;
+  border-radius: 999px;
+  background: var(--edo-deep);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.co-card__price {
+  margin-left: auto;
+  font-family: var(--font-en);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--edo);
+  font-variant-numeric: tabular-nums;
+}
+.co-card__remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-sub);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.co-card__remove:hover:not(:disabled) {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.co-card__remove:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.co-card__confirm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #fdf1f3;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--danger);
+}
+.co-card__confirm div {
+  display: flex;
+  gap: 8px;
+}
+.co-card__confirm .btn {
+  min-height: 40px;
+  padding: 6px 18px;
+  font-size: 13.5px;
+}
+.co-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 60px;
+  margin-top: 18px;
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--edo-light);
+  background: var(--edo-mist);
+  color: var(--edo-dark);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.co-add:hover {
+  background: var(--edo-pale);
+  border-color: var(--edo);
+}
+.co-add:active {
+  transform: scale(0.99);
+}
+/* エラー一覧 */
+.co-errors {
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--danger);
+  background: #fff8f9;
+  color: var(--danger);
+  font-size: 14px;
+}
+.co-errors ul {
+  margin-top: 6px;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+/* お支払いの案内 */
+.co-pay {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--edo-pale);
+  color: var(--edo-deep);
+}
+.co-pay .icon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--edo);
+}
+.co-pay p {
+  font-size: 13.5px;
+  color: var(--ink-sub);
+}
+/* 合計金額 */
+.co-total {
+  position: sticky;
+  bottom: 16px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px 16px 26px;
+  border-radius: var(--radius-lg);
+  background: var(--grad-deep);
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
+.co-total__sum {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+}
+.co-total__sum span {
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+}
+.co-total__sum small {
+  font-weight: 400;
+  opacity: 0.75;
+}
+.co-total b,
+.co-total--static b {
+  font-family: var(--font-en);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.co-total__btn {
+  flex: none;
+}
+.co-total--static {
+  position: static;
+  margin-top: 18px;
+  box-shadow: none;
+}
+.co-total--static span {
+  font-size: 14px;
+  font-weight: 700;
+}
+/* 確認画面 */
+.co-dl {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.co-dl div {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  border-bottom: 1px solid var(--line);
+}
+.co-dl dt,
+.co-dl dd {
+  margin: 0;
+  padding: 12px 14px;
+  word-break: break-all;
+}
+.co-dl dt {
+  background: var(--edo-mist);
+  font-weight: 700;
+  color: var(--edo-dark);
+  font-size: 14px;
+}
+.co-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+.co-table th,
+.co-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.co-table thead th {
+  background: var(--edo-deep);
+  color: #fff;
+  font-size: 13px;
+}
+.co-table tbody th small {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-mute);
+}
+.co-table__note {
+  display: block;
+  margin-top: 4px;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--ink-sub);
+}
+.co-table__price {
+  font-weight: 800;
+  color: var(--edo);
+  white-space: nowrap;
+  text-align: right !important;
+}
+.co-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+.co-done__id b {
+  font-family: var(--font-en);
+  font-size: 20px;
+  color: var(--edo-deep);
+}
+.co-done p + p {
+  margin-top: 12px;
+}
+.co-done__help {
+  font-size: 13px;
+}
+.co-price td,
+.co-price th {
+  text-align: center !important;
+}
+@media (max-width: 640px) {
+  .co-panel {
+    padding: 24px 16px 22px;
+  }
+  .co-card {
+    padding: 18px 14px 18px;
+  }
+  .co-chip {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 0;
+  }
+  .co-choice__opts:has(> :nth-child(5)) .co-chip {
+    flex: 1 1 calc(33.333% - 8px);
+  }
+  .co-total {
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    padding: 12px 12px 12px 16px;
+    gap: 10px;
+  }
+  .co-total b {
+    font-size: 24px;
+  }
+  .co-total__btn {
+    min-height: 48px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  .co-dl div {
+    grid-template-columns: 1fr;
+  }
+  .co-dl dt {
+    padding: 8px 12px;
+  }
+  .co-table thead {
+    display: none;
+  }
+  .co-table,
+  .co-table tbody,
+  .co-table tr,
+  .co-table th,
+  .co-table td {
+    display: block;
+    width: 100%;
+  }
+  .co-table tr {
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .co-table th,
+  .co-table td {
+    padding: 2px 0;
+    border: 0;
+  }
+  .co-table td {
+    display: flex;
+    justify-content: space-between;
+  }
+  .co-table td::before {
+    content: attr(data-label);
+    color: var(--ink-mute);
+    font-size: 13px;
+  }
+  .co-actions .btn {
+    width: 100%;
+  }
+}
+@media (max-width: 640px) {
+  .co-total__sum span {
+    font-size: 11px;
+  }
+  .co-total__sum small {
+    display: none;
+  }
+  .co-total__sum {
+    flex-direction: column;
+    gap: 0;
+  }
+  .co-total__sum b {
+    font-size: 24px;
+    line-height: 1.15;
+  }
+  .co-total {
+    padding: 10px 10px 10px 16px;
+  }
+  .co-section .co {
+    padding-bottom: 8px;
+  }
+}

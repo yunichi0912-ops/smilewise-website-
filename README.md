@@ -153,3 +153,13 @@ npm run build && npm run check
   `functions/google4371407aef7b8b7f.html.js`（Pages Functions）で転送せずに同じ内容を返しています。
 - `public/_routes.json` で、Functions が動くのをこのURLだけに限定しています（他のページは通常の静的配信）。
 - 確認ファイルは、所有権の確認後も削除しないでください（削除すると確認が外れます）。
+
+## 名刺注文フォーム（/card-order）
+
+- 料金・選択肢：`src/data/businessCards.js`（紙質×枚数の料金表。表示金額は税込・概算）
+- フォーム本体：`src/components/CardOrderForm.jsx`（入力 → 確認 → 送信完了）
+- 送信先：環境変数 `VITE_ORDER_FORM_ENDPOINT`（名刺注文専用の Formspree フォーム）。未設定の場合は `VITE_FORM_ENDPOINT`（お問い合わせと同じフォーム、通知先 smilewise1111@gmail.com）に送信します。
+- メールの件名は「【名刺注文】会社名 様（人数・合計）注文番号」。注文明細は人ごとに改行して届きます。
+- 対策：入力漏れの一覧表示と該当欄への移動、二重送信の防止、送信エラー時は入力を残して再送信可能（同じ注文番号）、隠し項目と5秒未満の送信を機械送信として破棄、入力途中の内容をブラウザに一時保存。
+- 決済はフォームでは行いません。注文確認後に Stripe の決済リンクを LINE またはメールで個別に送る運用です。
+- 注文者への受付完了メール（自動返信）は Formspree の「Autoresponse」機能で設定します（利用できるプランは Formspree の料金ページで確認してください）。

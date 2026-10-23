@@ -5,6 +5,7 @@ import { site, telHref } from '../data/site.js';
 /** スマートフォンで画面下部に固定表示する問い合わせ導線（電話／LINE／フォーム） */
 export default function FloatingCta() {
   const { pathname } = useLocation();
+  if (pathname === '/card-order') return null; // 名刺注文ページは合計金額バーを下部に固定表示
   const type = pathname === '/system' ? '?type=system' : pathname === '/nikoniko' ? '?type=web' : '';
   return (
     <nav className="floating-cta" aria-label="お問い合わせ">

@@ -71,6 +71,12 @@ export default function Services() {
                             <Icon name="arrow" size={16} />
                           </Link>
                         )}
+                        {s.orderHref && (
+                          <Link to={s.orderHref} className="btn btn--primary">
+                            名刺を注文する
+                            <Icon name="arrow" size={16} />
+                          </Link>
+                        )}
                         <Link to={`/contact?type=${s.id}`} className="btn btn--outline">
                           このサービスを相談する
                         </Link>

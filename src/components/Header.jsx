@@ -12,6 +12,7 @@ export const navItems = [
   { to: '/works', label: '制作実績' },
   { to: '/pricing', label: '料金案内' },
   { to: '/about', label: '事業概要' },
+  { to: '/card-order', label: '名刺注文' },
 ];
 
 export default function Header() {

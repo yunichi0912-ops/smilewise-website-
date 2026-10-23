@@ -3,6 +3,7 @@ import Layout from './components/Layout.jsx';
 import Home from './pages/Home.jsx';
 import Services from './pages/Services.jsx';
 import Nikoniko from './pages/Nikoniko.jsx';
+import CardOrder from './pages/CardOrder.jsx';
 import System from './pages/System.jsx';
 import Works from './pages/Works.jsx';
 import Pricing from './pages/Pricing.jsx';
@@ -18,6 +19,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="services" element={<Services />} />
         <Route path="nikoniko" element={<Nikoniko />} />
+        <Route path="card-order" element={<CardOrder />} />
         <Route path="system" element={<System />} />
         <Route path="works" element={<Works />} />
         <Route path="pricing" element={<Pricing />} />

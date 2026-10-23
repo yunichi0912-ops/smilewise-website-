@@ -44,6 +44,7 @@ export const services = [
     icon: 'print',
     en: 'Print Design',
     title: '名刺・チラシ・パンフレット制作',
+    orderHref: '/card-order',
     lead: '手に取った瞬間に、印象に残るデザインを。',
     text: '名刺・チラシ・パンフレット・リーフレットなど、紙媒体のデザインを制作します。ホームページとデザインのトーンを揃えることで、会社としての統一感を高めます。',
     priceLabel: 'お見積り',

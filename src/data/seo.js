@@ -57,6 +57,11 @@ export const pages = [
     description: `${brand}の事業概要。代表：${site.representative}。所在地：${site.addressRegion}${site.addressLocality}。北九州市・筑豊を中心に、ホームページ制作、LP制作、名刺・チラシ・ロゴ制作、業務管理システム開発・導入、IT・DX支援を行っています。`,
   },
   {
+    path: '/card-order',
+    title: `名刺注文フォーム｜北九州市・筑豊の名刺印刷・デザイン${suffix}`,
+    description: `${brand}の名刺注文フォーム。社員の方の名刺を人数分まとめて注文できます。極上紙・普通紙、50〜500枚、料金は自動計算（税込・概算）。お支払い方法は注文確認後にLINEまたはメールでご案内します。`,
+  },
+  {
     path: '/contact',
     title: `お問い合わせ（電話・LINE・メール）${suffix}`,
     description: `ホームページ制作・業務管理システムのご相談・お見積りは無料です。電話（${site.tel}）、LINE、メールフォームからお気軽にどうぞ。北九州市・筑豊を中心に対応しています。`,

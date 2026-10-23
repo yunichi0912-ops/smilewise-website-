@@ -33,6 +33,9 @@ const allowed = new Set(
   ].map(yen),
 );
 allowed.add('3,240'); // 業務システム画面イメージのサンプル値
+// 名刺注文フォームの料金表
+const cards = await import(pathToFileURL(path.join(root, 'src/data/businessCards.js')).href);
+for (const byQty of Object.values(cards.cardPrices)) for (const v of Object.values(byQty)) allowed.add(yen(v));
 
 const fileFor = (p) => (p === '/' ? 'index.html' : `${p.slice(1)}.html`);
 const html = Object.fromEntries(pages.map((p) => [p.path, fs.readFileSync(path.join(dist, fileFor(p.path)), 'utf8')]));
