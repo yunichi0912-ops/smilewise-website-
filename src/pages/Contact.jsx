@@ -49,7 +49,7 @@ export default function Contact() {
               <li>
                 <Icon name="map" size={22} />
                 <span>
-                  <b>北九州市を中心に対応</b>
+                  <b>北九州市・筑豊を中心に対応</b>
                   {site.serviceArea}
                 </span>
               </li>

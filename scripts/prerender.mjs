@@ -16,12 +16,8 @@ const { render } = await import(pathToFileURL(serverEntry).href);
 const { pages, notFoundPage } = await import(pathToFileURL(path.join(root, 'src/data/seo.js')).href);
 const { site } = await import(pathToFileURL(path.join(root, 'src/data/site.js')).href);
 
-// .env の SITE_URL も読む（vite と同様）
-const envFile = ['.env.production.local', '.env.local', '.env.production', '.env']
-  .map((f) => path.join(root, f))
-  .find((f) => fs.existsSync(f));
-const envUrl = envFile && fs.readFileSync(envFile, 'utf8').match(/^SITE_URL=(.+)$/m)?.[1]?.trim();
-const siteUrl = (process.env.SITE_URL || envUrl || site.url).replace(/\/$/, '');
+const { resolveSiteUrl } = await import(pathToFileURL(path.join(root, 'scripts/site-url.mjs')).href);
+const siteUrl = resolveSiteUrl({ root, fallback: site.url });
 
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -29,15 +25,14 @@ const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g
 const pricing = await import(pathToFileURL(path.join(root, 'src/data/pricing.js')).href);
 
 // 事業者情報の構造化データ（Google などの検索エンジン向け）
-const jsonLd = {
-  '@context': 'https://schema.org',
+const business = {
   '@type': 'ProfessionalService',
   '@id': `${siteUrl}/#business`,
   name: site.name,
   alternateName: site.nameKana,
   description: site.description,
   url: `${siteUrl}/`,
-  logo: `${siteUrl}/apple-touch-icon.png`,
+  logo: `${siteUrl}/icon-512.png`,
   image: `${siteUrl}/og-image.jpg`,
   telephone: site.tel,
   email: site.email,
@@ -50,10 +45,10 @@ const jsonLd = {
     streetAddress: site.streetAddress,
     addressCountry: 'JP',
   },
-  areaServed: [
-    { '@type': 'City', name: '北九州市' },
-    { '@type': 'AdministrativeArea', name: '福岡県' },
-  ],
+  areaServed: site.areasServed.map((name) => ({
+    '@type': /市$/.test(name) ? 'City' : 'AdministrativeArea',
+    name,
+  })),
   knowsAbout: site.businesses,
   ...(site.lineUrl ? { sameAs: [site.lineUrl] } : {}),
   hasOfferCatalog: {
@@ -83,6 +78,19 @@ const jsonLd = {
     ],
   },
 };
+
+// サイト名（Google 検索結果に表示される名前）を伝える WebSite の構造化データ
+const website = {
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  name: site.name,
+  alternateName: [site.nameKana, `${site.name}（${site.nameKana}）`],
+  url: `${siteUrl}/`,
+  inLanguage: 'ja',
+  publisher: { '@id': `${siteUrl}/#business` },
+};
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': [website, business] };
 
 const build = (page, url) => {
   const canonical = siteUrl + page.path;

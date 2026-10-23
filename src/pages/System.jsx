@@ -53,7 +53,7 @@ export default function System() {
               <span className="nw">制作します。</span>
             </p>
             <p className="sys-hero__sub">
-              北九州市を中心とした建設業・製造業・中小企業の皆さまへ。
+              北九州市・筑豊の建設業・製造業・中小企業の皆さまへ。
               見積・請求、顧客、案件・工事の進捗、売上・入金の管理をひとつにまとめ、
               日々の業務をもっとスムーズにします。
             </p>
@@ -163,7 +163,7 @@ export default function System() {
       {/* 対象業種 */}
       <section className="section">
         <div className="container">
-          <SectionTitle en="Industry" lead="北九州市を中心とした、地域の企業の業務に寄り添います。">
+          <SectionTitle en="Industry" lead="北九州市・筑豊を中心とした、地域の企業の業務に寄り添います。">
             このような企業におすすめです
           </SectionTitle>
           <div className="industry-grid">

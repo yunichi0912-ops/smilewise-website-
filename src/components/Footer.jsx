@@ -14,11 +14,11 @@ export default function Footer() {
             <Logo plate />
           </Link>
           <p className="footer__desc">
-            北九州市八幡西区を拠点に、
+            {site.name}（{site.nameKana}）は、北九州市八幡西区を拠点に、
             <br />
-            Web制作・デザイン・業務管理システム開発で
+            北九州市・筑豊エリアのホームページ制作・デザイン・
             <br />
-            地域の企業を支えます。
+            業務管理システム開発で地域の企業を支えます。
           </p>
           <div className="footer__contact">
             <a href={telHref()} className="footer__tel">
@@ -30,7 +30,7 @@ export default function Footer() {
               {site.email}
             </a>
             <address className="footer__address">
-              {site.name}（代表：{site.representative}）
+              {site.name}（{site.nameKana}）代表：{site.representative}
               <br />
               <span className="nw">〒{site.postalCode}</span>{' '}
               <span className="nw">

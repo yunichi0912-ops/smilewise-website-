@@ -56,6 +56,10 @@ for (const p of pages) {
   const og = attr(h, /<meta property="og:image" content="([^"]+)"/);
   const h1 = (h.match(/<h1[\s>]/g) || []).length;
   if (!t) errors.push(`${p.path}: <title> がありません`);
+  else if (!t.includes(`${site.name}（${site.nameKana}）`)) errors.push(`${p.path}: タイトルに屋号「${site.name}（${site.nameKana}）」がありません`);
+  if (/name="robots"[^>]*noindex/i.test(h)) errors.push(`${p.path}: noindex（検索エンジンに登録しない指定）が付いています`);
+  for (const rel of ['favicon.ico', 'favicon-48.png', 'icon-192.png'])
+    if (!h.includes(`href="/${rel}"`)) errors.push(`${p.path}: ファビコン（${rel}）の指定がありません`);
   else if (titles.has(t)) errors.push(`${p.path}: タイトルが他のページと重複しています`);
   titles.add(t);
   if (!d) errors.push(`${p.path}: 説明文（description）がありません`);
@@ -77,7 +81,7 @@ for (const p of pages) {
       if (href !== `tel:${site.tel.replace(/[^0-9+]/g, '')}`) errors.push(`${p.path}: 電話リンクが不正です（${href}）`);
       continue;
     }
-    if (href.startsWith('/assets/') || /\.(png|jpg|svg|ico|css|js)$/.test(href)) {
+    if (href.startsWith('/assets/') || /\.(png|jpg|svg|ico|css|js|webmanifest|json|xml)$/.test(href)) {
       if (!fs.existsSync(path.join(dist, href.split('?')[0]))) errors.push(`${p.path}: ファイルが見つかりません（${href}）`);
       continue;
     }
@@ -102,8 +106,21 @@ for (const p of pages) {
 const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf8');
 for (const p of pages) if (!sitemap.includes(`<loc>${siteUrl}${p.path}</loc>`)) errors.push(`sitemap.xml に ${p.path} がありません`);
 const robots = fs.readFileSync(path.join(dist, 'robots.txt'), 'utf8');
+if (/^Disallow:\s*\/\s*$/m.test(robots)) errors.push('robots.txt がサイト全体のクロールを禁止しています');
+// サイト名（WebSite）の構造化データ
+const ld = [...html['/'].matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+const graph = ld.flatMap((d) => d['@graph'] || [d]);
+const website = graph.find((d) => d['@type'] === 'WebSite');
+if (!website) errors.push('トップページに WebSite の構造化データがありません');
+else {
+  if (website.url !== `${siteUrl}/`) errors.push(`WebSite の url が公開URLと一致しません（${website.url}）`);
+  if (!website.alternateName?.includes(site.nameKana)) errors.push('WebSite の alternateName にカタカナの屋号がありません');
+}
+if (!graph.find((d) => d['@type'] === 'ProfessionalService')) errors.push('トップページに事業者情報の構造化データがありません');
+const notFound = fs.readFileSync(path.join(dist, '404.html'), 'utf8');
+if (!/name="robots" content="noindex"/.test(notFound)) errors.push('404.html に noindex がありません');
 if (!robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`)) errors.push('robots.txt のサイトマップURLが不正です');
-for (const f of ['404.html', '_headers', 'og-image.jpg', 'favicon-48.png', 'apple-touch-icon.png'])
+for (const f of ['404.html', '_headers', 'og-image.jpg', 'favicon.ico', 'favicon-48.png', 'favicon-96.png', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'site.webmanifest', 'google4371407aef7b8b7f.html'])
   if (!fs.existsSync(path.join(dist, f))) errors.push(`${f} がありません`);
 
 // 公開に必要な設定

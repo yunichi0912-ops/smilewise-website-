@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from './Icon.jsx';
 import CountUp from './CountUp.jsx';
+import { site } from '../data/site.js';
 import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, yen, TAX } from '../data/pricing.js';
 
 /**
@@ -57,7 +58,8 @@ export default function Hero() {
             </span>
           </h1>
           <p className="hero__lead">
-            北九州市のホームページ制作・IT/DX支援。
+            北九州市・筑豊のホームページ制作・IT/DX支援
+            <span className="nw">「{site.name}（{site.nameKana}）」。</span>
             <span className="nw">初期費用を抑えた「{nikoniko.name}」で、</span>
             地域企業のWeb活用を始めませんか。
           </p>
