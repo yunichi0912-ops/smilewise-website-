@@ -4514,3 +4514,681 @@ textarea {
     padding-bottom: 8px;
   }
 }
+
+/* =========================================================
+   無料ホームページ診断（/diagnosis）
+   ========================================================= */
+.hero__diag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--line);
+  color: var(--edo-dark);
+  font-size: 14px;
+  font-weight: 700;
+  animation: heroIn 1.1s 0.6s var(--ease-out) both;
+  transition: box-shadow 0.3s, transform 0.3s var(--ease-out);
+}
+.hero__diag:hover {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+.hero__diag-badge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--grad);
+  color: #fff;
+  font-size: 12px;
+}
+
+.dg-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  padding: 36px 40px;
+  border-radius: var(--radius-xl);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.dg-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: var(--grad);
+}
+.dg-banner__en {
+  font-family: var(--font-en);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--edo);
+  text-transform: uppercase;
+}
+.dg-banner__title {
+  margin: 6px 0 10px;
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.5;
+}
+.dg-banner__title span {
+  display: block;
+  color: var(--edo);
+}
+.dg-banner p:last-child {
+  color: var(--ink-sub);
+  font-size: 14px;
+}
+.dg-banner .btn {
+  flex: none;
+}
+
+.dg {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.dg-bar {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.dg-flow {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-mute);
+}
+.dg-flow li {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+.dg-flow .is-done {
+  color: var(--edo-dark);
+  background: var(--edo-pale);
+  border-color: transparent;
+}
+.dg-flow .is-on {
+  background: var(--grad);
+  color: #fff;
+  border-color: transparent;
+}
+.dg-progress {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--edo-pale);
+  overflow: hidden;
+}
+.dg-progress span {
+  display: block;
+  height: 100%;
+  background: var(--grad);
+  transform-origin: left center;
+  transition: transform 0.5s var(--ease-out);
+}
+.dg-card {
+  position: relative;
+  padding: 36px 40px 40px;
+  border-radius: var(--radius-xl);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.dg-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  margin: -10px 0 8px -10px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-sub);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.dg-back .icon {
+  transform: scaleX(-1);
+}
+.dg-back:hover {
+  background: var(--edo-mist);
+  color: var(--edo-dark);
+}
+.dg-pane--next {
+  animation: dgNext 0.45s var(--ease-out) both;
+}
+.dg-pane--back {
+  animation: dgBack 0.45s var(--ease-out) both;
+}
+@keyframes dgNext {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes dgBack {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.dg [data-autofocus]:focus {
+  outline: none;
+}
+.dg [data-autofocus]:focus-visible {
+  outline: 2px solid var(--edo);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* 質問 */
+.dg-q__count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-mute);
+}
+.dg-q__en {
+  font-family: var(--font-en);
+  font-size: 22px;
+  font-weight: 800;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.dg-q__title {
+  margin: 8px 0 22px;
+  font-size: clamp(20px, 3vw, 26px);
+  line-height: 1.5;
+}
+.dg-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.dg-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 64px;
+  padding: 14px 16px 14px 20px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.25s, transform 0.2s var(--ease-out);
+}
+.dg-option__text {
+  display: grid;
+  gap: 2px;
+}
+.dg-option b {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.dg-option small {
+  font-size: 12.5px;
+  color: var(--ink-mute);
+}
+.dg-option__mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--edo-mist);
+  color: var(--edo);
+  transition: background-color 0.2s, color 0.2s;
+}
+.dg-option:hover {
+  border-color: var(--lilac);
+  box-shadow: var(--shadow-sm);
+}
+.dg-option:active {
+  transform: scale(0.98);
+}
+.dg-option:focus-visible {
+  outline: 2px solid var(--edo);
+  outline-offset: 2px;
+}
+.dg-option.is-on {
+  border-color: var(--edo);
+  background: var(--edo-mist);
+}
+.dg-option.is-on .dg-option__mark {
+  background: var(--grad);
+  color: #fff;
+}
+.dg-q__hint {
+  margin-top: 16px;
+  text-align: center;
+}
+.dg-small {
+  font-size: 13px;
+  color: var(--ink-mute);
+  line-height: 1.8;
+}
+.dg-small a {
+  margin-left: 6px;
+  color: var(--edo);
+  text-decoration: underline;
+}
+
+/* 診断結果 */
+.dg-result,
+.dg-form,
+.dg-confirm,
+.dg-end {
+  display: grid;
+  gap: 22px;
+}
+.dg-result__head {
+  text-align: center;
+  padding-bottom: 6px;
+}
+.dg-result__label {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--edo-pale);
+  color: var(--edo-dark);
+  font-size: 13px;
+  font-weight: 700;
+}
+.dg-result__title {
+  margin: 12px 0 10px;
+  font-size: clamp(21px, 3.2vw, 28px);
+  line-height: 1.5;
+  color: var(--edo-deep);
+}
+.dg-result__summary {
+  color: var(--ink-sub);
+  line-height: 1.9;
+  text-align: left;
+}
+.dg-block {
+  padding: 22px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--edo-mist);
+}
+.dg-block__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 17px;
+  color: var(--edo-deep);
+}
+.dg-block__title .icon {
+  color: var(--edo);
+}
+.dg-confirm .dg-block__title {
+  margin-bottom: -8px;
+}
+.dg-structure {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+.dg-structure li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: #fff;
+}
+.dg-structure__no {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  font-family: var(--font-en);
+  font-size: 13px;
+  font-weight: 800;
+}
+.dg-structure b {
+  display: block;
+  font-size: 15px;
+}
+.dg-structure small {
+  font-size: 12.5px;
+  color: var(--ink-mute);
+}
+.dg-points {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dg-points li {
+  position: relative;
+  padding-left: 22px;
+  line-height: 1.8;
+}
+.dg-points li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0.75em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--grad);
+}
+.dg-price {
+  background: #fff;
+  border: 1.5px solid var(--edo-pale);
+}
+.dg-price__plan {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.dg-price__list {
+  display: grid;
+  margin: 0 0 10px;
+}
+.dg-price__list div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.dg-price__list dt {
+  font-size: 14px;
+  color: var(--ink-sub);
+}
+.dg-price__list dd {
+  margin: 0;
+}
+.dg-price__list b {
+  font-family: var(--font-en);
+  font-size: 22px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.dg-price__list small {
+  font-size: 11px;
+  color: var(--ink-mute);
+}
+.dg-price__list .is-total dt {
+  font-weight: 700;
+  color: var(--edo-deep);
+}
+.dg-price__list .is-total b {
+  font-size: 28px;
+  color: var(--edo);
+}
+.dg-price__quote {
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  background: var(--edo-mist);
+  margin-bottom: 10px;
+}
+.dg-price__quote b {
+  font-size: 22px;
+  color: var(--edo);
+}
+.dg-price__quote p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--ink-sub);
+  line-height: 1.8;
+}
+.dg-quote {
+  margin-top: 8px;
+  font-size: 14px;
+}
+.dg-quote summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--edo-dark);
+  padding: 6px 0;
+}
+.dg-quote ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.dg-quote li {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--edo-mist);
+  font-size: 13px;
+}
+.dg-notes {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink-sub);
+  line-height: 1.8;
+}
+.dg-notes li::before {
+  content: '※ ';
+}
+
+/* 無料デザイン案の案内 */
+.dg-offer {
+  padding: 28px 26px;
+  border-radius: var(--radius-lg);
+  background: var(--grad-soft);
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 16px;
+}
+.dg-offer__en {
+  font-family: var(--font-en);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--edo);
+  text-transform: uppercase;
+}
+.dg-offer__title {
+  margin-top: -10px;
+  font-size: clamp(18px, 2.6vw, 22px);
+  line-height: 1.5;
+}
+.dg-terms {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dg-terms li {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.dg-terms .icon {
+  flex: none;
+  margin-top: 4px;
+  color: var(--edo);
+}
+.dg-privacy {
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  background: var(--edo-mist);
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--ink-sub);
+}
+.dg-privacy b {
+  color: var(--edo-deep);
+}
+.dg-privacy p {
+  margin-top: 4px;
+}
+.dg-privacy a {
+  color: var(--edo);
+  text-decoration: underline;
+}
+.dg-agreed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--edo-dark);
+}
+.dg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.dg-panel-title {
+  font-size: clamp(20px, 3vw, 24px);
+  line-height: 1.5;
+}
+.dg-end p {
+  color: var(--ink-sub);
+  line-height: 1.9;
+}
+.dg .co-dl div {
+  grid-template-columns: minmax(150px, 40%) 1fr;
+}
+.dg-pre {
+  white-space: pre-wrap;
+}
+.dg-done {
+  border: 0;
+  box-shadow: none;
+  padding: 8px 0;
+}
+.dg-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--ink-sub);
+}
+.dg-facts li::before {
+  content: '✓ ';
+  color: var(--edo);
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  .dg-section {
+    padding-top: 28px;
+  }
+  .dg-banner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 28px 22px 24px 26px;
+  }
+  .dg-card {
+    padding: 24px 16px 28px;
+    border-radius: var(--radius-lg);
+  }
+  .dg-back {
+    margin: -6px 0 6px -6px;
+  }
+  .dg-options {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .dg-option {
+    min-height: 60px;
+  }
+  .dg-flow {
+    font-size: 11px;
+    gap: 2px;
+  }
+  .dg-flow li {
+    padding: 4px 8px;
+  }
+  .dg-block {
+    padding: 18px 14px;
+  }
+  .dg-offer {
+    padding: 22px 16px;
+  }
+  .dg-actions .btn {
+    width: 100%;
+  }
+  .dg .co-dl div {
+    grid-template-columns: 1fr;
+  }
+  .dg-price__list .is-total b {
+    font-size: 24px;
+  }
+  .hero__diag {
+    font-size: 13px;
+    width: 100%;
+  }
+  .hero__diag .icon {
+    margin-left: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dg-pane--next,
+  .dg-pane--back {
+    animation: none;
+  }
+  .dg-progress span {
+    transition: none;
+  }
+}

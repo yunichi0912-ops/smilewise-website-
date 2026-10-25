@@ -12,6 +12,7 @@ import NikonikoFeature from '../components/NikonikoFeature.jsx';
 import AnnualPayment from '../components/AnnualPayment.jsx';
 import ServiceGrid from '../components/ServiceGrid.jsx';
 import FaqList from '../components/FaqList.jsx';
+import DiagnosisBanner from '../components/DiagnosisBanner.jsx';
 import { systemPrice, monthlyEquivalent, yen, TAX } from '../data/pricing.js';
 import { nikonikoFaq } from '../data/faq.js';
 import { reasons } from '../data/reasons.js';
@@ -150,6 +151,8 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      <DiagnosisBanner />
 
       {/* 8. お問い合わせ */}
       <CtaSection />

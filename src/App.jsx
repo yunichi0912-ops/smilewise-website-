@@ -10,6 +10,7 @@ import Pricing from './pages/Pricing.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Privacy from './pages/Privacy.jsx';
+import Diagnosis from './pages/Diagnosis.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="services" element={<Services />} />
         <Route path="nikoniko" element={<Nikoniko />} />
+        <Route path="diagnosis" element={<Diagnosis />} />
         <Route path="card-order" element={<CardOrder />} />
         <Route path="system" element={<System />} />
         <Route path="works" element={<Works />} />

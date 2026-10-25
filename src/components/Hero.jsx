@@ -106,6 +106,11 @@ export default function Hero() {
               ニコニコプランを見る
             </Link>
           </div>
+          <Link to="/diagnosis" className="hero__diag">
+            <span className="hero__diag-badge">1分</span>
+            4つの質問でわかる「無料ホームページ診断」
+            <Icon name="arrow" size={16} />
+          </Link>
         </div>
 
         <div className="hero__stage" aria-hidden="true">

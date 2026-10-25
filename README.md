@@ -14,6 +14,8 @@ React + Vite で作られており、ビルド時に全ページの静的HTMLを
 | `/works` | 制作実績 |
 | `/pricing` | 料金案内 |
 | `/about` | 事業概要 |
+| `/diagnosis` | 無料ホームページ診断・無料デザイン案の申し込み |
+| `/card-order` | 名刺注文フォーム |
 | `/contact` | お問い合わせ |
 | `/privacy` | プライバシーポリシー |
 
@@ -121,8 +123,9 @@ JSON の POST を受け付けるサービスであれば、Formspree 以外（Ge
 
 | 変数名 | 値の例 | 内容 |
 | --- | --- | --- |
-| `SITE_URL` | `https://smilewise.pages.dev` | 公開URL（末尾スラッシュなし）。独自ドメインにしたら変更 |
+| `SITE_URL` | `https://smilewise-website.pages.dev` | 公開URL（末尾スラッシュなし）。独自ドメインにしたら変更 |
 | `VITE_FORM_ENDPOINT` | `https://formspree.io/f/mbgdpdvq` | お問い合わせフォームの送信先（Formspree。通知先 smilewise1111@gmail.com） |
+| `VITE_DIAGNOSIS_FORM_ENDPOINT` | （任意）`https://formspree.io/f/xxxxxxx` | 無料デザイン案申し込みの送信先。未設定なら `VITE_FORM_ENDPOINT` に送信 |
 | `NODE_VERSION` | `22` | ビルドに使う Node.js（`.node-version` でも指定済み） |
 
 - ページは `about.html` のように出力され、Cloudflare Pages では `/about`（末尾スラッシュなし）で表示されます。`/about/` や `/about.html` は自動で `/about` に転送されます。
@@ -163,3 +166,14 @@ npm run build && npm run check
 - 対策：入力漏れの一覧表示と該当欄への移動、二重送信の防止、送信エラー時は入力を残して再送信可能（同じ注文番号）、隠し項目と5秒未満の送信を機械送信として破棄、入力途中の内容をブラウザに一時保存。
 - 決済はフォームでは行いません。注文確認後に Stripe の決済リンクを LINE またはメールで個別に送る運用です。
 - 注文者への受付完了メール（自動返信）は Formspree の「Autoresponse」機能で設定します（利用できるプランは Formspree の料金ページで確認してください）。
+
+## 無料ホームページ診断・無料デザイン案（/diagnosis）
+
+- 質問・選択肢・診断結果の内容：`src/data/diagnosis.js`（料金は `src/data/pricing.js` から自動表示。金額を直接書かない）
+- 画面本体：`src/components/DiagnosisTool.jsx`（4問 → 診断結果 → 申し込み入力 → 確認 → 送信完了）
+- 標準料金（初期2,525円・年間管理費96,000円・初年度98,525円）を表示するのは「会社・店舗HP」「リニューアル」「未定」の結果のみ。LPと、標準料金に含まれない内容（6ページ以上・予約/決済機能など）は「個別見積もり」と表示します。
+- 「診断だけで終了する」を選んだ場合、回答はどこにも送信されません。
+- 送信先：`VITE_DIAGNOSIS_FORM_ENDPOINT`（専用の Formspree フォーム、任意）→ 未設定なら `VITE_FORM_ENDPOINT`。診断の回答とフォーム入力をまとめて1通で送信し、件名は「【無料デザイン案】会社名 様（ニコニコプラン／個別見積もり）受付番号」です。
+- Formspree のフォームURLは公開されても問題ない値です。APIキーなどの秘密情報はフロントエンドに入れていません。
+- 対策：隠し項目と4秒未満の送信を機械送信として破棄、二重送信防止、送信失敗時は入力を残して再送信可能（同じ受付番号）、回答途中の内容をブラウザに一時保存。
+- 入口：トップのメイン画面下のリンク、トップ・ニコニコプラン・お問い合わせページの案内枠、フッターのメニュー。

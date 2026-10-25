@@ -21,6 +21,9 @@ if (isCloudflareProduction) {
   const orderEndpoint = (process.env.VITE_ORDER_FORM_ENDPOINT || '').trim();
   if (orderEndpoint && !/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(orderEndpoint))
     problems.push(`環境変数 VITE_ORDER_FORM_ENDPOINT の形式が正しくありません（${orderEndpoint}）`);
+  const diagnosisEndpoint = (process.env.VITE_DIAGNOSIS_FORM_ENDPOINT || '').trim();
+  if (diagnosisEndpoint && !/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(diagnosisEndpoint))
+    problems.push(`環境変数 VITE_DIAGNOSIS_FORM_ENDPOINT の形式が正しくありません（${diagnosisEndpoint}）`);
   if (problems.length) {
     console.error('\n✖ 本番ビルドを中止しました（未設定の項目があります）');
     problems.forEach((p) => console.error(`  - ${p}`));

@@ -63,6 +63,9 @@ export default function Footer() {
                 </li>
               ))}
               <li>
+                <Link to="/diagnosis">無料ホームページ診断</Link>
+              </li>
+              <li>
                 <Link to="/contact">お問い合わせ</Link>
               </li>
             </ul>

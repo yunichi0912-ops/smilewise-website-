@@ -9,6 +9,7 @@ import AnnualPayment from '../components/AnnualPayment.jsx';
 import FixScope from '../components/FixScope.jsx';
 import ContractTerms from '../components/ContractTerms.jsx';
 import FaqList from '../components/FaqList.jsx';
+import DiagnosisBanner from '../components/DiagnosisBanner.jsx';
 import { nikonikoFaq } from '../data/faq.js';
 import { nikoniko, firstYearTotal, yen } from '../data/pricing.js';
 
@@ -80,6 +81,8 @@ export default function Nikoniko() {
           <FaqList items={nikonikoFaq} />
         </div>
       </section>
+
+      <DiagnosisBanner />
 
       <CtaSection type="web" title="ニコニコプランで、ホームページを始めませんか。" text="「どんなページを作れるか知りたい」「費用の詳細を聞きたい」など、お気軽にご相談ください。ご相談・お見積りは無料です。" />
     </>

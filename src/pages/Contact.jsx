@@ -4,6 +4,7 @@ import Icon from '../components/Icon.jsx';
 import ContactForm from '../components/ContactForm.jsx';
 import ContactChannels from '../components/ContactChannels.jsx';
 import SectionTitle from '../components/SectionTitle.jsx';
+import DiagnosisBanner from '../components/DiagnosisBanner.jsx';
 import { site, mailHref } from '../data/site.js';
 
 export default function Contact() {
@@ -23,6 +24,7 @@ export default function Contact() {
           <ContactChannels variant="full" />
         </div>
       </section>
+      <DiagnosisBanner />
 
       <section className="section">
         <div className="container">
