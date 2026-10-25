@@ -6,22 +6,67 @@
 
 export const TAX = '（税込）';
 
+export const yen = (n) => n.toLocaleString('ja-JP');
+/** 例: 2,525円（税込） */
+export const price = (n, suffix = '') => `${yen(n)}円${suffix}${TAX}`;
+
 export const nikoniko = {
   name: 'ニコニコプラン',
   service: 'ホームページ制作',
   initial: 2525, // 初期制作費（税込）
-  annual: 96000, // 年間管理費（税込・年払いのみ）
+  monthly: 9500, // 管理費・月払い（税込・1か月あたり）
+  annual: 96000, // 管理費・年払い（税込・1年あたり）
   minMonths: 12, // 最低契約期間（か月）
-  maxPages: 5, // 制作ページ数の上限
-  payment: '年払いのみ（年1回）',
+  maxPages: 5, // 基本制作ページ数の上限
+  payment: '月払い または 年払い',
 };
 
-/** 月額換算（年間管理費 ÷ 12）。実際のお支払いは年1回です */
+/** 年払いの月換算（年払い ÷ 12） */
 export const monthlyEquivalent = nikoniko.annual / 12;
-/** 初年度総額（初期制作費＋年間管理費） */
+/** 月払いの年間合計（月払い × 12か月） */
+export const monthlyYearTotal = nikoniko.monthly * 12;
+/** 年払いにした場合に、月払いより年間でお得になる金額 */
+export const annualSaving = monthlyYearTotal - nikoniko.annual;
+/** 初年度総額（年払い）：初期制作費＋年払い */
 export const firstYearTotal = nikoniko.initial + nikoniko.annual;
-/** 2年目以降（年間） */
+/** 初年度総額（月払い）：初期制作費＋月払い×12か月 */
+export const firstYearMonthlyTotal = nikoniko.initial + monthlyYearTotal;
+/** 2年目以降（年間・年払い） */
 export const laterYears = nikoniko.annual;
+
+/** お支払い方法ごとの料金（切り替え表示・比較用） */
+export const paymentPlans = [
+  {
+    id: 'annual',
+    label: '年払い',
+    badge: `年間${yen(annualSaving)}円お得`,
+    fee: nikoniko.annual,
+    unit: '年',
+    sub: `月換算 ${yen(monthlyEquivalent)}円`,
+    schedule: '年1回のお支払い',
+    yearTotal: nikoniko.annual,
+    firstYear: firstYearTotal,
+  },
+  {
+    id: 'monthly',
+    label: '月払い',
+    badge: '',
+    fee: nikoniko.monthly,
+    unit: '月',
+    sub: `年間合計 ${yen(monthlyYearTotal)}円`,
+    schedule: '毎月のお支払い',
+    yearTotal: monthlyYearTotal,
+    firstYear: firstYearMonthlyTotal,
+  },
+];
+
+/** ページ追加オプション（基本の最大5ページを超える場合） */
+export const pageOptions = [
+  { title: '通常ページ', when: `${nikoniko.maxPages + 1}ページ目以降`, price: 10000, unit: '1ページ' },
+  { title: '簡易ページ', when: '施工実績・事例紹介など', price: 5000, unit: '1ページ' },
+  { title: '特殊デザイン・機能', when: '特別なデザインや機能が必要なページ', price: null, unit: '' },
+];
+export const pageOptionNote = '追加ページの料金は、原則1回限りの制作費です。';
 
 /** ニコニコプランに含まれる内容 */
 export const nikonikoIncludes = [
@@ -41,7 +86,7 @@ export const nikonikoOptions = [
   { title: 'Googleアナリティクスの設定', text: 'ご希望の方には、アクセス状況を確認できるGoogleアナリティクスの設定にも対応します。' },
 ];
 
-/** 無料修正の範囲（年間管理費に含まれる軽微な修正） */
+/** 無料修正の範囲（管理費に含まれる軽微な修正） */
 export const freeFixes = [
   '文章の修正',
   '営業時間や電話番号の変更',
@@ -52,7 +97,6 @@ export const freeFixes = [
 
 /** 別途お見積りとなる作業 */
 export const extraWorks = [
-  '新規ページの追加',
   '全面リニューアル',
   '大幅なデザイン変更',
   '新規画像の制作',
@@ -73,9 +117,9 @@ export const fixNote = '修正回数に制限はありませんが、作業内�
 export const contractTerms = {
   decided: [
     { label: '最低契約期間', value: `${nikoniko.minMonths}か月` },
-    { label: 'お支払い方法', value: nikoniko.payment },
+    { label: 'お支払い方法', value: `月払い（${yen(nikoniko.monthly)}円／月）または 年払い（${yen(nikoniko.annual)}円／年）` },
   ],
-  pendingNote: 'その他のご契約条件（契約の更新・解約の手続き、ドメイン費用の扱いなど）は、ご契約前に個別にご説明します。',
+  pendingNote: 'その他のご契約条件（お支払いの手続き、契約の更新・解約の手続き、ドメイン費用の扱いなど）は、ご契約前に個別にご説明します。',
 };
 
 export const systemPrice = {
@@ -84,6 +128,3 @@ export const systemPrice = {
   note: '税込・個別見積もり。機能や規模に応じてお見積りします。',
 };
 
-export const yen = (n) => n.toLocaleString('ja-JP');
-/** 例: 2,525円（税込） */
-export const price = (n, suffix = '') => `${yen(n)}円${suffix}${TAX}`;

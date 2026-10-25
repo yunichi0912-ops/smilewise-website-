@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Icon from './Icon.jsx';
 import { site, telHref } from '../data/site.js';
 import { yen, TAX } from '../data/pricing.js';
-import { questions, answerLabel, diagnose, standardPrices, quoteItems } from '../data/diagnosis.js';
+import { questions, answerLabel, diagnose, standardPrices, quoteItems, pageOptionText } from '../data/diagnosis.js';
 
 /**
  * 無料ホームページ診断（4問）→ 診断結果 → 無料デザイン案の申し込み（入力 → 確認 → 送信完了）
@@ -103,20 +103,34 @@ function ResultView({ result }) {
                 </dd>
               </div>
               <div>
-                <dt>年間管理費</dt>
+                <dt>
+                  管理費（年払い）<small>月払いより年間{yen(standardPrices.saving)}円お得</small>
+                </dt>
                 <dd>
-                  <b>{yen(standardPrices.annual)}</b>円<small>{TAX}</small>
+                  <b>{yen(standardPrices.annual)}</b>円／年<small>{TAX}</small>
+                </dd>
+              </div>
+              <div>
+                <dt>管理費（月払い）</dt>
+                <dd>
+                  <b>{yen(standardPrices.monthly)}</b>円／月<small>{TAX}</small>
                 </dd>
               </div>
               <div className="is-total">
-                <dt>初年度の合計</dt>
+                <dt>初年度総額（年払い）</dt>
                 <dd>
                   <b>{yen(standardPrices.firstYear)}</b>円<small>{TAX}</small>
                 </dd>
               </div>
+              <div>
+                <dt>初年度総額（月払い）</dt>
+                <dd>
+                  <b>{yen(standardPrices.firstYearMonthly)}</b>円<small>{TAX}</small>
+                </dd>
+              </div>
             </dl>
             <p className="dg-small">
-              ※ お支払いは{standardPrices.payment}、最低契約期間は{standardPrices.minMonths}か月です。
+              ※ 最低契約期間は{standardPrices.minMonths}か月です。{pageOptionText}
               <Link to="/nikoniko">プランの詳細を見る</Link>
             </p>
           </>
@@ -342,7 +356,7 @@ export default function DiagnosisTool() {
       '希望・参考サイト': form.reference || '（未入力）',
       診断結果: questions.map((q) => `${q.title}\n→ ${answerLabel(q.id, answers[q.id])}`).join('\n\n'),
       おすすめ: result?.title ?? '',
-      料金区分: result?.pricing === 'standard' ? '標準料金（ニコニコプラン）' : '個別見積もり',
+      料金区分: result?.pricing === 'standard' ? '標準料金（ニコニコプラン・月払い／年払い）' : '個別見積もり',
       個人情報の取り扱い: '利用目的・プライバシーポリシーに同意済み',
       email: form.email,
       _replyto: form.email,

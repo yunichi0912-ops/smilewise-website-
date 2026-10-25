@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Icon from './Icon.jsx';
 import CountUp from './CountUp.jsx';
 import { site } from '../data/site.js';
-import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, yen, TAX } from '../data/pricing.js';
+import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, annualSaving, yen, TAX } from '../data/pricing.js';
 
 /**
  * トップページのファーストビュー
@@ -76,20 +76,19 @@ export default function Hero() {
               </span>
             </span>
             <span className="price-plate__total">
-              <span className="price-plate__total-label">初年度のお支払い総額</span>
+              <span className="price-plate__total-label">初年度総額（年払いの場合）</span>
               <span className="price-plate__total-value">
                 {yen(firstYearTotal)}
                 <small>円{TAX}</small>
               </span>
-              <span className="price-plate__only">年払いのみ</span>
+              <span className="price-plate__only">年間{yen(annualSaving)}円お得</span>
             </span>
             <span className="price-plate__meta">
               <span>
-                年間管理費 <b>{yen(nikoniko.annual)}円</b>
-                {TAX}
+                年払い <b>{yen(nikoniko.annual)}円</b>／年（月換算{yen(monthlyEquivalent)}円）
               </span>
               <span>
-                月額換算 <b>{yen(monthlyEquivalent)}円</b>（月払い不可）
+                月払い <b>{yen(nikoniko.monthly)}円</b>／月
               </span>
               <span>
                 最低契約期間 <b>{nikoniko.minMonths}か月</b>
@@ -130,7 +129,7 @@ export default function Hero() {
               <div className="glass__bar">
                 <i />
               </div>
-              <p className="glass__foot">お支払いは年払いのみ（年1回）</p>
+              <p className="glass__foot">お支払いは月払い・年払いから選べます</p>
             </div>
             <div className="glass glass--dash">
               <p className="glass__label">

@@ -1,8 +1,12 @@
 import {
   nikoniko,
   monthlyEquivalent,
+  monthlyYearTotal,
+  annualSaving,
   firstYearTotal,
-  laterYears,
+  firstYearMonthlyTotal,
+  pageOptions,
+  pageOptionNote,
   freeFixes,
   extraWorks,
   fixNote,
@@ -16,15 +20,15 @@ import {
 export const nikonikoFaq = [
   {
     q: '本当に初期制作費2,525円でホームページを作ってもらえますか？',
-    a: `はい。ニコニコプランの初期制作費は${price(nikoniko.initial)}です。別途、年間管理費${price(nikoniko.annual)}がかかります。最低契約期間は${nikoniko.minMonths}か月です。`,
+    a: `はい。ニコニコプランの初期制作費は${price(nikoniko.initial)}です。別途、管理費（月払い${price(nikoniko.monthly)}／月、または年払い${price(nikoniko.annual)}／年）がかかります。最低契約期間は${nikoniko.minMonths}か月です。`,
   },
   {
     q: '初年度と2年目以降は、それぞれいくらかかりますか？',
-    a: `初年度は、初期制作費${price(nikoniko.initial)}と年間管理費${price(nikoniko.annual)}を合わせた${price(firstYearTotal)}です。2年目以降は、年間管理費の${price(laterYears)}のみです。`,
+    a: `初年度は、年払いの場合は初期制作費${price(nikoniko.initial)}と年払い${price(nikoniko.annual)}を合わせた${price(firstYearTotal)}、月払いの場合は初期制作費と月払い${yen(nikoniko.monthly)}円×12か月を合わせた${price(firstYearMonthlyTotal)}です。2年目以降は管理費のみで、年払いは年間${price(nikoniko.annual)}、月払いは月${price(nikoniko.monthly)}（年間${yen(monthlyYearTotal)}円）です。`,
   },
   {
-    q: '月払いはできますか？',
-    a: `お支払いは年払いのみ（年1回）で、月払いはできません。「月額換算${yen(monthlyEquivalent)}円」は、年間管理費${price(nikoniko.annual)}を12か月で割った目安の金額です。実際のお支払いは、初年度が${price(firstYearTotal)}、2年目以降が年間${price(laterYears)}です。`,
+    q: '月払いと年払いは選べますか？どちらがお得ですか？',
+    a: `はい、管理費は月払い（${price(nikoniko.monthly)}／月）と年払い（${price(nikoniko.annual)}／年）からお選びいただけます。年払いは月換算${yen(monthlyEquivalent)}円で、月払い（年間${yen(monthlyYearTotal)}円）より年間${yen(annualSaving)}円お得です。最低契約期間は、どちらも${nikoniko.minMonths}か月です。`,
   },
   {
     q: '最低契約期間はありますか？',
@@ -32,7 +36,7 @@ export const nikonikoFaq = [
   },
   {
     q: '何ページまで作ってもらえますか？',
-    a: `最大${nikoniko.maxPages}ページまで制作します。ページの追加をご希望の場合は、別途お見積りとなります。`,
+    a: `基本の制作ページ数は最大${nikoniko.maxPages}ページです。ページを追加する場合は、${pageOptions.map((o) => (o.price != null ? `${o.title}（${o.when}）が1ページ${price(o.price)}` : `${o.title}は個別見積もり`)).join('、')}です。${pageOptionNote}`,
   },
   {
     q: 'ニコニコプランには何が含まれますか？',

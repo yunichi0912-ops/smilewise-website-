@@ -5,17 +5,19 @@ import SectionTitle from '../components/SectionTitle.jsx';
 import Icon from '../components/Icon.jsx';
 import CtaSection from '../components/CtaSection.jsx';
 import NikonikoFeature from '../components/NikonikoFeature.jsx';
-import AnnualPayment from '../components/AnnualPayment.jsx';
+import PaymentToggle from '../components/PaymentToggle.jsx';
+import PageOptions from '../components/PageOptions.jsx';
 import FixScope from '../components/FixScope.jsx';
 import ContractTerms from '../components/ContractTerms.jsx';
 import FaqList from '../components/FaqList.jsx';
 import DiagnosisBanner from '../components/DiagnosisBanner.jsx';
 import { nikonikoFaq } from '../data/faq.js';
-import { nikoniko, firstYearTotal, yen } from '../data/pricing.js';
+import { nikoniko, firstYearTotal, annualSaving, yen } from '../data/pricing.js';
 
 const toc = [
   { id: 'plan', label: 'プラン内容' },
   { id: 'payment', label: 'お支払い' },
+  { id: 'options', label: 'ページ追加' },
   { id: 'scope', label: '修正の範囲' },
   { id: 'contract', label: '契約条件' },
   { id: 'faq', label: 'よくある質問' },
@@ -27,7 +29,7 @@ export default function Nikoniko() {
       <PageHero
         en="Nikoniko Plan"
         title="ニコニコプラン"
-        lead={`初期制作費${yen(nikoniko.initial)}円・初年度総額${yen(firstYearTotal)}円（税込）で始めるホームページ制作プラン。お支払いは年払いのみです。公開後はサーバー・ドメイン管理、保守・サポート、軽微な修正に対応します。`}
+        lead={`初期制作費${yen(nikoniko.initial)}円・初年度総額${yen(firstYearTotal)}円（税込）で始めるホームページ制作プラン。管理費は月払い（${yen(nikoniko.monthly)}円／月）・年払い（${yen(nikoniko.annual)}円／年）から選べます。公開後はサーバー・ドメイン管理、保守・サポート、軽微な修正に対応します。`}
         crumbs={['ニコニコプラン']}
       />
 
@@ -46,10 +48,19 @@ export default function Nikoniko() {
 
       <section className="section section--tint" id="payment">
         <div className="container container--mid">
-          <SectionTitle en="Payment" lead="お支払いは年払いのみ（年1回）です。">
-            年間管理費とお支払い
+          <SectionTitle en="Payment" lead={`月払い・年払いを切り替えて、初年度総額を確認できます。年払いなら年間${yen(annualSaving)}円お得です。`}>
+            管理費とお支払い
           </SectionTitle>
-          <AnnualPayment />
+          <PaymentToggle />
+        </div>
+      </section>
+
+      <section className="section" id="options">
+        <div className="container container--mid">
+          <SectionTitle en="Page Option">
+            ページ追加オプション
+          </SectionTitle>
+          <PageOptions />
         </div>
       </section>
 

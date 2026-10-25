@@ -5,7 +5,7 @@
  * 標準料金（ニコニコプラン）で案内できるのは「会社・店舗ホームページ（最大5ページ）」のみです。
  * LP・特殊な機能・プランの範囲を超える内容は、同じ料金と断定せず「個別見積もり」と表示します。
  */
-import { nikoniko, firstYearTotal, extraWorks } from './pricing.js';
+import { nikoniko, firstYearTotal, firstYearMonthlyTotal, annualSaving, pageOptions, extraWorks, yen } from './pricing.js';
 
 export const questions = [
   {
@@ -94,14 +94,23 @@ export const standardPrices = {
   plan: nikoniko.name,
   initial: nikoniko.initial,
   annual: nikoniko.annual,
+  monthly: nikoniko.monthly,
   firstYear: firstYearTotal,
+  firstYearMonthly: firstYearMonthlyTotal,
+  saving: annualSaving,
   payment: nikoniko.payment,
   minMonths: nikoniko.minMonths,
   maxPages: nikoniko.maxPages,
 };
 
 /** 標準料金に含まれず「個別見積もり」となる主な内容 */
-export const quoteItems = ['LP（ランディングページ）制作', `${nikoniko.maxPages + 1}ページ以上のサイト`, ...extraWorks.filter((w) => !['新規ページの追加', '全面リニューアル'].includes(w))];
+export const quoteItems = ['LP（ランディングページ）制作', '特殊デザイン・機能', ...extraWorks.filter((w) => w !== '全面リニューアル')];
+
+/** ページ追加オプションの案内文（6ページ目以降） */
+export const pageOptionText = `${nikoniko.maxPages + 1}ページ目以降は、${pageOptions
+  .filter((o) => o.price != null)
+  .map((o) => `${o.title}1ページ${yen(o.price)}円（${o.when}）`)
+  .join('、')}で追加できます（税込・原則1回限りの制作費）。`;
 
 /**
  * 回答から診断結果を作る
@@ -141,7 +150,7 @@ export function diagnose(a) {
       pricing: 'standard',
       pages,
       points: plan.points,
-      notes: [...notes, `今のサイトのページ数が多い場合や、データの移行・特別な機能が必要な場合は、標準料金とは別に個別見積もりとなることがあります。`],
+      notes: [...notes, `今のサイトのページ数が多い場合は、ページ追加オプションの料金がかかります。データの移行や特別な機能が必要な場合は、個別見積もりとなることがあります。`],
     };
   }
 

@@ -1,6 +1,6 @@
 import Reveal from './Reveal.jsx';
 import { Link } from 'react-router-dom';
-import { nikoniko, nikonikoIncludes, freeFixes, contractTerms, firstYearTotal, laterYears, monthlyEquivalent, yen } from '../data/pricing.js';
+import { nikoniko, nikonikoIncludes, freeFixes, contractTerms, firstYearTotal, firstYearMonthlyTotal, monthlyYearTotal, monthlyEquivalent, pageOptions, pageOptionNote, yen } from '../data/pricing.js';
 
 /** ニコニコプランのご契約条件（確定している条件のみ掲載） */
 export default function ContractTerms() {
@@ -16,14 +16,24 @@ export default function ContractTerms() {
         <div className="terms__row">
           <dt>料金</dt>
           <dd>
-            初期制作費 {yen(nikoniko.initial)}円／年間管理費 {yen(nikoniko.annual)}円（月額換算 {yen(monthlyEquivalent)}円）
+            初期制作費 {yen(nikoniko.initial)}円／管理費 月払い {yen(nikoniko.monthly)}円・年払い {yen(nikoniko.annual)}円（月換算 {yen(monthlyEquivalent)}円）
             <small>表示価格はすべて税込です。</small>
           </dd>
         </div>
         <div className="terms__row">
-          <dt>年ごとのお支払い額</dt>
+          <dt>初年度総額</dt>
           <dd>
-            初年度 {yen(firstYearTotal)}円（初期制作費＋年間管理費）／2年目以降 年間 {yen(laterYears)}円
+            年払い {yen(firstYearTotal)}円／月払い {yen(firstYearMonthlyTotal)}円（初期制作費＋12か月分の管理費）
+            <small>
+              2年目以降：年払い 年間 {yen(nikoniko.annual)}円／月払い 月 {yen(nikoniko.monthly)}円（年間 {yen(monthlyYearTotal)}円）
+            </small>
+          </dd>
+        </div>
+        <div className="terms__row">
+          <dt>ページ追加</dt>
+          <dd>
+            {pageOptions.map((o) => `${o.title}（${o.when}）${o.price != null ? ` 1ページ ${yen(o.price)}円` : ' 個別見積もり'}`).join('／')}
+            <small>{pageOptionNote}</small>
           </dd>
         </div>
         <div className="terms__row">

@@ -29,6 +29,11 @@ const allowed = new Set(
     pricing.monthlyEquivalent,
     pricing.firstYearTotal,
     pricing.laterYears,
+    pricing.nikoniko.monthly,
+    pricing.monthlyYearTotal,
+    pricing.annualSaving,
+    pricing.firstYearMonthlyTotal,
+    ...pricing.pageOptions.filter((o) => o.price != null).map((o) => o.price),
     pricing.systemPrice.from,
   ].map(yen),
 );

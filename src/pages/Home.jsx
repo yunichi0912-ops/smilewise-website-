@@ -9,11 +9,11 @@ import SystemMockup from '../components/SystemMockup.jsx';
 import BeforeAfter from '../components/BeforeAfter.jsx';
 import WorksList from '../components/WorksList.jsx';
 import NikonikoFeature from '../components/NikonikoFeature.jsx';
-import AnnualPayment from '../components/AnnualPayment.jsx';
+import PaymentToggle from '../components/PaymentToggle.jsx';
 import ServiceGrid from '../components/ServiceGrid.jsx';
 import FaqList from '../components/FaqList.jsx';
 import DiagnosisBanner from '../components/DiagnosisBanner.jsx';
-import { systemPrice, monthlyEquivalent, yen, TAX } from '../data/pricing.js';
+import { systemPrice, annualSaving, yen, TAX } from '../data/pricing.js';
 import { nikonikoFaq } from '../data/faq.js';
 import { reasons } from '../data/reasons.js';
 
@@ -26,20 +26,20 @@ export default function Home() {
       {/* 2. ニコニコプラン */}
       <section className="section section--niko" id="nikoniko">
         <div className="container">
-          <SectionTitle en="Main Service 01" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、年間管理費で回数制限なく対応します。">
+          <SectionTitle en="Main Service 01" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、管理費の範囲で回数制限なく対応します。">
             ホームページ制作「ニコニコプラン」
           </SectionTitle>
           <NikonikoFeature />
         </div>
       </section>
 
-      {/* 3. お支払い（年払いのみ） */}
+      {/* 3. お支払い（月払い・年払い） */}
       <section className="section section--tint">
         <div className="container container--mid">
-          <SectionTitle en="Payment" lead={`年間管理費は年払いのみ（年1回）です。月額換算${yen(monthlyEquivalent)}円は目安で、月払いはできません。`}>
-            初年度・2年目以降のお支払い
+          <SectionTitle en="Payment" lead={`管理費のお支払いは、月払い・年払いからお選びいただけます。年払いなら年間${yen(annualSaving)}円お得です。`}>
+            月払い・年払いと初年度総額
           </SectionTitle>
-          <AnnualPayment />
+          <PaymentToggle />
         </div>
       </section>
 

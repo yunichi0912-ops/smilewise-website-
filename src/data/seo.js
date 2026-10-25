@@ -3,7 +3,7 @@
  * ビルド時の静的HTML生成（scripts/prerender.mjs）と、画面遷移時の <title> 更新の両方で使われます。
  */
 import { site } from './site.js';
-import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, yen, price } from './pricing.js';
+import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, firstYearMonthlyTotal, yen, price } from './pricing.js';
 import { nikonikoFaq } from './faq.js';
 
 const brand = `${site.name}（${site.nameKana}）`;
@@ -14,12 +14,12 @@ export const pages = [
   {
     path: '/',
     title: `${brand}｜北九州市・筑豊のホームページ制作・業務管理システム開発`,
-    description: `${brand}は、北九州市八幡西区を拠点に北九州市・筑豊エリアでホームページ制作・LP制作・業務管理システム開発・IT/DX支援を行うWeb制作事業者です。「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、初年度総額${price(firstYearTotal)}（年払いのみ）。業務管理システムは${price(systemPrice.from, '〜')}。`,
+    description: `${brand}は、北九州市八幡西区を拠点に北九州市・筑豊エリアでホームページ制作・LP制作・業務管理システム開発・IT/DX支援を行うWeb制作事業者です。「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、管理費は月払い${yen(nikoniko.monthly)}円・年払い${yen(nikoniko.annual)}円から選択。業務管理システムは${price(systemPrice.from, '〜')}。`,
   },
   {
     path: '/nikoniko',
     title: `ニコニコプラン｜北九州市・筑豊のホームページ制作 初期${yen(nikoniko.initial)}円${suffix}`,
-    description: `ホームページ制作「${nikoniko.name}」初期制作費${price(nikoniko.initial)}、初年度総額${price(firstYearTotal)}、2年目以降は年間管理費${price(nikoniko.annual)}（月額換算${yen(monthlyEquivalent)}円・年払いのみ）。最大${nikoniko.maxPages}ページ、スマホ・タブレット対応、サーバー・ドメイン管理、SSL、保守・サポート込み。`,
+    description: `ホームページ制作「${nikoniko.name}」初期制作費${price(nikoniko.initial)}。管理費は月払い${yen(nikoniko.monthly)}円／月、または年払い${yen(nikoniko.annual)}円／年（月換算${yen(monthlyEquivalent)}円）。初年度総額は年払い${yen(firstYearTotal)}円・月払い${yen(firstYearMonthlyTotal)}円（税込）。最大${nikoniko.maxPages}ページ、スマホ・タブレット対応、サーバー・ドメイン管理、SSL、保守・サポート込み。`,
     // よくある質問の構造化データ（検索結果に表示される場合があります）
     jsonLd: {
       '@context': 'https://schema.org',
@@ -49,7 +49,7 @@ export const pages = [
   {
     path: '/pricing',
     title: `料金案内｜ホームページ制作・業務管理システムの料金（税込）${suffix}`,
-    description: `ホームページ制作「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、初年度総額${price(firstYearTotal)}、2年目以降は年間管理費${price(nikoniko.annual)}（年払いのみ・月額換算${yen(monthlyEquivalent)}円）。業務管理システム開発・導入は${price(systemPrice.from, '〜')}。`,
+    description: `ホームページ制作「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、管理費は月払い${yen(nikoniko.monthly)}円／月・年払い${yen(nikoniko.annual)}円／年、初年度総額は年払い${yen(firstYearTotal)}円・月払い${yen(firstYearMonthlyTotal)}円（税込）。ページ追加オプションあり。業務管理システム開発・導入は${price(systemPrice.from, '〜')}。`,
   },
   {
     path: '/about',

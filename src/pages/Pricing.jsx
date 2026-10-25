@@ -6,7 +6,8 @@ import Icon from '../components/Icon.jsx';
 import CountUp from '../components/CountUp.jsx';
 import CtaSection from '../components/CtaSection.jsx';
 import NikonikoFeature from '../components/NikonikoFeature.jsx';
-import AnnualPayment from '../components/AnnualPayment.jsx';
+import PaymentToggle from '../components/PaymentToggle.jsx';
+import PageOptions from '../components/PageOptions.jsx';
 import ContractTerms from '../components/ContractTerms.jsx';
 import FixScope from '../components/FixScope.jsx';
 import FaqList from '../components/FaqList.jsx';
@@ -16,7 +17,8 @@ import {
   nikoniko,
   monthlyEquivalent,
   firstYearTotal,
-  laterYears,
+  firstYearMonthlyTotal,
+  annualSaving,
   systemPrice,
   yen,
   TAX,
@@ -25,6 +27,7 @@ import {
 const toc = [
   { id: 'nikoniko', label: 'ニコニコプラン' },
   { id: 'payment', label: 'お支払い' },
+  { id: 'options', label: 'ページ追加' },
   { id: 'scope', label: '修正の範囲' },
   { id: 'contract', label: '契約条件' },
   { id: 'system', label: '業務管理システム' },
@@ -65,15 +68,17 @@ export default function Pricing() {
                   </dd>
                 </div>
                 <div>
-                  <dt>年間管理費</dt>
+                  <dt>管理費（年払い）</dt>
                   <dd>
                     <b>{yen(nikoniko.annual)}</b>円／年{TAX}
-                    <em>月額換算 {yen(monthlyEquivalent)}円</em>
+                    <em>月換算 {yen(monthlyEquivalent)}円・年間{yen(annualSaving)}円お得</em>
                   </dd>
                 </div>
                 <div>
-                  <dt>お支払い方法</dt>
-                  <dd>{nikoniko.payment}</dd>
+                  <dt>管理費（月払い）</dt>
+                  <dd>
+                    <b>{yen(nikoniko.monthly)}</b>円／月{TAX}
+                  </dd>
                 </div>
                 <div>
                   <dt>最低契約期間</dt>
@@ -83,7 +88,7 @@ export default function Pricing() {
                 </div>
               </dl>
               <p className="po__total">
-                初年度総額 <b>{yen(firstYearTotal)}円</b>／2年目以降 年間 <b>{yen(laterYears)}円</b>（税込）
+                初年度総額　年払い <b>{yen(firstYearTotal)}円</b>／月払い <b>{yen(firstYearMonthlyTotal)}円</b>（税込）
               </p>
               <Link to="/nikoniko" className="text-link">
                 ニコニコプランの詳細を見る <Icon name="arrow" size={16} />
@@ -108,7 +113,7 @@ export default function Pricing() {
       {/* ニコニコプラン */}
       <section className="section section--niko" id="nikoniko">
         <div className="container">
-          <SectionTitle en="Website" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、年間管理費で回数制限なく対応します。">
+          <SectionTitle en="Website" lead="初期費用を抑えて、本格的なホームページを。公開後の軽微な修正は、管理費の範囲で回数制限なく対応します。">
             ホームページ制作「ニコニコプラン」
           </SectionTitle>
           <NikonikoFeature />
@@ -117,10 +122,19 @@ export default function Pricing() {
 
       <section className="section section--tint" id="payment">
         <div className="container container--mid">
-          <SectionTitle en="Payment" lead="年間管理費は年払いのみ（年1回）です。">
-            初年度・2年目以降のお支払い
+          <SectionTitle en="Payment" lead={`管理費は月払い・年払いからお選びいただけます。年払いなら年間${yen(annualSaving)}円お得です。`}>
+            月払い・年払いと初年度総額
           </SectionTitle>
-          <AnnualPayment />
+          <PaymentToggle />
+        </div>
+      </section>
+
+      <section className="section" id="options">
+        <div className="container container--mid">
+          <SectionTitle en="Page Option">
+            ページ追加オプション
+          </SectionTitle>
+          <PageOptions />
         </div>
       </section>
 

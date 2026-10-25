@@ -1,4 +1,4 @@
-import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, yen, price } from './pricing.js';
+import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, firstYearMonthlyTotal, yen, price } from './pricing.js';
 
 /**
  * サービス一覧。トップページ・サービス紹介ページ・料金ページで共通利用します。
@@ -14,7 +14,7 @@ export const services = [
     lead: `初期制作費 ${price(nikoniko.initial)} で始める、ニコニコプラン。`,
     text: `企業の強みや想いを丁寧にヒアリングし、スマートフォン・タブレットでも見やすいホームページを制作します（最大${nikoniko.maxPages}ページ）。サーバー・ドメインの管理、SSL・セキュリティ対応、基本SEO設定、お問い合わせフォームの設置・管理、公開後の保守・サポートまで。軽微な文章・画像修正は回数制限なく対応します。`,
     priceLabel: `初期制作費 ${price(nikoniko.initial)}`,
-    priceSub: `初年度総額 ${price(firstYearTotal)}／2年目以降 年間管理費 ${price(nikoniko.annual)}（月額換算${yen(monthlyEquivalent)}円・年払いのみ）・最低契約期間${nikoniko.minMonths}か月`,
+    priceSub: `管理費 月払い${yen(nikoniko.monthly)}円／月・年払い${yen(nikoniko.annual)}円／年（月換算${yen(monthlyEquivalent)}円）／初年度総額 年払い${yen(firstYearTotal)}円・月払い${yen(firstYearMonthlyTotal)}円${'（税込）'}・最低契約期間${nikoniko.minMonths}か月`,
     href: '/nikoniko',
     featured: true,
   },

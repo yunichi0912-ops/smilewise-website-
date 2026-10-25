@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Reveal from './Reveal.jsx';
 import Icon from './Icon.jsx';
 import CountUp from './CountUp.jsx';
-import { nikoniko, nikonikoIncludes, nikonikoOptions, monthlyEquivalent, firstYearTotal, laterYears, yen, TAX } from '../data/pricing.js';
+import { nikoniko, nikonikoIncludes, nikonikoOptions, monthlyEquivalent, firstYearTotal, firstYearMonthlyTotal, annualSaving, yen, TAX } from '../data/pricing.js';
 
 /** ニコニコプラン（初期制作費 2,525円）の大きな紹介ブロック＋プラン内容 */
 export default function NikonikoFeature({ showIncludes = true }) {
@@ -32,7 +32,7 @@ export default function NikonikoFeature({ showIncludes = true }) {
           <p className="niko__pun">ニコ・ニコ ＝ 2,525。笑顔で始められるホームページ制作プランです。</p>
           <p className="niko__min">
             <Icon name="calendar" size={16} />
-            最低契約期間 {nikoniko.minMonths}か月・年払いのみ
+            最低契約期間 {nikoniko.minMonths}か月・月払い／年払い
           </p>
         </Reveal>
 
@@ -46,9 +46,9 @@ export default function NikonikoFeature({ showIncludes = true }) {
           </Reveal>
           <Reveal className="niko__item niko__item--best" delay={200}>
             <span className="niko__item-label">
-              年間管理費
+              管理費（年払い）
               <em>
-                月額換算 {yen(monthlyEquivalent)}円・年1回払い（月払い不可）
+                月換算 {yen(monthlyEquivalent)}円・月払いより年間{yen(annualSaving)}円お得
               </em>
             </span>
             <span className="niko__item-value">
@@ -56,19 +56,30 @@ export default function NikonikoFeature({ showIncludes = true }) {
               <small>円／年{TAX}</small>
             </span>
           </Reveal>
-          <Reveal className="niko__item" delay={280}>
+          <Reveal className="niko__item" delay={240}>
             <span className="niko__item-label">
-              初年度総額
-              <em>2年目以降は年間 {yen(laterYears)}円</em>
+              管理費（月払い）
+              <em>毎月のお支払い</em>
             </span>
             <span className="niko__item-value">
+              {yen(nikoniko.monthly)}
+              <small>円／月{TAX}</small>
+            </span>
+          </Reveal>
+          <Reveal className="niko__item" delay={300}>
+            <span className="niko__item-label">
+              初年度総額
+              <em>月払いの場合は {yen(firstYearMonthlyTotal)}円</em>
+            </span>
+            <span className="niko__item-value">
+              <small className="niko__item-pre">年払い</small>
               {yen(firstYearTotal)}
               <small>円{TAX}</small>
             </span>
           </Reveal>
-          <Reveal className="niko__desc" delay={340}>
+          <Reveal className="niko__desc" delay={360}>
             <p>
-              初期費用を抑えてホームページを持ち、年間管理費でサーバー・ドメインの管理や保守・サポート、軽微な修正に対応するプランです。お支払いは年払いのみ（年1回）で、月払いはできません。
+              初期費用を抑えてホームページを持ち、管理費でサーバー・ドメインの管理や保守・サポート、軽微な修正に対応するプランです。管理費のお支払いは、月払い・年払いからお選びいただけます。
             </p>
             <Link to="/nikoniko#scope" className="text-link">
               修正範囲・契約条件を見る <Icon name="arrow" size={16} />

@@ -64,8 +64,15 @@ const business = {
       },
       {
         '@type': 'Offer',
-        name: `${pricing.nikoniko.name} 年間管理費（年払い）`,
+        name: `${pricing.nikoniko.name} 管理費（年払い・1年）`,
         price: pricing.nikoniko.annual,
+        priceCurrency: 'JPY',
+        url: `${siteUrl}/nikoniko`,
+      },
+      {
+        '@type': 'Offer',
+        name: `${pricing.nikoniko.name} 管理費（月払い・1か月）`,
+        price: pricing.nikoniko.monthly,
         priceCurrency: 'JPY',
         url: `${siteUrl}/nikoniko`,
       },
