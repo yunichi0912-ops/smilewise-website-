@@ -60,6 +60,38 @@ export const paymentPlans = [
   },
 ];
 
+/**
+ * お支払い方法（クレジットカード決済〈Stripe〉・銀行振込）
+ * 決済リンク・振込先口座はサイトに掲載せず、ご契約時に個別にご案内します。
+ */
+export const paymentMethods = [
+  {
+    id: 'card',
+    label: 'クレジットカード決済',
+    via: 'Stripe',
+    monthly: '毎月の自動決済',
+    annual: '年額を一括で決済',
+  },
+  {
+    id: 'bank',
+    label: '銀行振込',
+    via: '請求書',
+    monthly: '毎月請求書を発行し、指定期日までにお振込み',
+    annual: '請求書による年額の一括払い',
+  },
+];
+/** お支払いに関する共通事項 */
+export const paymentCommon = [
+  `初期制作費は${price(nikoniko.initial)}です`,
+  `最低契約期間は、月払い・年払いどちらも${nikoniko.minMonths}か月です`,
+  '銀行振込の振込手数料は、お客様のご負担となります',
+  '初回のご入金を確認したあとに、制作を開始します',
+  '毎月の具体的なお支払い期日は、ご契約時にご案内します',
+];
+/** サイト上で決済の準備が完了していると誤解されないための案内 */
+export const paymentProcedureNote =
+  'クレジットカード決済のお手続き（決済ページ）や、振込先口座・請求書は、ご契約時に個別にご案内します。このサイト上でお支払いいただくことはありません。';
+
 /** ページ追加オプション（基本の最大5ページを超える場合） */
 export const pageOptions = [
   { title: '通常ページ', when: `${nikoniko.maxPages + 1}ページ目以降`, price: 10000, unit: '1ページ' },
@@ -117,9 +149,13 @@ export const fixNote = '修正回数に制限はありませんが、作業内�
 export const contractTerms = {
   decided: [
     { label: '最低契約期間', value: `${nikoniko.minMonths}か月` },
-    { label: 'お支払い方法', value: `月払い（${yen(nikoniko.monthly)}円／月）または 年払い（${yen(nikoniko.annual)}円／年）` },
+    { label: 'お支払いプラン', value: `月払い（${yen(nikoniko.monthly)}円／月）または 年払い（${yen(nikoniko.annual)}円／年）` },
+    { label: 'お支払い方法', value: 'クレジットカード決済（Stripe）または銀行振込' },
+    { label: '振込手数料', value: '銀行振込の場合、振込手数料はお客様のご負担となります' },
+    { label: '制作の開始', value: '初回のご入金を確認したあとに開始します' },
+    { label: 'お支払い期日', value: '毎月の具体的なお支払い期日は、ご契約時にご案内します' },
   ],
-  pendingNote: 'その他のご契約条件（お支払いの手続き、契約の更新・解約の手続き、ドメイン費用の扱いなど）は、ご契約前に個別にご説明します。',
+  pendingNote: 'その他のご契約条件（契約の更新・解約の手続き、ドメイン費用の扱いなど）は、ご契約前に個別にご説明します。',
 };
 
 export const systemPrice = {

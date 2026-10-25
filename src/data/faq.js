@@ -7,6 +7,8 @@ import {
   firstYearMonthlyTotal,
   pageOptions,
   pageOptionNote,
+  paymentMethods,
+  paymentProcedureNote,
   freeFixes,
   extraWorks,
   fixNote,
@@ -29,6 +31,18 @@ export const nikonikoFaq = [
   {
     q: '月払いと年払いは選べますか？どちらがお得ですか？',
     a: `はい、管理費は月払い（${price(nikoniko.monthly)}／月）と年払い（${price(nikoniko.annual)}／年）からお選びいただけます。年払いは月換算${yen(monthlyEquivalent)}円で、月払い（年間${yen(monthlyYearTotal)}円）より年間${yen(annualSaving)}円お得です。最低契約期間は、どちらも${nikoniko.minMonths}か月です。`,
+  },
+  {
+    q: '支払い方法は何がありますか？',
+    a: `クレジットカード決済（Stripe）と銀行振込からお選びいただけます。${paymentMethods.map((m) => `${m.label}の場合、月払いは${m.monthly}、年払いは${m.annual}です。`).join('')}${paymentProcedureNote}`,
+  },
+  {
+    q: '銀行振込の手数料や、支払い期日はどうなりますか？',
+    a: '銀行振込の振込手数料は、お客様のご負担となります。毎月の具体的なお支払い期日は、ご契約時にご案内します。',
+  },
+  {
+    q: '制作はいつから始まりますか？',
+    a: 'ご契約後、初回のご入金を確認したあとに制作を開始します。',
   },
   {
     q: '最低契約期間はありますか？',

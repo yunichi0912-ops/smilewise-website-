@@ -40,6 +40,7 @@ React + Vite で作られており、ビルド時に全ページの静的HTMLを
 - プランに含まれる内容：`nikonikoIncludes`
 - 無料修正の範囲／別途お見積り：`freeFixes` / `extraWorks`
 - ページ追加オプション：`pageOptions` / `pageOptionNote`
+- お支払い方法（クレジットカード決済〈Stripe〉・銀行振込）と共通事項：`paymentMethods` / `paymentCommon` / `paymentProcedureNote`（表示：`src/components/PaymentMethods.jsx`）。決済リンク・振込先口座はサイトに掲載せず、ご契約時に個別に案内する運用です。
 - 月払い・年払いの切り替え表示：`src/components/PaymentToggle.jsx`（データは `paymentPlans`）
 - 契約条件：`contractTerms.decided` に確定した条件を追加すると、「ご契約条件」に表示されます
 - よくある質問：`src/data/faq.js`

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Reveal from './Reveal.jsx';
 import Icon from './Icon.jsx';
-import { nikoniko, paymentPlans, annualSaving, yen, TAX } from '../data/pricing.js';
+import { nikoniko, paymentPlans, paymentMethods, annualSaving, yen, TAX } from '../data/pricing.js';
 
 /** ニコニコプラン：月払い・年払いの切り替えと、初年度総額・2年目以降・契約条件 */
-export default function PaymentToggle({ cta = true }) {
+export default function PaymentToggle({ cta = true, methodsLink = '' }) {
   const [planId, setPlanId] = useState('annual');
   const plan = paymentPlans.find((p) => p.id === planId);
   const maxFirst = Math.max(...paymentPlans.map((p) => p.firstYear));
@@ -71,7 +71,28 @@ export default function PaymentToggle({ cta = true }) {
                 <dd>{nikoniko.minMonths}か月</dd>
               </div>
             </dl>
-            <p className="ptg__note">※ 表示価格はすべて税込です。最低契約期間は、月払い・年払いどちらも{nikoniko.minMonths}か月です。</p>
+            <div className="ptg__methods">
+              <p className="ptg__methods-title">お支払い方法（{plan.label}）</p>
+              <ul>
+                {paymentMethods.map((m) => (
+                  <li key={m.id}>
+                    <b>
+                      {m.label}
+                      <small>（{m.via}）</small>
+                    </b>
+                    <span>{m[plan.id]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="ptg__note">
+              ※ 表示価格はすべて税込です。最低契約期間は、月払い・年払いどちらも{nikoniko.minMonths}か月です。お支払いのお手続きは、ご契約時に個別にご案内します。
+              {methodsLink && (
+                <Link to={methodsLink} className="ptg__more">
+                  お支払い方法の詳細
+                </Link>
+              )}
+            </p>
           </div>
         </Reveal>
 

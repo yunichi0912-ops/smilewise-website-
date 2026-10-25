@@ -7,6 +7,7 @@ import CtaSection from '../components/CtaSection.jsx';
 import NikonikoFeature from '../components/NikonikoFeature.jsx';
 import PaymentToggle from '../components/PaymentToggle.jsx';
 import PageOptions from '../components/PageOptions.jsx';
+import PaymentMethods from '../components/PaymentMethods.jsx';
 import FixScope from '../components/FixScope.jsx';
 import ContractTerms from '../components/ContractTerms.jsx';
 import FaqList from '../components/FaqList.jsx';
@@ -16,7 +17,8 @@ import { nikoniko, firstYearTotal, annualSaving, yen } from '../data/pricing.js'
 
 const toc = [
   { id: 'plan', label: 'プラン内容' },
-  { id: 'payment', label: 'お支払い' },
+  { id: 'payment', label: '料金・初年度' },
+  { id: 'methods', label: 'お支払い方法' },
   { id: 'options', label: 'ページ追加' },
   { id: 'scope', label: '修正の範囲' },
   { id: 'contract', label: '契約条件' },
@@ -54,8 +56,16 @@ export default function Nikoniko() {
           <PaymentToggle />
         </div>
       </section>
+      <section className="section" id="methods">
+        <div className="container container--mid">
+          <SectionTitle en="Payment Method" lead="クレジットカード決済（Stripe）と銀行振込からお選びいただけます。">
+            お支払い方法
+          </SectionTitle>
+          <PaymentMethods />
+        </div>
+      </section>
 
-      <section className="section" id="options">
+      <section className="section section--tint" id="options">
         <div className="container container--mid">
           <SectionTitle en="Page Option">
             ページ追加オプション

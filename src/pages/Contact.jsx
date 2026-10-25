@@ -49,6 +49,13 @@ export default function Contact() {
                 </span>
               </li>
               <li>
+                <Icon name="invoice" size={22} />
+                <span>
+                  <b>お支払いはご契約後のご案内です</b>
+                  お支払い方法は、クレジットカード決済（Stripe）または銀行振込です。お問い合わせの段階で費用が発生することはありません。
+                </span>
+              </li>
+              <li>
                 <Icon name="map" size={22} />
                 <span>
                   <b>北九州市・筑豊を中心に対応</b>

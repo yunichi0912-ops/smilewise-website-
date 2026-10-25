@@ -39,7 +39,7 @@ export default function Home() {
           <SectionTitle en="Payment" lead={`管理費のお支払いは、月払い・年払いからお選びいただけます。年払いなら年間${yen(annualSaving)}円お得です。`}>
             月払い・年払いと初年度総額
           </SectionTitle>
-          <PaymentToggle />
+          <PaymentToggle methodsLink="/nikoniko#methods" />
         </div>
       </section>
 

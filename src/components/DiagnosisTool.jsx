@@ -130,7 +130,7 @@ function ResultView({ result }) {
               </div>
             </dl>
             <p className="dg-small">
-              ※ 最低契約期間は{standardPrices.minMonths}か月です。{pageOptionText}
+              ※ 最低契約期間は{standardPrices.minMonths}か月です。お支払いはクレジットカード決済（Stripe）または銀行振込で、お手続きはご契約時にご案内します。{pageOptionText}
               <Link to="/nikoniko">プランの詳細を見る</Link>
             </p>
           </>
