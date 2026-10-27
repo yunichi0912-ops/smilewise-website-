@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { kitakyushuPath } from '../data/kitakyushu.js';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Icon from '../components/Icon.jsx';
@@ -60,6 +62,9 @@ export default function Contact() {
                 <span>
                   <b>北九州市・筑豊を中心に対応</b>
                   {site.serviceArea}
+                  <Link to={kitakyushuPath} className="contact__area-link">
+                    対応エリアについて
+                  </Link>
                 </span>
               </li>
               <li>

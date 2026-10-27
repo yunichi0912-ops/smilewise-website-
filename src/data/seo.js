@@ -5,6 +5,7 @@
 import { site } from './site.js';
 import { nikoniko, systemPrice, monthlyEquivalent, firstYearTotal, firstYearMonthlyTotal, yen, price } from './pricing.js';
 import { nikonikoFaq } from './faq.js';
+import { kitakyushuPath, kitakyushuFaq, areaNames } from './kitakyushu.js';
 
 const brand = `${site.name}（${site.nameKana}）`;
 /** 全ページのタイトル末尾に屋号（英字＋カタカナ）を入れ、サイト名として認識されやすくする */
@@ -13,8 +14,8 @@ const suffix = `｜${brand}`;
 export const pages = [
   {
     path: '/',
-    title: `${brand}｜北九州市・筑豊のホームページ制作・業務管理システム開発`,
-    description: `${brand}は、北九州市八幡西区を拠点に北九州市・筑豊エリアでホームページ制作・LP制作・業務管理システム開発・IT/DX支援を行うWeb制作事業者です。「${nikoniko.name}」は初期制作費${price(nikoniko.initial)}、管理費は月払い${yen(nikoniko.monthly)}円・年払い${yen(nikoniko.annual)}円から選択。業務管理システムは${price(systemPrice.from, '〜')}。`,
+    title: `北九州のホームページ制作なら${brand}｜初期制作費${yen(nikoniko.initial)}円・スマホ対応`,
+    description: `北九州市八幡西区を拠点に、小倉・若松・遠賀・直方など周辺地域のホームページ制作を行う${brand}。初期制作費${price(nikoniko.initial)}・最大${nikoniko.maxPages}ページ・スマホ対応。公開後の軽微な修正は回数制限なし。無料診断・無料デザイン案も。`,
   },
   {
     path: '/nikoniko',
@@ -57,6 +58,49 @@ export const pages = [
     description: `${brand}の事業概要。代表：${site.representative}。所在地：${site.addressRegion}${site.addressLocality}。北九州市・筑豊を中心に、ホームページ制作、LP制作、名刺・チラシ・ロゴ制作、業務管理システム開発・導入、IT・DX支援を行っています。`,
   },
   {
+    path: kitakyushuPath,
+    title: `北九州市のホームページ制作｜八幡西区から小倉・若松・遠賀・直方まで対応${suffix}`,
+    description: `八幡西区が拠点の${brand}による、北九州市向けホームページ制作のご案内。料金（初期制作費${yen(nikoniko.initial)}円、管理費 月${yen(nikoniko.monthly)}円／年${yen(nikoniko.annual)}円・税込）、建設業・製造業向けのページづくり、掲載情報のチェックリスト、制作の流れ。`,
+    // FAQ・パンくず・サービスの構造化データ（ビルド時に公開URLと事業者情報を受け取って生成）
+    jsonLd: ({ siteUrl, business }) => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        business,
+        {
+          '@type': 'Service',
+          '@id': `${siteUrl}${kitakyushuPath}#service`,
+          name: '北九州市のホームページ制作',
+          serviceType: 'ホームページ制作',
+          provider: { '@id': business['@id'] },
+          areaServed: areaNames.map((name) => ({ '@type': 'AdministrativeArea', name })),
+          offers: {
+            '@type': 'Offer',
+            name: `${nikoniko.name} 初期制作費`,
+            price: nikoniko.initial,
+            priceCurrency: 'JPY',
+            url: `${siteUrl}/nikoniko`,
+          },
+          url: `${siteUrl}${kitakyushuPath}`,
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: '北九州市のホームページ制作', item: `${siteUrl}${kitakyushuPath}` },
+          ],
+        },
+        {
+          '@type': 'FAQPage',
+          mainEntity: kitakyushuFaq.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        },
+      ],
+    }),
+  },
+  {
     path: '/diagnosis',
     title: `無料ホームページ診断・無料デザイン案｜北九州市・筑豊のホームページ制作${suffix}`,
     description: `4つの質問に答えるだけで、あなたに合うホームページの種類と構成例、料金の目安がわかる無料診断。診断結果をもとに無料のデザイン案（簡易版）もお申し込みいただけます。お申し込みで契約・支払いは発生しません。北九州市・筑豊の${brand}。`,
@@ -84,7 +128,7 @@ export const notFoundPage = {
   description: 'お探しのページは見つかりませんでした。',
 };
 
-export const findPage = (pathname) => {
-  const normalized = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
-  return pages.find((p) => p.path === normalized) ?? notFoundPage;
-};
+/** 末尾のスラッシュを除いたパス（/kitakyushu-homepage/ と /kitakyushu-homepage を同じページとして扱う） */
+export const normalizePath = (pathname) => (pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname) || '/';
+
+export const findPage = (pathname) => pages.find((p) => normalizePath(p.path) === normalizePath(pathname)) ?? notFoundPage;

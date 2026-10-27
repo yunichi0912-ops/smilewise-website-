@@ -13,6 +13,7 @@ import PaymentToggle from '../components/PaymentToggle.jsx';
 import ServiceGrid from '../components/ServiceGrid.jsx';
 import FaqList from '../components/FaqList.jsx';
 import DiagnosisBanner from '../components/DiagnosisBanner.jsx';
+import AreaSection from '../components/AreaSection.jsx';
 import { systemPrice, annualSaving, yen, TAX } from '../data/pricing.js';
 import { nikonikoFaq } from '../data/faq.js';
 import { reasons } from '../data/reasons.js';
@@ -99,7 +100,7 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <SectionTitle en="Services" lead="Web・デザイン・業務システムまで、企業の課題にあわせてワンストップでご提案します。">
-            サービス一覧
+            ホームページ制作からデザイン・業務システムまで
           </SectionTitle>
           <ServiceGrid />
         </div>
@@ -123,6 +124,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* 対応エリア（北九州市向けページへ） */}
+      <AreaSection />
 
       {/* 7. 制作実績 */}
       <section className="section">

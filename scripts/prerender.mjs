@@ -117,7 +117,7 @@ const build = (page, url) => {
     .replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, head)
     .replace(
       '<!--jsonld-->',
-      [page.path === '/' ? jsonLd : null, page.jsonLd]
+      [page.path === '/' ? jsonLd : null, typeof page.jsonLd === 'function' ? page.jsonLd({ siteUrl, business, website }) : page.jsonLd]
         .filter(Boolean)
         .map((d) => `<script type="application/ld+json">${JSON.stringify(d).replace(/</g, '\\u003c')}</script>`)
         .join(''),
@@ -126,9 +126,13 @@ const build = (page, url) => {
 };
 
 // Cloudflare Pages では /about.html を /about（末尾スラッシュなし）で配信するため、
-// トップ以外は「ページ名.html」で出力する（canonical URL と一致させる）
+// トップ以外は「ページ名.html」で出力する（canonical URL と一致させる）。
+// 末尾スラッシュ付きのURL（例：/kitakyushu-homepage/）は「ページ名/index.html」で出力する。
+const fileFor = (p) =>
+  p === '/' ? path.join(dist, 'index.html') : p.endsWith('/') ? path.join(dist, p.slice(1), 'index.html') : path.join(dist, `${p.slice(1)}.html`);
 for (const page of pages) {
-  const file = page.path === '/' ? path.join(dist, 'index.html') : path.join(dist, `${page.path.slice(1)}.html`);
+  const file = fileFor(page.path);
+  fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, build(page, page.path));
   console.log(`  prerendered ${page.path} -> ${path.relative(dist, file)}`);
 }

@@ -50,10 +50,11 @@ export default function Hero() {
             Web &amp; DX Partner in Kitakyushu
           </p>
           <h1 className="hero__title">
+            <span className="hero__kicker">北九州のホームページ制作・業務システム開発</span>
             <span className="hero__line">
               <span>伝わるデザインと、</span>
             </span>
-            <span className="hero__line">
+            <span className="hero__line hero__line--grad">
               <span className="grad-text">はかどる仕組みを。</span>
             </span>
           </h1>

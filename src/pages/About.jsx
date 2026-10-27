@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SectionTitle from '../components/SectionTitle.jsx';
 import CtaSection from '../components/CtaSection.jsx';
+import { kitakyushuPath } from '../data/kitakyushu.js';
 import { site, telHref, mailHref } from '../data/site.js';
 
 const values = [
@@ -27,7 +29,14 @@ export default function About() {
         ))}
       </ul>,
     ],
-    ['対応エリア', site.serviceArea],
+    [
+      '対応エリア',
+      <>
+        {site.serviceArea}
+        <br />
+        <Link to={kitakyushuPath}>北九州市のホームページ制作について</Link>
+      </>,
+    ],
   ].filter(([, v]) => v);
 
   return (

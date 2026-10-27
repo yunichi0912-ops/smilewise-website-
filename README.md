@@ -14,6 +14,7 @@ React + Vite で作られており、ビルド時に全ページの静的HTMLを
 | `/works` | 制作実績 |
 | `/pricing` | 料金案内 |
 | `/about` | 事業概要 |
+| `/kitakyushu-homepage/` | 北九州市のホームページ制作（対応エリア・料金・建設業/製造業向け・FAQ）※末尾スラッシュ付きが正式URL |
 | `/diagnosis` | 無料ホームページ診断・無料デザイン案の申し込み |
 | `/card-order` | 名刺注文フォーム |
 | `/contact` | お問い合わせ |
@@ -147,6 +148,11 @@ npm run build && npm run check
 全ページのタイトル・説明文・canonical・h1、リンク切れ、料金表示、電話・LINEリンク、sitemap.xml、未設定項目（公開URL・フォーム送信先・事業者情報）を確認します。
 
 ## 実装済みのSEO設定
+
+- 北九州市向けページの内容（対応エリア・チェックリスト・建設業/製造業向け・FAQ）：`src/data/kitakyushu.js`
+  - 事実として確認できない実績・成果・数値は掲載しないでください。検索順位を保証する表現も使いません。
+- 末尾スラッシュ付きのページ（`/kitakyushu-homepage/`）は `kitakyushu-homepage/index.html` として出力されます。Cloudflare Pages では `/kitakyushu-homepage` にアクセスすると `/kitakyushu-homepage/` へ転送されます。
+- 構造化データ：トップと北九州市向けページに事業者情報（ProfessionalService＝LocalBusinessの一種）。北九州市向けページには Service・パンくず・FAQ も出力。`npm run check` で事業者情報との一致・JSON形式・FAQの表示を確認します。
 
 - 全ページを静的HTMLとして事前生成（JavaScriptなしでも本文・タイトルが読める）
 - ページごとの `<title>`・`meta description`・canonical・OGP（SNS共有画像 `public/og-image.png`）

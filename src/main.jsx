@@ -17,10 +17,11 @@ const app = (
 );
 
 const root = document.getElementById('root');
-const path = window.location.pathname.replace(/\/+$/, '') || '/';
+const clean = (p) => p.replace(/\/+$/, '') || '/';
 
 // ビルド時に生成した静的HTMLが現在のURLと一致する場合は hydrate、それ以外（開発時など）は通常描画
-if (root.dataset.prerendered === path) {
+// （/kitakyushu-homepage/ のような末尾スラッシュ付きのURLも同じページとして扱う）
+if (root.dataset.prerendered && clean(root.dataset.prerendered) === clean(window.location.pathname)) {
   hydrateRoot(root, app);
 } else {
   root.textContent = '';

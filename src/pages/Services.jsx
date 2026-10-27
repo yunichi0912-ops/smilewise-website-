@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SectionTitle from '../components/SectionTitle.jsx';
+import { kitakyushuPath } from '../data/kitakyushu.js';
 import Icon from '../components/Icon.jsx';
 import CtaSection from '../components/CtaSection.jsx';
 import { services } from '../data/services.js';
@@ -81,6 +82,11 @@ export default function Services() {
                           このサービスを相談する
                         </Link>
                       </div>
+                      {s.id === 'web' && (
+                        <Link to={kitakyushuPath} className="text-link sd__area">
+                          北九州市のホームページ制作（対応エリア・建設業/製造業向け） <Icon name="arrow" size={16} />
+                        </Link>
+                      )}
                     </div>
                   </Reveal>
                 </div>

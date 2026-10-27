@@ -42,8 +42,11 @@ allowed.add('3,240'); // 業務システム画面イメージのサンプル値
 const cards = await import(pathToFileURL(path.join(root, 'src/data/businessCards.js')).href);
 for (const byQty of Object.values(cards.cardPrices)) for (const v of Object.values(byQty)) allowed.add(yen(v));
 
-const fileFor = (p) => (p === '/' ? 'index.html' : `${p.slice(1)}.html`);
+const fileFor = (p) => (p === '/' ? 'index.html' : p.endsWith('/') ? `${p.slice(1)}index.html` : `${p.slice(1)}.html`);
+const norm = (p) => p.replace(/\/+$/, '') || '/';
 const html = Object.fromEntries(pages.map((p) => [p.path, fs.readFileSync(path.join(dist, fileFor(p.path)), 'utf8')]));
+const htmlByNorm = Object.fromEntries(pages.map((p) => [norm(p.path), html[p.path]]));
+const pathByNorm = Object.fromEntries(pages.map((p) => [norm(p.path), p.path]));
 const text = (h) =>
   h
     .replace(/<script[\s\S]*?<\/script>/g, '')
@@ -94,12 +97,15 @@ for (const p of pages) {
       continue;
     }
     const [pathPart, hash] = href.split('#');
-    const target = pathPart ? pathPart.split('?')[0].replace(/\/$/, '') || '/' : p.path;
-    if (!html[target]) {
+    const linkPath = pathPart ? pathPart.split('?')[0] : p.path;
+    const target = htmlByNorm[norm(linkPath)];
+    if (!target) {
       errors.push(`${p.path}: リンク切れ（${href}）`);
       continue;
     }
-    if (hash && !html[target].includes(`id="${hash}"`)) errors.push(`${p.path}: ページ内リンク先がありません（${href}）`);
+    // 転送（リダイレクト）を挟まないよう、公開URLと同じ形（末尾スラッシュの有無）でリンクする
+    if (pathPart && linkPath !== pathByNorm[norm(linkPath)]) errors.push(`${p.path}: リンクのURLが正式なURLと異なります（${href} → ${pathByNorm[norm(linkPath)]}）`);
+    if (hash && !target.includes(`id="${hash}"`)) errors.push(`${p.path}: ページ内リンク先がありません（${href}）`);
   }
   if (!h.includes('href="tel:')) errors.push(`${p.path}: 電話番号のリンクがありません`);
   if (site.email && !h.includes(`href="mailto:${site.email}`)) errors.push(`${p.path}: メールアドレスのリンクがありません`);
@@ -124,7 +130,45 @@ else {
   if (website.url !== `${siteUrl}/`) errors.push(`WebSite の url が公開URLと一致しません（${website.url}）`);
   if (!website.alternateName?.includes(site.nameKana)) errors.push('WebSite の alternateName にカタカナの屋号がありません');
 }
-if (!graph.find((d) => d['@type'] === 'ProfessionalService')) errors.push('トップページに事業者情報の構造化データがありません');
+const biz = graph.find((d) => d['@type'] === 'ProfessionalService');
+if (!biz) errors.push('トップページに事業者情報の構造化データがありません');
+else {
+  // 事業者情報が src/data/site.js（実在の情報）と一致しているか
+  if (biz.name !== site.name || biz.telephone !== site.tel || biz.email !== site.email) errors.push('構造化データの屋号・電話番号・メールが事業者情報と一致しません');
+  const a = biz.address || {};
+  if (a.postalCode !== site.postalCode || a.addressLocality !== site.addressLocality || a.streetAddress !== site.streetAddress)
+    errors.push('構造化データの住所が事業者情報と一致しません');
+  if (biz.url !== `${siteUrl}/`) errors.push('構造化データの url が公開URLと一致しません');
+}
+// 全ページの構造化データ：JSONとして正しいか、FAQ・パンくずの形式
+for (const p of pages) {
+  for (const [, raw] of html[p.path].matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      errors.push(`${p.path}: 構造化データ（JSON-LD）の形式が正しくありません`);
+      continue;
+    }
+    for (const node of data['@graph'] || [data]) {
+      if (!node['@type']) errors.push(`${p.path}: 構造化データに @type がありません`);
+      if (node['@type'] === 'FAQPage') {
+        if (!node.mainEntity?.length) errors.push(`${p.path}: FAQの構造化データが空です`);
+        for (const q of node.mainEntity || [])
+          if (!q.name || !q.acceptedAnswer?.text) errors.push(`${p.path}: FAQの質問または回答が空です`);
+        // 構造化データのFAQは、ページに表示されている質問と一致している必要がある
+        for (const q of node.mainEntity || []) if (!text(html[p.path]).includes(q.name)) errors.push(`${p.path}: FAQ「${q.name}」がページに表示されていません`);
+      }
+      if (node['@type'] === 'BreadcrumbList')
+        node.itemListElement.forEach((li, i) => {
+          if (li.position !== i + 1 || !li.item?.startsWith(siteUrl)) errors.push(`${p.path}: パンくずの構造化データが不正です`);
+        });
+    }
+  }
+}
+// 公開ページを検索エンジンから除外する指定（X-Robots-Tag）がないか
+const headersFile = fs.readFileSync(path.join(dist, '_headers'), 'utf8');
+if (/x-robots-tag/i.test(headersFile)) errors.push('_headers に X-Robots-Tag が設定されています（公開ページが検索に載らない可能性）');
 const notFound = fs.readFileSync(path.join(dist, '404.html'), 'utf8');
 if (!/name="robots" content="noindex"/.test(notFound)) errors.push('404.html に noindex がありません');
 if (!robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`)) errors.push('robots.txt のサイトマップURLが不正です');

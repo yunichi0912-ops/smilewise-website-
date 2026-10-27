@@ -4,6 +4,7 @@ import { navItems } from './Header.jsx';
 import Icon from './Icon.jsx';
 import { site, telHref, mailHref } from '../data/site.js';
 import { services } from '../data/services.js';
+import { kitakyushuPath } from '../data/kitakyushu.js';
 
 export default function Footer() {
   return (
@@ -62,6 +63,9 @@ export default function Footer() {
                   <Link to={item.to}>{item.label}</Link>
                 </li>
               ))}
+              <li>
+                <Link to={kitakyushuPath}>北九州市のホームページ制作</Link>
+              </li>
               <li>
                 <Link to="/diagnosis">無料ホームページ診断</Link>
               </li>
